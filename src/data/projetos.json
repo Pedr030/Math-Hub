@@ -1,0 +1,26 @@
+{
+  "ferramentas": [
+    {
+      "id": "lisp-calculator",
+      "nome": "Calculadora Científica (LISP)",
+      "descricao": "Avalie expressões matemáticas usando notação LISP (prefixa).",
+      "icone": "calculator",
+      "categoria": "calculo",
+      "rota": "/ferramentas/lisp-calculator",
+      "componente": "LispCalculator",
+      "ativo": true,
+      "destaque": true
+    },
+    {
+      "id": "conversor-bases",
+      "nome": "Conversor de Bases Numéricas",
+      "descricao": "Converta números entre binário, octal, decimal e hexadecimal.",
+      "icone": "binary",
+      "categoria": "conversao",
+      "rota": "/ferramentas/conversor-bases",
+      "componente": "BaseConverter",
+      "ativo": false,
+      "destaque": false
+    }
+  ]
+}
