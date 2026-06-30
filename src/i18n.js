@@ -28,5 +28,11 @@ i18n.use(initReactI18next).init({
     escapeValue: false, // React já escapa XSS por padrão, não precisa do i18next fazer isso
   },
 });
+// Mantém o atributo lang do <html> sincronizado com o idioma ativo.
+// Importa para acessibilidade (leitores de tela) e para mecanismos
+// de busca interpretarem corretamente o idioma da página.
+i18n.on("languageChanged", (lng) => {
+  document.documentElement.lang = lng;
+});
 
 export default i18n;
