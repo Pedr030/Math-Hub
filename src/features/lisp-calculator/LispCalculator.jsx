@@ -8,6 +8,8 @@ import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import ToolCard from "../../components/ui/ToolCard";
 import OutputPanel from "../../components/ui/OutputPanel";
+import { useTranslation } from "react-i18next";
+import { traduzirErro } from "../../utils/translateError";
 
 function LispCalculator() {
   const [expressao, setExpressao] = useState("");
@@ -22,6 +24,7 @@ function LispCalculator() {
   const [erro2, setErro2] = useState(null);
 
   const [mostrarAjuda, setMostrarAjuda] = useState(false);
+  const { t } = useTranslation();
 
   function handleCalcular(e) {
     e.preventDefault();
@@ -63,7 +66,7 @@ function LispCalculator() {
     setComparacao(null);
 
     if (!analise) {
-      setErro2("Calcule a primeira expressão antes de comparar.");
+      setErro2(t("calc.erroComparacao"));
       return;
     }
 
@@ -75,15 +78,30 @@ function LispCalculator() {
     }
   }
 
-  // Monta as linhas do OutputPanel a partir da análise atual
   const outputRows =
     analise && !erro
       ? [
-          { label: "tokens", value: `[${analise.tokens.join(", ")}]` },
-          { label: "pós-fixa", value: `[${analise.postfixa.join(", ")}]` },
-          { label: "lisp", value: analise.lisp, highlight: true },
+          {
+            label: t("calc.output.tokens"),
+            value: `[${analise.tokens.join(", ")}]`,
+          },
+          {
+            label: t("calc.output.posfixa"),
+            value: `[${analise.postfixa.join(", ")}]`,
+          },
+          {
+            label: t("calc.output.lisp"),
+            value: analise.lisp,
+            highlight: true,
+          },
           ...(resultado
-            ? [{ label: "resultado", value: resultado.toString(), large: true }]
+            ? [
+                {
+                  label: t("calc.output.resultado"),
+                  value: resultado.toString(),
+                  large: true,
+                },
+              ]
             : []),
         ]
       : [];
@@ -92,13 +110,13 @@ function LispCalculator() {
     <ToolCard>
       <div className="flex items-center justify-between mb-1">
         <p className="font-mono text-xs uppercase tracking-wide text-brand-500">
-          ferramentas/lisp-calculator
+          {t("calc.prefixo")}
         </p>
         <button
           type="button"
           onClick={() => setMostrarAjuda(true)}
-          aria-label="Como usar esta calculadora"
-          title="Como usar esta calculadora"
+          aria-label={t("calc.ajuda.titulo")}
+          title={t("calc.ajuda.titulo")}
           className="flex h-6 w-6 items-center justify-center rounded-full border border-brand-200
                      text-xs font-semibold text-brand-500 hover:bg-brand-50
                      dark:border-brand-700 dark:text-brand-300 dark:hover:bg-brand-900"
@@ -108,7 +126,7 @@ function LispCalculator() {
       </div>
 
       <h3 className="font-display text-xl font-semibold mb-4">
-        Calculadora Científica (LISP)
+        {t("calc.titulo")}
       </h3>
 
       <form
@@ -118,9 +136,9 @@ function LispCalculator() {
         <Input
           value={expressao}
           onChange={(e) => setExpressao(e.target.value)}
-          placeholder="Ex: (3+4j) * conj(3+4j)"
+          placeholder={t("calc.placeholder")}
         />
-        <Button type="submit">Calcular</Button>
+        <Button type="submit">{t("calc.calcular")}</Button>
       </form>
 
       {analise && analise.variaveis.length > 0 && (
@@ -146,7 +164,7 @@ function LispCalculator() {
 
       {erro && (
         <p className="mt-4 text-sm text-red-600 dark:text-red-400">
-          Erro: {erro}
+          {t("calc.erroPre")} {traduzirErro(erro, t)}
         </p>
       )}
 
@@ -159,8 +177,8 @@ function LispCalculator() {
           onClick={() => setMostrarComparacao((v) => !v)}
         >
           {mostrarComparacao
-            ? "— ocultar comparação"
-            : "+ comparar com outra expressão"}
+            ? t("calc.ocultarComparacao")
+            : t("calc.mostrarComparacao")}
         </Button>
 
         {mostrarComparacao && (
@@ -171,25 +189,25 @@ function LispCalculator() {
             <Input
               value={expressao2}
               onChange={(e) => setExpressao2(e.target.value)}
-              placeholder="Ex: conj(3+4j) * (3+4j)"
+              placeholder={t("calc.placeholderComparacao")}
             />
             <Button type="submit" variant="secondary">
-              Comparar
+              {t("calc.comparar")}
             </Button>
           </form>
         )}
 
         {erro2 && (
           <p className="mt-2 text-sm text-red-600 dark:text-red-400">
-            Erro: {erro2}
+            {t("calc.erroPre")} {traduzirErro(erro2, t)}
           </p>
         )}
 
         {comparacao !== null && (
           <p className="mt-2 text-sm">
-            As expressões são estruturalmente{" "}
+            {t("calc.estruturalmente")}{" "}
             <strong className={comparacao ? "text-green-600" : "text-red-500"}>
-              {comparacao ? "equivalentes" : "diferentes"}
+              {comparacao ? t("calc.equivalentes") : t("calc.diferentes")}
             </strong>
             .
           </p>
@@ -199,97 +217,64 @@ function LispCalculator() {
       <Modal
         isOpen={mostrarAjuda}
         onClose={() => setMostrarAjuda(false)}
-        title="Como usar a calculadora"
+        title={t("calc.ajuda.titulo")}
       >
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            Números complexos
+            {t("calc.ajuda.complexos.titulo")}
           </p>
-          <p>
-            Use o formato <code className="font-mono text-brand-500">a+bj</code>{" "}
-            (o &quot;j&quot; representa a unidade imaginária). Alguns exemplos
-            válidos:
-          </p>
+          <p>{t("calc.ajuda.complexos.desc")}</p>
           <ul className="font-mono text-xs mt-1 space-y-0.5 text-slate-500 dark:text-slate-400">
-            <li>3+4j &nbsp;→&nbsp; parte real 3, imaginária 4</li>
-            <li>-3+2j &nbsp;→&nbsp; parte real negativa</li>
-            <li>7j &nbsp;→&nbsp; só a parte imaginária</li>
-            <li>5 &nbsp;→&nbsp; número real (parte imaginária 0)</li>
+            <li>{t("calc.ajuda.complexos.ex1")}</li>
+            <li>{t("calc.ajuda.complexos.ex2")}</li>
+            <li>{t("calc.ajuda.complexos.ex3")}</li>
+            <li>{t("calc.ajuda.complexos.ex4")}</li>
           </ul>
         </div>
 
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            Operadores e parênteses
+            {t("calc.ajuda.operadores.titulo")}
           </p>
           <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
-            + &nbsp; - &nbsp; * &nbsp; / &nbsp; ** (potência) &nbsp; ( ) para
-            controlar a ordem
+            {t("calc.ajuda.operadores.desc")}
           </p>
         </div>
 
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            Funções
+            {t("calc.ajuda.funcoes.titulo")}
           </p>
           <ul className="font-mono text-xs space-y-0.5 text-slate-500 dark:text-slate-400">
-            <li>conj(x) &nbsp;→&nbsp; conjugado de x</li>
-            <li>
-              raiz(x) &nbsp;→&nbsp; raiz quadrada de x (funciona com negativos)
-            </li>
+            <li>{t("calc.ajuda.funcoes.conj")}</li>
+            <li>{t("calc.ajuda.funcoes.raiz")}</li>
           </ul>
         </div>
 
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            Variáveis
+            {t("calc.ajuda.variaveis.titulo")}
           </p>
-          <p>
-            Qualquer letra que não seja{" "}
-            <code className="font-mono text-brand-500">conj</code>,{" "}
-            <code className="font-mono text-brand-500">raiz</code> ou{" "}
-            <code className="font-mono text-brand-500">j</code> é tratada como
-            variável — um campo pra preencher o valor aparece automaticamente
-            antes de calcular. Exemplo:{" "}
-            <code className="font-mono text-brand-500">a + b * 2</code>.
-          </p>
+          <p>{t("calc.ajuda.variaveis.desc")}</p>
         </div>
 
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            O que cada linha do resultado significa
+            {t("calc.ajuda.output.titulo")}
           </p>
-          <ul className="space-y-0.5">
-            <li>
-              <span className="font-mono text-xs text-slate-400">tokens</span> —
-              a expressão quebrada em pedaços
-            </li>
-            <li>
-              <span className="font-mono text-xs text-slate-400">pós-fixa</span>{" "}
-              — ordem usada internamente pra calcular
-            </li>
-            <li>
-              <span className="font-mono text-xs text-slate-400">lisp</span> — a
-              mesma expressão em notação prefixa, ex: (+ 3 4j)
-            </li>
-            <li>
-              <span className="font-mono text-xs text-slate-400">
-                resultado
-              </span>{" "}
-              — o valor final
-            </li>
+          <ul className="space-y-0.5 font-mono text-xs text-slate-500 dark:text-slate-400">
+            <li>{t("calc.ajuda.output.tokens")}</li>
+            <li>{t("calc.ajuda.output.posfixa")}</li>
+            <li>{t("calc.ajuda.output.lisp")}</li>
+            <li>{t("calc.ajuda.output.resultado")}</li>
           </ul>
         </div>
 
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            Comparar expressões
+            {t("calc.ajuda.comparacao.titulo")}
           </p>
-          <p>
-            O botão &quot;comparar com outra expressão&quot; verifica se duas
-            expressões têm a <strong>mesma estrutura</strong> (mesmos operadores
-            e na mesma ordem) — não se dão o mesmo resultado numérico.
-          </p>
+          <p>{t("calc.ajuda.comparacao.desc")}</p>
         </div>
       </Modal>
     </ToolCard>

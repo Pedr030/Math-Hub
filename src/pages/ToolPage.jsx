@@ -1,11 +1,9 @@
 import { useParams, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-// useParams lê os parâmetros dinâmicos da URL.
-// Pra rota "/ferramentas/:slug", se a URL for
-// "/ferramentas/lisp-calculator", useParams() devolve
-// { slug: "lisp-calculator" }.
 function ToolPage({ ferramentas, registroComponentes }) {
   const { slug } = useParams();
+  const { t } = useTranslation();
 
   const ferramenta = ferramentas.find((f) => f.id === slug);
   const Componente = ferramenta && registroComponentes[ferramenta.componente];
@@ -15,13 +13,13 @@ function ToolPage({ ferramentas, registroComponentes }) {
       <div className="text-center py-20">
         <p className="font-mono text-brand-500 text-sm mb-2">404</p>
         <p className="font-display text-xl font-semibold mb-4">
-          Ferramenta não encontrada
+          {t("toolPage.naoEncontrada")}
         </p>
         <Link
           to="/"
           className="font-mono text-sm text-brand-500 hover:underline"
         >
-          ← voltar para o hub
+          {t("toolPage.voltar")}
         </Link>
       </div>
     );
@@ -29,13 +27,11 @@ function ToolPage({ ferramentas, registroComponentes }) {
 
   return (
     <>
-      {/* Link é o substituto do <a href> no react-router:
-          navega sem recarregar a página (SPA de verdade). */}
       <Link
         to="/"
         className="inline-block mb-6 font-mono text-sm text-brand-500 hover:underline"
       >
-        ← voltar para o hub
+        {t("toolPage.voltar")}
       </Link>
       <Componente />
     </>

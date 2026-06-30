@@ -1,18 +1,17 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-// useNavigate é o hook do react-router que substitui o setFerramentaAtivaId
-// que tínhamos antes — em vez de mudar um estado, ele muda a URL.
-// O resultado visual é o mesmo, mas agora a URL reflete o que está na tela.
 function Home({ ferramentas, registroComponentes }) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <>
       <p className="font-mono text-xs uppercase tracking-wide text-brand-500 mb-2">
-        ferramentas/
+        {t("home.prefixo")}
       </p>
       <h2 className="font-display text-2xl font-semibold mb-8">
-        Escolha uma ferramenta
+        {t("home.titulo")}
       </h2>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -33,10 +32,14 @@ function Home({ ferramentas, registroComponentes }) {
                   ${temComponente ? "cursor-pointer hover:shadow-md" : "opacity-60"}`}
               >
                 <h3 className="font-display font-semibold text-lg">
-                  {ferramenta.nome}
+                  {t(`ferramentas.${ferramenta.id}.nome`, {
+                    defaultValue: ferramenta.nome,
+                  })}
                 </h3>
                 <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">
-                  {ferramenta.descricao}
+                  {t(`ferramentas.${ferramenta.id}.descricao`, {
+                    defaultValue: ferramenta.descricao,
+                  })}
                 </p>
               </article>
             );
