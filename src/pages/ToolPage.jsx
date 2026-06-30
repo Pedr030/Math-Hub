@@ -1,9 +1,16 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import ErrorBoundary from "../components/ui/ErrorBoundary";
 
 function ToolPage({ ferramentas, registroComponentes }) {
   const { slug } = useParams();
   const { t } = useTranslation();
+
+  // Incrementado ao clicar em "Tentar novamente" — mudar o "key" do
+  // ErrorBoundary força o React a desmontar e remontar a árvore inteira,
+  // garantindo que o componente filho começa do zero sem estado de erro.
+  const [retryKey, setRetryKey] = useState(0);
 
   const ferramenta = ferramentas.find((f) => f.id === slug);
   const Componente = ferramenta && registroComponentes[ferramenta.componente];
@@ -33,7 +40,10 @@ function ToolPage({ ferramentas, registroComponentes }) {
       >
         {t("toolPage.voltar")}
       </Link>
-      <Componente />
+
+      <ErrorBoundary key={retryKey} onReset={() => setRetryKey((k) => k + 1)}>
+        <Componente />
+      </ErrorBoundary>
     </>
   );
 }
