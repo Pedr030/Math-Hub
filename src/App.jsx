@@ -84,6 +84,15 @@ function App() {
                 />
               }
             />
+            <Route
+              path="*"
+              element={
+                <ToolPage
+                  ferramentas={ferramentas}
+                  registroComponentes={REGISTRO_COMPONENTES}
+                />
+              }
+            />
           </Routes>
         </main>
 
