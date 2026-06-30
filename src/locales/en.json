@@ -1,4 +1,37 @@
 {
+  "circuito": {
+    "prefixo": "tools/circuito-eletrico",
+    "titulo": "Electrical Circuit Analysis",
+    "subtitulo": "Calculate the currents of a 3-mesh circuit using Kirchhoff's Law",
+    "malha": "Mesh {{n}}",
+    "calcular": "Calculate",
+    "erros": {
+      "camposVazios": "Fill in all fields before calculating.",
+      "numerosInvalidos": "One or more values are not valid numbers.",
+      "resistenciaPositiva": "All resistances must be positive.",
+      "semSolucao": "Malformed circuit (system has no unique solution)."
+    },
+    "output": {
+      "corrente": "Current I{{n}}",
+      "verificacao": "Verification",
+      "esperado": "expected"
+    },
+    "ajuda": {
+      "titulo": "How to use this tool",
+      "oQueE": {
+        "titulo": "What this tool calculates",
+        "desc": "Solves a system of 3 linear equations (Kirchhoff's Voltage Law) using 3x3 matrix inversion, finding the electrical current in each mesh of a circuit."
+      },
+      "comoPreencher": {
+        "titulo": "How to fill it in",
+        "desc": "For each mesh, enter the three resistances (R) that relate that mesh to currents I1, I2 and I3, and the applied voltage (V). Resistance values must be greater than zero."
+      },
+      "resultado": {
+        "titulo": "What the result means",
+        "desc": "Each current (I1, I2, I3) can be positive or negative: positive means the current flows in the initially assumed direction, negative indicates the opposite direction. The verification substitutes the results back into the original equations to confirm calculation accuracy."
+      }
+    }
+  },
   "nav": {
     "subtitulo": "Math tools"
   },
@@ -71,6 +104,10 @@
     "lisp-calculator": {
       "nome": "Scientific Calculator (LISP)",
       "descricao": "Evaluate mathematical expressions using LISP (prefix) notation."
+    },
+    "circuito-eletrico": {
+      "nome": "Electrical Circuit Analysis",
+      "descricao": "Calculate currents in electrical circuits using matrix inversion and Kirchhoff's Law."
     }
   },
   "erros": {

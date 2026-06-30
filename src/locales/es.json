@@ -1,4 +1,37 @@
 {
+  "circuito": {
+    "prefixo": "herramientas/circuito-eletrico",
+    "titulo": "Análisis de Circuito Eléctrico",
+    "subtitulo": "Calcula las corrientes de un circuito con 3 mallas usando la Ley de Kirchhoff",
+    "malha": "Malla {{n}}",
+    "calcular": "Calcular",
+    "erros": {
+      "camposVazios": "Completa todos los campos antes de calcular.",
+      "numerosInvalidos": "Uno o más valores no son números válidos.",
+      "resistenciaPositiva": "Todas las resistencias deben ser positivas.",
+      "semSolucao": "Circuito mal formado (sistema sin solución única)."
+    },
+    "output": {
+      "corrente": "Corriente I{{n}}",
+      "verificacao": "Verificación",
+      "esperado": "esperado"
+    },
+    "ajuda": {
+      "titulo": "Cómo usar esta herramienta",
+      "oQueE": {
+        "titulo": "Qué calcula esta herramienta",
+        "desc": "Resuelve un sistema de 3 ecuaciones lineales (Ley de Tensiones de Kirchhoff) usando inversión de matriz 3x3, encontrando la corriente eléctrica en cada malla de un circuito."
+      },
+      "comoPreencher": {
+        "titulo": "Cómo completar",
+        "desc": "Para cada malla, ingresa las tres resistencias (R) que relacionan esa malla con las corrientes I1, I2 e I3, y la tensión (V) aplicada. Los valores de resistencia deben ser mayores que cero."
+      },
+      "resultado": {
+        "titulo": "Qué significa el resultado",
+        "desc": "Cada corriente (I1, I2, I3) puede ser positiva o negativa: positiva significa que la corriente fluye en el sentido inicialmente asumido, negativa indica el sentido opuesto. La verificación sustituye los resultados de vuelta en las ecuaciones originales para confirmar la precisión del cálculo."
+      }
+    }
+  },
   "nav": {
     "subtitulo": "Herramientas matemáticas"
   },
@@ -71,6 +104,10 @@
     "lisp-calculator": {
       "nome": "Calculadora Científica (LISP)",
       "descricao": "Evalúa expresiones matemáticas usando notación LISP (prefixa)."
+    },
+    "circuito-eletrico": {
+      "nome": "Análisis de Circuito Eléctrico",
+      "descricao": "Calcula corrientes en circuitos eléctricos usando inversión de matriz y la Ley de Kirchhoff."
     }
   },
   "erros": {
