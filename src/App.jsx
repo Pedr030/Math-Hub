@@ -5,11 +5,13 @@ import Footer from "./components/layout/Footer";
 import Home from "./pages/Home";
 import ToolPage from "./pages/ToolPage";
 import LispCalculator from "./features/lisp-calculator";
+import MatrixCircuit from "./features/matrix-circuit";
 
 // Registro de componentes: liga o nome string do JSON ao componente React.
 // Pra adicionar uma nova ferramenta no futuro, só adicionar uma linha aqui.
 const REGISTRO_COMPONENTES = {
   LispCalculator,
+  MatrixCircuit,
 };
 
 function App() {

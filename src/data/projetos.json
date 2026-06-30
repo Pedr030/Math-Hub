@@ -21,6 +21,17 @@
       "componente": "BaseConverter",
       "ativo": false,
       "destaque": false
+    },
+    {
+      "id": "circuito-eletrico",
+      "nome": "Análise de Circuito Elétrico",
+      "descricao": "Calcule correntes em circuitos elétricos usando inversão de matriz e a Lei de Kirchhoff.",
+      "icone": "circuit",
+      "categoria": "algebra-linear",
+      "rota": "/ferramentas/circuito-eletrico",
+      "componente": "MatrixCircuit",
+      "ativo": true,
+      "destaque": false
     }
   ]
 }

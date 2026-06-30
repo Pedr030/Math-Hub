@@ -1,4 +1,37 @@
 {
+  "circuito": {
+    "prefixo": "ferramentas/circuito-eletrico",
+    "titulo": "Análise de Circuito Elétrico",
+    "subtitulo": "Calcule as correntes de um circuito com 3 malhas usando a Lei de Kirchhoff",
+    "malha": "Malha {{n}}",
+    "calcular": "Calcular",
+    "erros": {
+      "camposVazios": "Preencha todos os campos antes de calcular.",
+      "numerosInvalidos": "Um ou mais valores não são números válidos.",
+      "resistenciaPositiva": "Todas as resistências devem ser positivas.",
+      "semSolucao": "Circuito mal formado (sistema sem solução única)."
+    },
+    "output": {
+      "corrente": "Corrente I{{n}}",
+      "verificacao": "Verificação",
+      "esperado": "esperado"
+    },
+    "ajuda": {
+      "titulo": "Como usar esta ferramenta",
+      "oQueE": {
+        "titulo": "O que essa ferramenta calcula",
+        "desc": "Resolve um sistema de 3 equações lineares (Lei de Kirchhoff das Tensões) usando inversão de matriz 3x3, encontrando a corrente elétrica em cada malha de um circuito."
+      },
+      "comoPreencher": {
+        "titulo": "Como preencher",
+        "desc": "Para cada malha, informe as três resistências (R) que relacionam essa malha com as correntes I1, I2 e I3, e a tensão (V) aplicada. Os valores de resistência devem ser maiores que zero."
+      },
+      "resultado": {
+        "titulo": "O que significa o resultado",
+        "desc": "Cada corrente (I1, I2, I3) pode ser positiva ou negativa: positiva significa que a corrente flui no sentido assumido inicialmente, negativa indica o sentido oposto. A verificação substitui os resultados de volta nas equações originais para confirmar a precisão do cálculo."
+      }
+    }
+  },
   "nav": {
     "subtitulo": "Ferramentas matemáticas"
   },
@@ -71,6 +104,10 @@
     "lisp-calculator": {
       "nome": "Calculadora Científica (LISP)",
       "descricao": "Avalie expressões matemáticas usando notação LISP (prefixa)."
+    },
+    "circuito-eletrico": {
+      "nome": "Análise de Circuito Elétrico",
+      "descricao": "Calcule correntes em circuitos elétricos usando inversão de matriz e a Lei de Kirchhoff."
     }
   },
   "erros": {
