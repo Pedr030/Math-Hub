@@ -9,7 +9,7 @@ import Input from "../../components/ui/Input";
 import ToolCard from "../../components/ui/ToolCard";
 import OutputPanel from "../../components/ui/OutputPanel";
 import { useTranslation } from "react-i18next";
-import { traduzirErro } from "../../utils/translateError";
+import { traduzirErro } from "../../utils/TranslateError";
 
 function LispCalculator() {
   const [expressao, setExpressao] = useState("");
