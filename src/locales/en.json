@@ -1,36 +1,6 @@
 {
-  "circuito": {
-    "prefixo": "tools/circuito-eletrico",
-    "titulo": "Electrical Circuit Analysis",
-    "subtitulo": "Calculate the currents of a 3-mesh circuit using Kirchhoff's Law",
-    "malha": "Mesh {{n}}",
-    "calcular": "Calculate",
-    "erros": {
-      "camposVazios": "Fill in all fields before calculating.",
-      "numerosInvalidos": "One or more values are not valid numbers.",
-      "resistenciaPositiva": "All resistances must be positive.",
-      "semSolucao": "Malformed circuit (system has no unique solution)."
-    },
-    "output": {
-      "corrente": "Current I{{n}}",
-      "verificacao": "Verification",
-      "esperado": "expected"
-    },
-    "ajuda": {
-      "titulo": "How to use this tool",
-      "oQueE": {
-        "titulo": "What this tool calculates",
-        "desc": "Solves a system of 3 linear equations (Kirchhoff's Voltage Law) using 3x3 matrix inversion, finding the electrical current in each mesh of a circuit."
-      },
-      "comoPreencher": {
-        "titulo": "How to fill it in",
-        "desc": "For each mesh, enter the three resistances (R) that relate that mesh to currents I1, I2 and I3, and the applied voltage (V). Resistance values must be greater than zero."
-      },
-      "resultado": {
-        "titulo": "What the result means",
-        "desc": "Each current (I1, I2, I3) can be positive or negative: positive means the current flows in the initially assumed direction, negative indicates the opposite direction. The verification substitutes the results back into the original equations to confirm calculation accuracy."
-      }
-    }
+  "common": {
+    "erroPre": "Error:"
   },
   "nav": {
     "subtitulo": "Math tools"
@@ -44,62 +14,6 @@
     "voltar": "← back to hub",
     "naoEncontrada": "Tool not found"
   },
-  "calc": {
-    "prefixo": "tools/lisp-calculator",
-    "titulo": "Scientific Calculator (LISP)",
-    "placeholder": "E.g.: (3+4j) * conj(3+4j)",
-    "calcular": "Calculate",
-    "comparar": "Compare",
-    "mostrarComparacao": "+ compare with another expression",
-    "ocultarComparacao": "— hide comparison",
-    "placeholderComparacao": "E.g.: conj(3+4j) * (3+4j)",
-    "erroPre": "Error:",
-    "erroComparacao": "Calculate the first expression before comparing.",
-    "equivalentes": "equivalent",
-    "diferentes": "different",
-    "estruturalmente": "The expressions are structurally",
-    "output": {
-      "tokens": "tokens",
-      "posfixa": "postfix",
-      "lisp": "lisp",
-      "resultado": "result"
-    },
-    "ajuda": {
-      "titulo": "How to use the calculator",
-      "complexos": {
-        "titulo": "Complex numbers",
-        "desc": "Use the format a+bj (\"j\" represents the imaginary unit). Some valid examples:",
-        "ex1": "3+4j → real part 3, imaginary 4",
-        "ex2": "-3+2j → negative real part",
-        "ex3": "7j → imaginary part only",
-        "ex4": "5 → real number (imaginary part 0)"
-      },
-      "operadores": {
-        "titulo": "Operators and parentheses",
-        "desc": "+ - * / ** (power) ( ) to control precedence"
-      },
-      "funcoes": {
-        "titulo": "Functions",
-        "conj": "conj(x) → conjugate of x",
-        "raiz": "raiz(x) → square root of x (works with negatives)"
-      },
-      "variaveis": {
-        "titulo": "Variables",
-        "desc": "Any letter that is not conj, raiz or j is treated as a variable — a field to fill in the value appears automatically before calculating. Example: a + b * 2."
-      },
-      "output": {
-        "titulo": "What each output line means",
-        "tokens": "tokens — the expression broken into pieces",
-        "posfixa": "postfix — internal order used to calculate",
-        "lisp": "lisp — the same expression in prefix notation, e.g.: (+ 3 4j)",
-        "resultado": "result — the final value"
-      },
-      "comparacao": {
-        "titulo": "Compare expressions",
-        "desc": "The \"compare with another expression\" button checks if two expressions have the same structure (same operators in the same order) — not whether they give the same numerical result."
-      }
-    }
-  },
   "ferramentas": {
     "lisp-calculator": {
       "nome": "Scientific Calculator (LISP)",
@@ -110,12 +24,102 @@
       "descricao": "Calculate currents in electrical circuits using matrix inversion and Kirchhoff's Law."
     }
   },
-  "erros": {
-    "parenDesbalanceados": "Unbalanced parentheses",
-    "divisaoPorZero": "Cannot divide by zero",
-    "funcaoSemOperando": "Malformed expression: function without operand",
-    "operadorSemOperandos": "Malformed expression: not enough operands for operator",
-    "resultadoInvalido": "Malformed expression: invalid result",
-    "zeroPotenciaNegativa": "Cannot raise zero to a negative power"
+  "tools": {
+    "lispCalculator": {
+      "prefixo": "tools/lisp-calculator",
+      "titulo": "Scientific Calculator (LISP)",
+      "placeholder": "E.g.: (3+4j) * conj(3+4j)",
+      "calcular": "Calculate",
+      "comparar": "Compare",
+      "mostrarComparacao": "+ compare with another expression",
+      "ocultarComparacao": "— hide comparison",
+      "placeholderComparacao": "E.g.: conj(3+4j) * (3+4j)",
+      "erroComparacao": "Calculate the first expression before comparing.",
+      "equivalentes": "equivalent",
+      "diferentes": "different",
+      "estruturalmente": "The expressions are structurally",
+      "output": {
+        "tokens": "tokens",
+        "posfixa": "postfix",
+        "lisp": "lisp",
+        "resultado": "result"
+      },
+      "ajuda": {
+        "titulo": "How to use the calculator",
+        "complexos": {
+          "titulo": "Complex numbers",
+          "desc": "Use the format a+bj (\"j\" represents the imaginary unit). Some valid examples:",
+          "ex1": "3+4j → real part 3, imaginary 4",
+          "ex2": "-3+2j → negative real part",
+          "ex3": "7j → imaginary part only",
+          "ex4": "5 → real number (imaginary part 0)"
+        },
+        "operadores": {
+          "titulo": "Operators and parentheses",
+          "desc": "+ - * / ** (power) ( ) to control precedence"
+        },
+        "funcoes": {
+          "titulo": "Functions",
+          "conj": "conj(x) → conjugate of x",
+          "raiz": "raiz(x) → square root of x (works with negatives)"
+        },
+        "variaveis": {
+          "titulo": "Variables",
+          "desc": "Any letter that is not conj, raiz or j is treated as a variable — a field to fill in the value appears automatically before calculating. Example: a + b * 2."
+        },
+        "output": {
+          "titulo": "What each output line means",
+          "tokens": "tokens — the expression broken into pieces",
+          "posfixa": "postfix — internal order used to calculate",
+          "lisp": "lisp — the same expression in prefix notation, e.g.: (+ 3 4j)",
+          "resultado": "result — the final value"
+        },
+        "comparacao": {
+          "titulo": "Compare expressions",
+          "desc": "The \"compare with another expression\" button checks if two expressions have the same structure (same operators in the same order) — not whether they give the same numerical result."
+        }
+      },
+      "erros": {
+        "parenDesbalanceados": "Unbalanced parentheses",
+        "divisaoPorZero": "Cannot divide by zero",
+        "funcaoSemOperando": "Malformed expression: function without operand",
+        "operadorSemOperandos": "Malformed expression: not enough operands for operator",
+        "resultadoInvalido": "Malformed expression: invalid result",
+        "zeroPotenciaNegativa": "Cannot raise zero to a negative power"
+      }
+    },
+    "matrixCircuit": {
+      "prefixo": "tools/circuito-eletrico",
+      "titulo": "Electrical Circuit Analysis",
+      "subtitulo": "Calculate the currents of a 3-mesh circuit using Kirchhoff's Law",
+      "malha": "Mesh {{n}}",
+      "calcular": "Calculate",
+      "erros": {
+        "camposVazios": "Fill in all fields before calculating.",
+        "numerosInvalidos": "One or more values are not valid numbers.",
+        "resistenciaPositiva": "All resistances must be positive.",
+        "semSolucao": "Malformed circuit (system has no unique solution)."
+      },
+      "output": {
+        "corrente": "Current I{{n}}",
+        "verificacao": "Verification",
+        "esperado": "expected"
+      },
+      "ajuda": {
+        "titulo": "How to use this tool",
+        "oQueE": {
+          "titulo": "What this tool calculates",
+          "desc": "Solves a system of 3 linear equations (Kirchhoff's Voltage Law) using 3x3 matrix inversion, finding the electrical current in each mesh of a circuit."
+        },
+        "comoPreencher": {
+          "titulo": "How to fill it in",
+          "desc": "For each mesh, enter the three resistances (R) that relate that mesh to currents I1, I2 and I3, and the applied voltage (V). Resistance values must be greater than zero."
+        },
+        "resultado": {
+          "titulo": "What the result means",
+          "desc": "Each current (I1, I2, I3) can be positive or negative: positive means the current flows in the initially assumed direction, negative indicates the opposite direction. The verification substitutes the results back into the original equations to confirm calculation accuracy."
+        }
+      }
+    }
   }
 }

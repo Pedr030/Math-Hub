@@ -1,36 +1,6 @@
 {
-  "circuito": {
-    "prefixo": "herramientas/circuito-eletrico",
-    "titulo": "Análisis de Circuito Eléctrico",
-    "subtitulo": "Calcula las corrientes de un circuito con 3 mallas usando la Ley de Kirchhoff",
-    "malha": "Malla {{n}}",
-    "calcular": "Calcular",
-    "erros": {
-      "camposVazios": "Completa todos los campos antes de calcular.",
-      "numerosInvalidos": "Uno o más valores no son números válidos.",
-      "resistenciaPositiva": "Todas las resistencias deben ser positivas.",
-      "semSolucao": "Circuito mal formado (sistema sin solución única)."
-    },
-    "output": {
-      "corrente": "Corriente I{{n}}",
-      "verificacao": "Verificación",
-      "esperado": "esperado"
-    },
-    "ajuda": {
-      "titulo": "Cómo usar esta herramienta",
-      "oQueE": {
-        "titulo": "Qué calcula esta herramienta",
-        "desc": "Resuelve un sistema de 3 ecuaciones lineales (Ley de Tensiones de Kirchhoff) usando inversión de matriz 3x3, encontrando la corriente eléctrica en cada malla de un circuito."
-      },
-      "comoPreencher": {
-        "titulo": "Cómo completar",
-        "desc": "Para cada malla, ingresa las tres resistencias (R) que relacionan esa malla con las corrientes I1, I2 e I3, y la tensión (V) aplicada. Los valores de resistencia deben ser mayores que cero."
-      },
-      "resultado": {
-        "titulo": "Qué significa el resultado",
-        "desc": "Cada corriente (I1, I2, I3) puede ser positiva o negativa: positiva significa que la corriente fluye en el sentido inicialmente asumido, negativa indica el sentido opuesto. La verificación sustituye los resultados de vuelta en las ecuaciones originales para confirmar la precisión del cálculo."
-      }
-    }
+  "common": {
+    "erroPre": "Error:"
   },
   "nav": {
     "subtitulo": "Herramientas matemáticas"
@@ -44,62 +14,6 @@
     "voltar": "← volver al hub",
     "naoEncontrada": "Herramienta no encontrada"
   },
-  "calc": {
-    "prefixo": "herramientas/lisp-calculator",
-    "titulo": "Calculadora Científica (LISP)",
-    "placeholder": "Ej: (3+4j) * conj(3+4j)",
-    "calcular": "Calcular",
-    "comparar": "Comparar",
-    "mostrarComparacao": "+ comparar con otra expresión",
-    "ocultarComparacao": "— ocultar comparación",
-    "placeholderComparacao": "Ej: conj(3+4j) * (3+4j)",
-    "erroPre": "Error:",
-    "erroComparacao": "Calcula la primera expresión antes de comparar.",
-    "equivalentes": "equivalentes",
-    "diferentes": "diferentes",
-    "estruturalmente": "Las expresiones son estructuralmente",
-    "output": {
-      "tokens": "tokens",
-      "posfixa": "posfija",
-      "lisp": "lisp",
-      "resultado": "resultado"
-    },
-    "ajuda": {
-      "titulo": "Cómo usar la calculadora",
-      "complexos": {
-        "titulo": "Números complejos",
-        "desc": "Usa el formato a+bj (la \"j\" representa la unidad imaginaria). Algunos ejemplos válidos:",
-        "ex1": "3+4j → parte real 3, imaginaria 4",
-        "ex2": "-3+2j → parte real negativa",
-        "ex3": "7j → solo la parte imaginaria",
-        "ex4": "5 → número real (parte imaginaria 0)"
-      },
-      "operadores": {
-        "titulo": "Operadores y paréntesis",
-        "desc": "+ - * / ** (potencia) ( ) para controlar el orden"
-      },
-      "funcoes": {
-        "titulo": "Funciones",
-        "conj": "conj(x) → conjugado de x",
-        "raiz": "raiz(x) → raíz cuadrada de x (funciona con negativos)"
-      },
-      "variaveis": {
-        "titulo": "Variables",
-        "desc": "Cualquier letra que no sea conj, raiz o j se trata como variable — un campo para rellenar el valor aparece automáticamente antes de calcular. Ejemplo: a + b * 2."
-      },
-      "output": {
-        "titulo": "Qué significa cada línea del resultado",
-        "tokens": "tokens — la expresión dividida en piezas",
-        "posfixa": "posfija — orden usado internamente para calcular",
-        "lisp": "lisp — la misma expresión en notación prefija, ej: (+ 3 4j)",
-        "resultado": "resultado — el valor final"
-      },
-      "comparacao": {
-        "titulo": "Comparar expresiones",
-        "desc": "El botón \"comparar con otra expresión\" verifica si dos expresiones tienen la misma estructura (mismos operadores en el mismo orden) — no si dan el mismo resultado numérico."
-      }
-    }
-  },
   "ferramentas": {
     "lisp-calculator": {
       "nome": "Calculadora Científica (LISP)",
@@ -110,12 +24,102 @@
       "descricao": "Calcula corrientes en circuitos eléctricos usando inversión de matriz y la Ley de Kirchhoff."
     }
   },
-  "erros": {
-    "parenDesbalanceados": "Paréntesis desbalanceados",
-    "divisaoPorZero": "No se puede dividir por cero",
-    "funcaoSemOperando": "Expresión malformada: función sin operando",
-    "operadorSemOperandos": "Expresión malformada: operador sin suficientes operandos",
-    "resultadoInvalido": "Expresión malformada: resultado inválido",
-    "zeroPotenciaNegativa": "No se puede elevar cero a una potencia negativa"
+  "tools": {
+    "lispCalculator": {
+      "prefixo": "herramientas/lisp-calculator",
+      "titulo": "Calculadora Científica (LISP)",
+      "placeholder": "Ej: (3+4j) * conj(3+4j)",
+      "calcular": "Calcular",
+      "comparar": "Comparar",
+      "mostrarComparacao": "+ comparar con otra expresión",
+      "ocultarComparacao": "— ocultar comparación",
+      "placeholderComparacao": "Ej: conj(3+4j) * (3+4j)",
+      "erroComparacao": "Calcula la primera expresión antes de comparar.",
+      "equivalentes": "equivalentes",
+      "diferentes": "diferentes",
+      "estruturalmente": "Las expresiones son estructuralmente",
+      "output": {
+        "tokens": "tokens",
+        "posfixa": "posfija",
+        "lisp": "lisp",
+        "resultado": "resultado"
+      },
+      "ajuda": {
+        "titulo": "Cómo usar la calculadora",
+        "complexos": {
+          "titulo": "Números complejos",
+          "desc": "Usa el formato a+bj (la \"j\" representa la unidad imaginaria). Algunos ejemplos válidos:",
+          "ex1": "3+4j → parte real 3, imaginaria 4",
+          "ex2": "-3+2j → parte real negativa",
+          "ex3": "7j → solo la parte imaginaria",
+          "ex4": "5 → número real (parte imaginaria 0)"
+        },
+        "operadores": {
+          "titulo": "Operadores y paréntesis",
+          "desc": "+ - * / ** (potencia) ( ) para controlar el orden"
+        },
+        "funcoes": {
+          "titulo": "Funciones",
+          "conj": "conj(x) → conjugado de x",
+          "raiz": "raiz(x) → raíz cuadrada de x (funciona con negativos)"
+        },
+        "variaveis": {
+          "titulo": "Variables",
+          "desc": "Cualquier letra que no sea conj, raiz o j se trata como variable — un campo para rellenar el valor aparece automáticamente antes de calcular. Ejemplo: a + b * 2."
+        },
+        "output": {
+          "titulo": "Qué significa cada línea del resultado",
+          "tokens": "tokens — la expresión dividida en piezas",
+          "posfixa": "posfija — orden usado internamente para calcular",
+          "lisp": "lisp — la misma expresión en notación prefija, ej: (+ 3 4j)",
+          "resultado": "resultado — el valor final"
+        },
+        "comparacao": {
+          "titulo": "Comparar expresiones",
+          "desc": "El botón \"comparar con otra expresión\" verifica si dos expresiones tienen la misma estructura (mismos operadores en el mismo orden) — no si dan el mismo resultado numérico."
+        }
+      },
+      "erros": {
+        "parenDesbalanceados": "Paréntesis desbalanceados",
+        "divisaoPorZero": "No se puede dividir por cero",
+        "funcaoSemOperando": "Expresión malformada: función sin operando",
+        "operadorSemOperandos": "Expresión malformada: operador sin suficientes operandos",
+        "resultadoInvalido": "Expresión malformada: resultado inválido",
+        "zeroPotenciaNegativa": "No se puede elevar cero a una potencia negativa"
+      }
+    },
+    "matrixCircuit": {
+      "prefixo": "herramientas/circuito-eletrico",
+      "titulo": "Análisis de Circuito Eléctrico",
+      "subtitulo": "Calcula las corrientes de un circuito con 3 mallas usando la Ley de Kirchhoff",
+      "malha": "Malla {{n}}",
+      "calcular": "Calcular",
+      "erros": {
+        "camposVazios": "Completa todos los campos antes de calcular.",
+        "numerosInvalidos": "Uno o más valores no son números válidos.",
+        "resistenciaPositiva": "Todas las resistencias deben ser positivas.",
+        "semSolucao": "Circuito mal formado (sistema sin solución única)."
+      },
+      "output": {
+        "corrente": "Corriente I{{n}}",
+        "verificacao": "Verificación",
+        "esperado": "esperado"
+      },
+      "ajuda": {
+        "titulo": "Cómo usar esta herramienta",
+        "oQueE": {
+          "titulo": "Qué calcula esta herramienta",
+          "desc": "Resuelve un sistema de 3 ecuaciones lineales (Ley de Tensiones de Kirchhoff) usando inversión de matriz 3x3, encontrando la corriente eléctrica en cada malla de un circuito."
+        },
+        "comoPreencher": {
+          "titulo": "Cómo completar",
+          "desc": "Para cada malla, ingresa las tres resistencias (R) que relacionan esa malla con las corrientes I1, I2 e I3, y la tensión (V) aplicada. Los valores de resistencia deben ser mayores que cero."
+        },
+        "resultado": {
+          "titulo": "Qué significa el resultado",
+          "desc": "Cada corriente (I1, I2, I3) puede ser positiva o negativa: positiva significa que la corriente fluye en el sentido inicialmente asumido, negativa indica el sentido opuesto. La verificación sustituye los resultados de vuelta en las ecuaciones originales para confirmar la precisión del cálculo."
+        }
+      }
+    }
   }
 }

@@ -48,7 +48,7 @@ function MatrixCircuit() {
       matriz.some((linha) => linha.some((v) => v.trim() === "")) ||
       vetor.some((v) => v.trim() === "");
     if (camposVazios) {
-      setErro(t("circuito.erros.camposVazios"));
+      setErro(t("tools.matrixCircuit.erros.camposVazios"));
       return;
     }
 
@@ -59,7 +59,7 @@ function MatrixCircuit() {
       matrizNum.some((linha) => linha.some(Number.isNaN)) ||
       vetorNum.some(Number.isNaN);
     if (temNaN) {
-      setErro(t("circuito.erros.numerosInvalidos"));
+      setErro(t("tools.matrixCircuit.erros.numerosInvalidos"));
       return;
     }
 
@@ -68,13 +68,13 @@ function MatrixCircuit() {
       linha.some((r) => r <= 0),
     );
     if (resistenciaInvalida) {
-      setErro(t("circuito.erros.resistenciaPositiva"));
+      setErro(t("tools.matrixCircuit.erros.resistenciaPositiva"));
       return;
     }
 
     const correntes = resolverSistema(matrizNum, vetorNum);
     if (!correntes) {
-      setErro(t("circuito.erros.semSolucao"));
+      setErro(t("tools.matrixCircuit.erros.semSolucao"));
       return;
     }
 
@@ -89,7 +89,7 @@ function MatrixCircuit() {
 
   const outputRows = resultado
     ? resultado.correntes.map((valor, i) => ({
-        label: t("circuito.output.corrente", { n: i + 1 }),
+        label: t("tools.matrixCircuit.output.corrente", { n: i + 1 }),
         value: `${valor.toFixed(3)} A`,
         large: true,
       }))
@@ -99,13 +99,13 @@ function MatrixCircuit() {
     <ToolCard>
       <div className="flex items-center justify-between mb-1">
         <p className="font-mono text-xs uppercase tracking-wide text-brand-500">
-          {t("circuito.prefixo")}
+          {t("tools.matrixCircuit.prefixo")}
         </p>
         <button
           type="button"
           onClick={() => setMostrarAjuda(true)}
-          aria-label={t("circuito.ajuda.titulo")}
-          title={t("circuito.ajuda.titulo")}
+          aria-label={t("tools.matrixCircuit.ajuda.titulo")}
+          title={t("tools.matrixCircuit.ajuda.titulo")}
           className="flex h-6 w-6 items-center justify-center rounded-full border border-brand-200
                      text-xs font-semibold text-brand-500 hover:bg-brand-50
                      dark:border-brand-700 dark:text-brand-300 dark:hover:bg-brand-900"
@@ -115,17 +115,17 @@ function MatrixCircuit() {
       </div>
 
       <h3 className="font-display text-xl font-semibold mb-1">
-        {t("circuito.titulo")}
+        {t("tools.matrixCircuit.titulo")}
       </h3>
       <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-        {t("circuito.subtitulo")}
+        {t("tools.matrixCircuit.subtitulo")}
       </p>
 
       <form onSubmit={handleCalcular} className="space-y-4">
         {[0, 1, 2].map((i) => (
           <div key={i}>
             <p className="font-mono text-xs text-brand-500 mb-1">
-              {t("circuito.malha", { n: i + 1 })}
+              {t("tools.matrixCircuit.malha", { n: i + 1 })}
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[0, 1, 2].map((j) => (
@@ -149,12 +149,12 @@ function MatrixCircuit() {
           </div>
         ))}
 
-        <Button type="submit">{t("circuito.calcular")}</Button>
+        <Button type="submit">{t("tools.matrixCircuit.calcular")}</Button>
       </form>
 
       {erro && (
         <p className="mt-4 text-sm text-red-600 dark:text-red-400">
-          {t("calc.erroPre")} {erro}
+          {t("common.erroPre")} {erro}
         </p>
       )}
 
@@ -163,12 +163,13 @@ function MatrixCircuit() {
       {resultado && (
         <div className="mt-4 rounded-lg bg-slate-50 p-4 font-mono text-xs space-y-1 dark:bg-brand-950/60">
           <p className="text-slate-400 mb-1">
-            {t("circuito.output.verificacao")}:
+            {t("tools.matrixCircuit.output.verificacao")}:
           </p>
           {resultado.verificacao.map((v, i) => (
             <p key={i} className="text-slate-600 dark:text-slate-300">
-              {t("circuito.malha", { n: i + 1 })}: {v.calculado.toFixed(3)} V (
-              {t("circuito.output.esperado")}: {v.esperado} V)
+              {t("tools.matrixCircuit.malha", { n: i + 1 })}:{" "}
+              {v.calculado.toFixed(3)} V (
+              {t("tools.matrixCircuit.output.esperado")}: {v.esperado} V)
             </p>
           ))}
         </div>
@@ -177,25 +178,25 @@ function MatrixCircuit() {
       <Modal
         isOpen={mostrarAjuda}
         onClose={() => setMostrarAjuda(false)}
-        title={t("circuito.ajuda.titulo")}
+        title={t("tools.matrixCircuit.ajuda.titulo")}
       >
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            {t("circuito.ajuda.oQueE.titulo")}
+            {t("tools.matrixCircuit.ajuda.oQueE.titulo")}
           </p>
-          <p>{t("circuito.ajuda.oQueE.desc")}</p>
+          <p>{t("tools.matrixCircuit.ajuda.oQueE.desc")}</p>
         </div>
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            {t("circuito.ajuda.comoPreencher.titulo")}
+            {t("tools.matrixCircuit.ajuda.comoPreencher.titulo")}
           </p>
-          <p>{t("circuito.ajuda.comoPreencher.desc")}</p>
+          <p>{t("tools.matrixCircuit.ajuda.comoPreencher.desc")}</p>
         </div>
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            {t("circuito.ajuda.resultado.titulo")}
+            {t("tools.matrixCircuit.ajuda.resultado.titulo")}
           </p>
-          <p>{t("circuito.ajuda.resultado.desc")}</p>
+          <p>{t("tools.matrixCircuit.ajuda.resultado.desc")}</p>
         </div>
       </Modal>
     </ToolCard>
