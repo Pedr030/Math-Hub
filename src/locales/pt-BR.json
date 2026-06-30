@@ -1,6 +1,11 @@
 {
   "common": {
-    "erroPre": "Erro:"
+    "erroPre": "Erro:",
+    "errorBoundary": {
+      "prefixo": "erro inesperado",
+      "titulo": "Algo deu errado nesta ferramenta",
+      "botao": "Tentar novamente"
+    }
   },
   "nav": {
     "subtitulo": "Ferramentas matemáticas"
