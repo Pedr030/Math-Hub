@@ -1,20 +1,29 @@
 // Mapeia padrões de erro (em português, que é como a lógica os lança)
 // para chaves de i18n. Assim os arquivos de lógica ficam intactos.
 const MAPA_ERROS = [
-  { pattern: /Parênteses desbalanceados/, key: "erros.parenDesbalanceados" },
-  { pattern: /Não pode dividir por zero/, key: "erros.divisaoPorZero" },
-  { pattern: /função sem operando/, key: "erros.funcaoSemOperando" },
+  {
+    pattern: /Parênteses desbalanceados/,
+    key: "tools.lispCalculator.erros.parenDesbalanceados",
+  },
+  {
+    pattern: /Não pode dividir por zero/,
+    key: "tools.lispCalculator.erros.divisaoPorZero",
+  },
+  {
+    pattern: /função sem operando/,
+    key: "tools.lispCalculator.erros.funcaoSemOperando",
+  },
   {
     pattern: /operador sem operandos suficientes/,
-    key: "erros.operadorSemOperandos",
+    key: "tools.lispCalculator.erros.operadorSemOperandos",
   },
   {
     pattern: /Expressão malformada: resultado inválido/,
-    key: "erros.resultadoInvalido",
+    key: "tools.lispCalculator.erros.resultadoInvalido",
   },
   {
     pattern: /Não pode elevar zero a potência negativa/,
-    key: "erros.zeroPotenciaNegativa",
+    key: "tools.lispCalculator.erros.zeroPotenciaNegativa",
   },
 ];
 

@@ -66,7 +66,7 @@ function LispCalculator() {
     setComparacao(null);
 
     if (!analise) {
-      setErro2(t("calc.erroComparacao"));
+      setErro2(t("tools.lispCalculator.erroComparacao"));
       return;
     }
 
@@ -82,22 +82,22 @@ function LispCalculator() {
     analise && !erro
       ? [
           {
-            label: t("calc.output.tokens"),
+            label: t("tools.lispCalculator.output.tokens"),
             value: `[${analise.tokens.join(", ")}]`,
           },
           {
-            label: t("calc.output.posfixa"),
+            label: t("tools.lispCalculator.output.posfixa"),
             value: `[${analise.postfixa.join(", ")}]`,
           },
           {
-            label: t("calc.output.lisp"),
+            label: t("tools.lispCalculator.output.lisp"),
             value: analise.lisp,
             highlight: true,
           },
           ...(resultado
             ? [
                 {
-                  label: t("calc.output.resultado"),
+                  label: t("tools.lispCalculator.output.resultado"),
                   value: resultado.toString(),
                   large: true,
                 },
@@ -110,13 +110,13 @@ function LispCalculator() {
     <ToolCard>
       <div className="flex items-center justify-between mb-1">
         <p className="font-mono text-xs uppercase tracking-wide text-brand-500">
-          {t("calc.prefixo")}
+          {t("tools.lispCalculator.prefixo")}
         </p>
         <button
           type="button"
           onClick={() => setMostrarAjuda(true)}
-          aria-label={t("calc.ajuda.titulo")}
-          title={t("calc.ajuda.titulo")}
+          aria-label={t("tools.lispCalculator.ajuda.titulo")}
+          title={t("tools.lispCalculator.ajuda.titulo")}
           className="flex h-6 w-6 items-center justify-center rounded-full border border-brand-200
                      text-xs font-semibold text-brand-500 hover:bg-brand-50
                      dark:border-brand-700 dark:text-brand-300 dark:hover:bg-brand-900"
@@ -126,7 +126,7 @@ function LispCalculator() {
       </div>
 
       <h3 className="font-display text-xl font-semibold mb-4">
-        {t("calc.titulo")}
+        {t("tools.lispCalculator.titulo")}
       </h3>
 
       <form
@@ -136,9 +136,9 @@ function LispCalculator() {
         <Input
           value={expressao}
           onChange={(e) => setExpressao(e.target.value)}
-          placeholder={t("calc.placeholder")}
+          placeholder={t("tools.lispCalculator.placeholder")}
         />
-        <Button type="submit">{t("calc.calcular")}</Button>
+        <Button type="submit">{t("tools.lispCalculator.calcular")}</Button>
       </form>
 
       {analise && analise.variaveis.length > 0 && (
@@ -164,7 +164,7 @@ function LispCalculator() {
 
       {erro && (
         <p className="mt-4 text-sm text-red-600 dark:text-red-400">
-          {t("calc.erroPre")} {traduzirErro(erro, t)}
+          {t("common.erroPre")} {traduzirErro(erro, t)}
         </p>
       )}
 
@@ -177,8 +177,8 @@ function LispCalculator() {
           onClick={() => setMostrarComparacao((v) => !v)}
         >
           {mostrarComparacao
-            ? t("calc.ocultarComparacao")
-            : t("calc.mostrarComparacao")}
+            ? t("tools.lispCalculator.ocultarComparacao")
+            : t("tools.lispCalculator.mostrarComparacao")}
         </Button>
 
         {mostrarComparacao && (
@@ -189,25 +189,27 @@ function LispCalculator() {
             <Input
               value={expressao2}
               onChange={(e) => setExpressao2(e.target.value)}
-              placeholder={t("calc.placeholderComparacao")}
+              placeholder={t("tools.lispCalculator.placeholderComparacao")}
             />
             <Button type="submit" variant="secondary">
-              {t("calc.comparar")}
+              {t("tools.lispCalculator.comparar")}
             </Button>
           </form>
         )}
 
         {erro2 && (
           <p className="mt-2 text-sm text-red-600 dark:text-red-400">
-            {t("calc.erroPre")} {traduzirErro(erro2, t)}
+            {t("common.erroPre")} {traduzirErro(erro2, t)}
           </p>
         )}
 
         {comparacao !== null && (
           <p className="mt-2 text-sm">
-            {t("calc.estruturalmente")}{" "}
+            {t("tools.lispCalculator.estruturalmente")}{" "}
             <strong className={comparacao ? "text-green-600" : "text-red-500"}>
-              {comparacao ? t("calc.equivalentes") : t("calc.diferentes")}
+              {comparacao
+                ? t("tools.lispCalculator.equivalentes")
+                : t("tools.lispCalculator.diferentes")}
             </strong>
             .
           </p>
@@ -217,64 +219,64 @@ function LispCalculator() {
       <Modal
         isOpen={mostrarAjuda}
         onClose={() => setMostrarAjuda(false)}
-        title={t("calc.ajuda.titulo")}
+        title={t("tools.lispCalculator.ajuda.titulo")}
       >
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            {t("calc.ajuda.complexos.titulo")}
+            {t("tools.lispCalculator.ajuda.complexos.titulo")}
           </p>
-          <p>{t("calc.ajuda.complexos.desc")}</p>
+          <p>{t("tools.lispCalculator.ajuda.complexos.desc")}</p>
           <ul className="font-mono text-xs mt-1 space-y-0.5 text-slate-500 dark:text-slate-400">
-            <li>{t("calc.ajuda.complexos.ex1")}</li>
-            <li>{t("calc.ajuda.complexos.ex2")}</li>
-            <li>{t("calc.ajuda.complexos.ex3")}</li>
-            <li>{t("calc.ajuda.complexos.ex4")}</li>
+            <li>{t("tools.lispCalculator.ajuda.complexos.ex1")}</li>
+            <li>{t("tools.lispCalculator.ajuda.complexos.ex2")}</li>
+            <li>{t("tools.lispCalculator.ajuda.complexos.ex3")}</li>
+            <li>{t("tools.lispCalculator.ajuda.complexos.ex4")}</li>
           </ul>
         </div>
 
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            {t("calc.ajuda.operadores.titulo")}
+            {t("tools.lispCalculator.ajuda.operadores.titulo")}
           </p>
           <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
-            {t("calc.ajuda.operadores.desc")}
+            {t("tools.lispCalculator.ajuda.operadores.desc")}
           </p>
         </div>
 
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            {t("calc.ajuda.funcoes.titulo")}
+            {t("tools.lispCalculator.ajuda.funcoes.titulo")}
           </p>
           <ul className="font-mono text-xs space-y-0.5 text-slate-500 dark:text-slate-400">
-            <li>{t("calc.ajuda.funcoes.conj")}</li>
-            <li>{t("calc.ajuda.funcoes.raiz")}</li>
+            <li>{t("tools.lispCalculator.ajuda.funcoes.conj")}</li>
+            <li>{t("tools.lispCalculator.ajuda.funcoes.raiz")}</li>
           </ul>
         </div>
 
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            {t("calc.ajuda.variaveis.titulo")}
+            {t("tools.lispCalculator.ajuda.variaveis.titulo")}
           </p>
-          <p>{t("calc.ajuda.variaveis.desc")}</p>
+          <p>{t("tools.lispCalculator.ajuda.variaveis.desc")}</p>
         </div>
 
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            {t("calc.ajuda.output.titulo")}
+            {t("tools.lispCalculator.ajuda.output.titulo")}
           </p>
           <ul className="space-y-0.5 font-mono text-xs text-slate-500 dark:text-slate-400">
-            <li>{t("calc.ajuda.output.tokens")}</li>
-            <li>{t("calc.ajuda.output.posfixa")}</li>
-            <li>{t("calc.ajuda.output.lisp")}</li>
-            <li>{t("calc.ajuda.output.resultado")}</li>
+            <li>{t("tools.lispCalculator.ajuda.output.tokens")}</li>
+            <li>{t("tools.lispCalculator.ajuda.output.posfixa")}</li>
+            <li>{t("tools.lispCalculator.ajuda.output.lisp")}</li>
+            <li>{t("tools.lispCalculator.ajuda.output.resultado")}</li>
           </ul>
         </div>
 
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
-            {t("calc.ajuda.comparacao.titulo")}
+            {t("tools.lispCalculator.ajuda.comparacao.titulo")}
           </p>
-          <p>{t("calc.ajuda.comparacao.desc")}</p>
+          <p>{t("tools.lispCalculator.ajuda.comparacao.desc")}</p>
         </div>
       </Modal>
     </ToolCard>
