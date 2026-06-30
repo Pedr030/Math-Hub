@@ -1,0 +1,84 @@
+{
+  "nav": {
+    "subtitulo": "Ferramentas matemáticas"
+  },
+  "home": {
+    "prefixo": "ferramentas/",
+    "titulo": "Escolha uma ferramenta",
+    "emBreve": "Em breve"
+  },
+  "toolPage": {
+    "voltar": "← voltar para o hub",
+    "naoEncontrada": "Ferramenta não encontrada"
+  },
+  "calc": {
+    "prefixo": "ferramentas/lisp-calculator",
+    "titulo": "Calculadora Científica (LISP)",
+    "placeholder": "Ex: (3+4j) * conj(3+4j)",
+    "calcular": "Calcular",
+    "comparar": "Comparar",
+    "mostrarComparacao": "+ comparar com outra expressão",
+    "ocultarComparacao": "— ocultar comparação",
+    "placeholderComparacao": "Ex: conj(3+4j) * (3+4j)",
+    "erroPre": "Erro:",
+    "erroComparacao": "Calcule a primeira expressão antes de comparar.",
+    "equivalentes": "equivalentes",
+    "diferentes": "diferentes",
+    "estruturalmente": "As expressões são estruturalmente",
+    "output": {
+      "tokens": "tokens",
+      "posfixa": "pós-fixa",
+      "lisp": "lisp",
+      "resultado": "resultado"
+    },
+    "ajuda": {
+      "titulo": "Como usar a calculadora",
+      "complexos": {
+        "titulo": "Números complexos",
+        "desc": "Use o formato a+bj (o \"j\" representa a unidade imaginária). Alguns exemplos válidos:",
+        "ex1": "3+4j → parte real 3, imaginária 4",
+        "ex2": "-3+2j → parte real negativa",
+        "ex3": "7j → só a parte imaginária",
+        "ex4": "5 → número real (parte imaginária 0)"
+      },
+      "operadores": {
+        "titulo": "Operadores e parênteses",
+        "desc": "+ - * / ** (potência) ( ) para controlar a ordem"
+      },
+      "funcoes": {
+        "titulo": "Funções",
+        "conj": "conj(x) → conjugado de x",
+        "raiz": "raiz(x) → raiz quadrada de x (funciona com negativos)"
+      },
+      "variaveis": {
+        "titulo": "Variáveis",
+        "desc": "Qualquer letra que não seja conj, raiz ou j é tratada como variável — um campo pra preencher o valor aparece automaticamente antes de calcular. Exemplo: a + b * 2."
+      },
+      "output": {
+        "titulo": "O que cada linha do resultado significa",
+        "tokens": "tokens — a expressão quebrada em pedaços",
+        "posfixa": "pós-fixa — ordem usada internamente pra calcular",
+        "lisp": "lisp — a mesma expressão em notação prefixa, ex: (+ 3 4j)",
+        "resultado": "resultado — o valor final"
+      },
+      "comparacao": {
+        "titulo": "Comparar expressões",
+        "desc": "O botão \"comparar com outra expressão\" verifica se duas expressões têm a mesma estrutura (mesmos operadores e na mesma ordem) — não se dão o mesmo resultado numérico."
+      }
+    }
+  },
+  "ferramentas": {
+    "lisp-calculator": {
+      "nome": "Calculadora Científica (LISP)",
+      "descricao": "Avalie expressões matemáticas usando notação LISP (prefixa)."
+    }
+  },
+  "erros": {
+    "parenDesbalanceados": "Parênteses desbalanceados",
+    "divisaoPorZero": "Não pode dividir por zero",
+    "funcaoSemOperando": "Expressão malformada: função sem operando",
+    "operadorSemOperandos": "Expressão malformada: operador sem operandos suficientes",
+    "resultadoInvalido": "Expressão malformada: resultado inválido",
+    "zeroPotenciaNegativa": "Não pode elevar zero a potência negativa"
+  }
+}
