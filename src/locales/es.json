@@ -27,6 +27,10 @@
     "circuito-eletrico": {
       "nome": "Análisis de Circuito Eléctrico",
       "descricao": "Calcula corrientes en circuitos eléctricos usando inversión de matriz y la Ley de Kirchhoff."
+    },
+    "calculadora-juros": {
+      "nome": "Calculadora de Intereses",
+      "descricao": "Calcula el monto e intereses simples o compuestos con tabla de evolución período a período."
     }
   },
   "tools": {
@@ -123,6 +127,64 @@
         "resultado": {
           "titulo": "Qué significa el resultado",
           "desc": "Cada corriente (I1, I2, I3) puede ser positiva o negativa: positiva significa que la corriente fluye en el sentido inicialmente asumido, negativa indica el sentido opuesto. La verificación sustituye los resultados de vuelta en las ecuaciones originales para confirmar la precisión del cálculo."
+        }
+      }
+    },
+    "interestCalculator": {
+      "prefixo": "herramientas/calculadora-juros",
+      "titulo": "Calculadora de Intereses",
+      "subtitulo": "Calcula intereses simples o compuestos y ve la evolución período a período",
+      "calcular": "Calcular",
+      "tipo": {
+        "simples": "Interés Simple",
+        "composto": "Interés Compuesto"
+      },
+      "campos": {
+        "capital": "Capital inicial ($)",
+        "taxa": "Tasa por período (%)",
+        "periodos": "Períodos",
+        "taxaMensal": "Tasa mensual (%)",
+        "taxaAnual": "Tasa anual (%)"
+      },
+      "unidade": {
+        "mes": "Mes",
+        "ano": "Año"
+      },
+      "erros": {
+        "camposVazios": "Completa todos los campos antes de calcular.",
+        "numerosInvalidos": "Uno o más valores no son números válidos.",
+        "valoresPositivos": "Capital, tasa y períodos deben ser mayores que cero.",
+        "periodosInvalidos": "El número de períodos debe ser entero y máximo 600."
+      },
+      "output": {
+        "montante": "Monto final",
+        "juros": "Intereses totales",
+        "evolucao": "Evolución período a período",
+        "periodo": "Período ({{unidade}})",
+        "jurosAcumulados": "Intereses acumulados",
+        "montanteTabela": "Monto",
+        "taxaEquivalente": {
+          "mes": "Tasa mensual equivalente: {{valor}}% al mes",
+          "ano": "Tasa anual equivalente: {{valor}}% al año"
+        }
+      },
+      "ajuda": {
+        "titulo": "Cómo usar la calculadora de intereses",
+        "tipos": {
+          "titulo": "Interés Simple vs Compuesto",
+          "desc": "El interés simple crece linealmente — los intereses de cada período siempre se calculan sobre el capital inicial. El interés compuesto crece exponencialmente — los intereses de cada período se calculan sobre el monto acumulado (interés sobre interés)."
+        },
+        "campos": {
+          "titulo": "Cómo completar",
+          "desc": "Ingresa el capital inicial (valor invertido), la tasa de interés por período (en %) y la cantidad de períodos. Selecciona la unidad (mes o año) — al cambiar, los períodos se convierten automáticamente para mantener la duración equivalente."
+        },
+        "taxa": {
+          "titulo": "Tasa equivalente",
+          "desc": "Debajo del resultado, la calculadora muestra la tasa equivalente en la otra unidad. Para interés compuesto, la conversión usa la fórmula exponencial correcta — por ejemplo, 2% al mes no equivale a 24% al año, sino a aproximadamente 26,82% al año."
+        },
+        "tabela": {
+          "titulo": "Tabla de evolución",
+          "desc": "Muestra el monto y los intereses acumulados al final de cada período, permitiendo seguir el crecimiento de la inversión a lo largo del tiempo."
         }
       }
     }

@@ -27,6 +27,10 @@
     "circuito-eletrico": {
       "nome": "Electrical Circuit Analysis",
       "descricao": "Calculate currents in electrical circuits using matrix inversion and Kirchhoff's Law."
+    },
+    "calculadora-juros": {
+      "nome": "Interest Calculator",
+      "descricao": "Calculate simple or compound interest with a period-by-period evolution table."
     }
   },
   "tools": {
@@ -123,6 +127,64 @@
         "resultado": {
           "titulo": "What the result means",
           "desc": "Each current (I1, I2, I3) can be positive or negative: positive means the current flows in the initially assumed direction, negative indicates the opposite direction. The verification substitutes the results back into the original equations to confirm calculation accuracy."
+        }
+      }
+    },
+    "interestCalculator": {
+      "prefixo": "tools/calculadora-juros",
+      "titulo": "Interest Calculator",
+      "subtitulo": "Calculate simple or compound interest and see the period-by-period evolution",
+      "calcular": "Calculate",
+      "tipo": {
+        "simples": "Simple Interest",
+        "composto": "Compound Interest"
+      },
+      "campos": {
+        "capital": "Initial capital ($)",
+        "taxa": "Rate per period (%)",
+        "periodos": "Periods",
+        "taxaMensal": "Monthly rate (%)",
+        "taxaAnual": "Annual rate (%)"
+      },
+      "unidade": {
+        "mes": "Month",
+        "ano": "Year"
+      },
+      "erros": {
+        "camposVazios": "Fill in all fields before calculating.",
+        "numerosInvalidos": "One or more values are not valid numbers.",
+        "valoresPositivos": "Capital, rate and periods must be greater than zero.",
+        "periodosInvalidos": "The number of periods must be an integer and at most 600."
+      },
+      "output": {
+        "montante": "Final amount",
+        "juros": "Total interest",
+        "evolucao": "Period-by-period evolution",
+        "periodo": "Period ({{unidade}})",
+        "jurosAcumulados": "Accumulated interest",
+        "montanteTabela": "Amount",
+        "taxaEquivalente": {
+          "mes": "Equivalent monthly rate: {{valor}}% per month",
+          "ano": "Equivalent annual rate: {{valor}}% per year"
+        }
+      },
+      "ajuda": {
+        "titulo": "How to use the interest calculator",
+        "tipos": {
+          "titulo": "Simple vs Compound Interest",
+          "desc": "Simple interest grows linearly — the interest for each period is always calculated on the initial capital. Compound interest grows exponentially — each period's interest is calculated on the accumulated amount (interest on interest)."
+        },
+        "campos": {
+          "titulo": "How to fill it in",
+          "desc": "Enter the initial capital (invested amount), the interest rate per period (in %) and the number of periods. Select the unit (month or year) — when switching, periods are automatically converted to keep the equivalent duration."
+        },
+        "taxa": {
+          "titulo": "Equivalent rate",
+          "desc": "Below the result, the calculator shows the equivalent rate in the other unit. For compound interest, the conversion uses the correct exponential formula — for example, 2% per month is not 24% per year, but approximately 26.82% per year."
+        },
+        "tabela": {
+          "titulo": "Evolution table",
+          "desc": "Shows the amount and accumulated interest at the end of each period, allowing you to track the growth of the investment over time."
         }
       }
     }

@@ -27,6 +27,10 @@
     "circuito-eletrico": {
       "nome": "Análise de Circuito Elétrico",
       "descricao": "Calcule correntes em circuitos elétricos usando inversão de matriz e a Lei de Kirchhoff."
+    },
+    "calculadora-juros": {
+      "nome": "Calculadora de Juros",
+      "descricao": "Calcule montante e juros simples ou compostos com tabela de evolução período a período."
     }
   },
   "tools": {
@@ -123,6 +127,64 @@
         "resultado": {
           "titulo": "O que significa o resultado",
           "desc": "Cada corrente (I1, I2, I3) pode ser positiva ou negativa: positiva significa que a corrente flui no sentido assumido inicialmente, negativa indica o sentido oposto. A verificação substitui os resultados de volta nas equações originais para confirmar a precisão do cálculo."
+        }
+      }
+    },
+    "interestCalculator": {
+      "prefixo": "ferramentas/calculadora-juros",
+      "titulo": "Calculadora de Juros",
+      "subtitulo": "Calcule juros simples ou compostos e veja a evolução período a período",
+      "calcular": "Calcular",
+      "tipo": {
+        "simples": "Juros Simples",
+        "composto": "Juros Compostos"
+      },
+      "campos": {
+        "capital": "Capital inicial (R$)",
+        "taxa": "Taxa por período (%)",
+        "periodos": "Períodos",
+        "taxaMensal": "Taxa mensal (%)",
+        "taxaAnual": "Taxa anual (%)"
+      },
+      "unidade": {
+        "mes": "Mês",
+        "ano": "Ano"
+      },
+      "erros": {
+        "camposVazios": "Preencha todos os campos antes de calcular.",
+        "numerosInvalidos": "Um ou mais valores não são números válidos.",
+        "valoresPositivos": "Capital, taxa e períodos devem ser maiores que zero.",
+        "periodosInvalidos": "O número de períodos deve ser inteiro e no máximo 600."
+      },
+      "output": {
+        "montante": "Montante final",
+        "juros": "Juros totais",
+        "evolucao": "Evolução período a período",
+        "periodo": "Período ({{unidade}})",
+        "jurosAcumulados": "Juros acumulados",
+        "montanteTabela": "Montante",
+        "taxaEquivalente": {
+          "mes": "Taxa mensal equivalente: {{valor}}% ao mês",
+          "ano": "Taxa anual equivalente: {{valor}}% ao ano"
+        }
+      },
+      "ajuda": {
+        "titulo": "Como usar a calculadora de juros",
+        "tipos": {
+          "titulo": "Juros Simples vs Compostos",
+          "desc": "Juros simples crescem linearmente — os juros de cada período são sempre calculados sobre o capital inicial. Juros compostos crescem exponencialmente — os juros de cada período são calculados sobre o montante acumulado (juros sobre juros)."
+        },
+        "campos": {
+          "titulo": "Como preencher",
+          "desc": "Informe o capital inicial (valor aplicado), a taxa de juros por período (em %) e a quantidade de períodos. Selecione a unidade (mês ou ano) — ao trocar, os períodos são convertidos automaticamente pra manter a duração equivalente."
+        },
+        "taxa": {
+          "titulo": "Taxa equivalente",
+          "desc": "Abaixo do resultado, a calculadora exibe a taxa equivalente na outra unidade. Para juros compostos, a conversão usa a fórmula exponencial correta — por exemplo, 2% ao mês não equivale a 24% ao ano, mas sim a aproximadamente 26,82% ao ano."
+        },
+        "tabela": {
+          "titulo": "Tabela de evolução",
+          "desc": "Mostra o montante e os juros acumulados ao final de cada período, permitindo acompanhar o crescimento do investimento ao longo do tempo."
         }
       }
     }
