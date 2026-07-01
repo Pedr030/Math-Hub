@@ -1,9 +1,14 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-// Configuração padrão do Vite para projetos React.
-// O plugin "react" habilita o Fast Refresh (atualização instantânea
-// no navegador ao salvar um arquivo, sem perder o estado da página).
 export default defineConfig({
   plugins: [react()],
+  test: {
+    environment: "node", // lógica pura não precisa de DOM
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+      include: ["src/features/**/!(*.jsx)"], // só os .js de lógica
+    },
+  },
 });

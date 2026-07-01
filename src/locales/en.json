@@ -4,8 +4,20 @@
     "errorBoundary": {
       "prefixo": "unexpected error",
       "titulo": "Something went wrong in this tool",
-      "botao": "Try again"
+      "botao": "Try again",
+      "recarregar": "Reload page",
+      "mensagemRede": "Connection error — the tool could not be loaded. Check your internet and reload."
     }
+  },
+  "tags": {
+    "algebra": "Algebra",
+    "numeros-complexos": "Complex Numbers",
+    "lisp": "LISP",
+    "algebra-linear": "Linear Algebra",
+    "matrizes": "Matrices",
+    "fisica": "Physics",
+    "financeiro": "Finance",
+    "matematica-aplicada": "Applied Mathematics"
   },
   "nav": {
     "subtitulo": "Math tools"
@@ -13,7 +25,12 @@
   "home": {
     "prefixo": "tools/",
     "titulo": "Choose a tool",
-    "emBreve": "Coming soon"
+    "emBreve": "Coming soon",
+    "busca": {
+      "placeholder": "Search tool...",
+      "semResultados": "No tools found.",
+      "todosLabel": "All"
+    }
   },
   "toolPage": {
     "voltar": "← back to hub",

@@ -4,8 +4,20 @@
     "errorBoundary": {
       "prefixo": "error inesperado",
       "titulo": "Algo salió mal en esta herramienta",
-      "botao": "Intentar de nuevo"
+      "botao": "Intentar de nuevo",
+      "recarregar": "Recargar página",
+      "mensagemRede": "Error de conexión — la herramienta no pudo cargarse. Verifica tu internet y recarga."
     }
+  },
+  "tags": {
+    "algebra": "Álgebra",
+    "numeros-complexos": "Números Complejos",
+    "lisp": "LISP",
+    "algebra-linear": "Álgebra Lineal",
+    "matrizes": "Matrices",
+    "fisica": "Física",
+    "financeiro": "Finanzas",
+    "matematica-aplicada": "Matemática Aplicada"
   },
   "nav": {
     "subtitulo": "Herramientas matemáticas"
@@ -13,7 +25,12 @@
   "home": {
     "prefixo": "herramientas/",
     "titulo": "Elige una herramienta",
-    "emBreve": "Próximamente"
+    "emBreve": "Próximamente",
+    "busca": {
+      "placeholder": "Buscar herramienta...",
+      "semResultados": "No se encontraron herramientas.",
+      "todosLabel": "Todas"
+    }
   },
   "toolPage": {
     "voltar": "← volver al hub",
