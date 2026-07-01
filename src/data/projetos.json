@@ -32,6 +32,17 @@
       "componente": "MatrixCircuit",
       "ativo": true,
       "destaque": false
+    },
+    {
+      "id": "calculadora-juros",
+      "nome": "Calculadora de Juros",
+      "descricao": "Calcule montante e juros simples ou compostos com tabela de evolução período a período.",
+      "icone": "percent",
+      "categoria": "financeiro",
+      "rota": "/ferramentas/calculadora-juros",
+      "componente": "InterestCalculator",
+      "ativo": true,
+      "destaque": false
     }
   ]
 }
