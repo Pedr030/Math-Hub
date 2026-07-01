@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import ErrorBoundary from "../components/ui/ErrorBoundary";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 function ToolPage({ ferramentas, registroComponentes }) {
   const { slug } = useParams();
@@ -14,6 +15,12 @@ function ToolPage({ ferramentas, registroComponentes }) {
 
   const ferramenta = ferramentas.find((f) => f.id === slug);
   const Componente = ferramenta && registroComponentes[ferramenta.componente];
+  // Passa o nome traduzido da ferramenta pro título — ou null se não encontrada
+  const tituloFerramenta = ferramenta
+    ? t(`ferramentas.${ferramenta.id}.nome`, { defaultValue: ferramenta.nome })
+    : null;
+
+  useDocumentTitle(tituloFerramenta);
 
   if (!ferramenta || !Componente) {
     return (

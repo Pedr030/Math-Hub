@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 
 function Home({ ferramentas, registroComponentes }) {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ function Home({ ferramentas, registroComponentes }) {
 
   const [busca, setBusca] = useState("");
   const [tagAtiva, setTagAtiva] = useState(null);
+  useDocumentTitle(null); // null = usa só "Math Hub"
 
   // Extrai todas as tags únicas das ferramentas ativas, na ordem
   // em que aparecem (sem repetir). useMemo evita recalcular a cada render.
