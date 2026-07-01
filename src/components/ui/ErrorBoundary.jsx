@@ -1,34 +1,49 @@
 import { Component } from "react";
 import { useTranslation } from "react-i18next";
 
-/**
- * Classe que captura erros de renderização nos filhos.
- * Recebe "t" e "onReset" via props — não pode usar hooks diretamente
- * por ser uma classe (única opção para getDerivedStateFromError).
- */
+// Detecta se o erro é de carregamento de módulo dinâmico (code splitting + rede).
+// React.lazy() cacheia promises rejeitadas — remontar o componente não resolve,
+// é necessário um reload completo da página.
+function isChunkError(error) {
+  const msg = error?.message || "";
+  return (
+    msg.includes("dynamically imported module") ||
+    msg.includes("Failed to fetch") ||
+    msg.includes("error loading dynamically imported module") ||
+    msg.includes("Importing a module script failed")
+  );
+}
+
 class ErrorBoundaryClass extends Component {
   constructor(props) {
     super(props);
-    this.state = { temErro: false, mensagem: "" };
+    this.state = { temErro: false, mensagem: "", erroDeRede: false };
   }
 
   static getDerivedStateFromError(error) {
-    return { temErro: true, mensagem: error?.message || "" };
+    return {
+      temErro: true,
+      mensagem: error?.message || "",
+      // Sinaliza se é erro de rede/chunk pra mudar o comportamento do botão
+      erroDeRede: isChunkError(error),
+    };
   }
 
   componentDidCatch(error, info) {
     console.error("[ErrorBoundary]", error, info);
   }
 
- handleRetry() {
-  // Só chama onReset — a mudança de key no ToolPage força o desmonte
-  // completo do ErrorBoundary e remonta tudo do zero, criando uma
-  // instância nova com temErro: false por padrão.
-  // Chamar setState aqui antes causava o bug: o filho tentava renderizar,
-  // lançava o erro de novo, getDerivedStateFromError recapturava
-  // imediatamente, e o onReset chegava tarde demais pra resolver.
-  if (this.props.onReset) this.props.onReset();
-}
+  handleRetry() {
+    if (this.state.erroDeRede) {
+      // Chunk error: React.lazy() não tenta de novo por conta própria —
+      // um reload completo é a única forma de forçar o re-fetch do módulo.
+      window.location.reload();
+      return;
+    }
+    // Erro de código: onReset() troca o key no ToolPage, forçando
+    // desmonte + remonte completo sem precisar recarregar a página.
+    if (this.props.onReset) this.props.onReset();
+  }
 
   render() {
     const { t } = this.props;
@@ -45,18 +60,22 @@ class ErrorBoundaryClass extends Component {
           <h3 className="font-display text-lg font-semibold text-red-700 dark:text-red-400 mb-2">
             {t("common.errorBoundary.titulo")}
           </h3>
-          {this.state.mensagem && (
-            <p className="font-mono text-xs text-red-600 dark:text-red-500 mb-4">
-              {this.state.mensagem}
-            </p>
-          )}
+
+          <p className="font-mono text-xs text-red-600 dark:text-red-500 mb-4">
+            {this.state.erroDeRede
+              ? t("common.errorBoundary.mensagemRede")
+              : this.state.mensagem}
+          </p>
+
           <button
             onClick={() => this.handleRetry()}
             className="rounded-lg border border-red-300 px-4 py-2 text-sm font-medium
                        text-red-600 hover:bg-red-100 transition-colors
                        dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/40"
           >
-            {t("common.errorBoundary.botao")}
+            {this.state.erroDeRede
+              ? t("common.errorBoundary.recarregar")
+              : t("common.errorBoundary.botao")}
           </button>
         </div>
       );
@@ -66,11 +85,6 @@ class ErrorBoundaryClass extends Component {
   }
 }
 
-/**
- * Wrapper funcional: captura o hook useTranslation (impossível na classe)
- * e passa "t" como prop. É o padrão correto para adicionar hooks
- * a componentes de classe em React moderno.
- */
 function ErrorBoundary({ children, onReset }) {
   const { t } = useTranslation();
   return (

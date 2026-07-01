@@ -4,7 +4,9 @@
     "errorBoundary": {
       "prefixo": "error inesperado",
       "titulo": "Algo salió mal en esta herramienta",
-      "botao": "Intentar de nuevo"
+      "botao": "Intentar de nuevo",
+      "recarregar": "Recargar página",
+      "mensagemRede": "Error de conexión — la herramienta no pudo cargarse. Verifica tu internet y recarga."
     }
   },
   "nav": {

@@ -4,7 +4,9 @@
     "errorBoundary": {
       "prefixo": "unexpected error",
       "titulo": "Something went wrong in this tool",
-      "botao": "Try again"
+      "botao": "Try again",
+      "recarregar": "Reload page",
+      "mensagemRede": "Connection error — the tool could not be loaded. Check your internet and reload."
     }
   },
   "nav": {
