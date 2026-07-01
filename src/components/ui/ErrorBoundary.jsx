@@ -20,13 +20,15 @@ class ErrorBoundaryClass extends Component {
     console.error("[ErrorBoundary]", error, info);
   }
 
-  handleRetry() {
-    this.setState({ temErro: false, mensagem: "" });
-    // onReset troca o "key" no ToolPage, forçando desmonte + remonte
-    // completo do filho — sem isso, o filho lança o erro de novo
-    // imediatamente e o React fica em branco.
-    if (this.props.onReset) this.props.onReset();
-  }
+ handleRetry() {
+  // Só chama onReset — a mudança de key no ToolPage força o desmonte
+  // completo do ErrorBoundary e remonta tudo do zero, criando uma
+  // instância nova com temErro: false por padrão.
+  // Chamar setState aqui antes causava o bug: o filho tentava renderizar,
+  // lançava o erro de novo, getDerivedStateFromError recapturava
+  // imediatamente, e o onReset chegava tarde demais pra resolver.
+  if (this.props.onReset) this.props.onReset();
+}
 
   render() {
     const { t } = this.props;
