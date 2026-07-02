@@ -35,6 +35,18 @@
       "componente": "InterestCalculator",
       "ativo": true,
       "destaque": false
+    },
+    {
+      "id": "estatistica-descritiva",
+      "nome": "Estatística Descritiva",
+      "descricao": "Calcule média, mediana, moda, desvio padrão e outras métricas a partir de uma lista de números.",
+      "icone": "chart",
+      "categoria": "estatistica",
+      "tags": ["estatistica", "matematica-aplicada"],
+      "rota": "/ferramentas/estatistica-descritiva",
+      "componente": "DescriptiveStats",
+      "ativo": true,
+      "destaque": false
     }
   ]
 }

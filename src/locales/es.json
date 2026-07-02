@@ -17,7 +17,8 @@
     "matrizes": "Matrices",
     "fisica": "Física",
     "financeiro": "Finanzas",
-    "matematica-aplicada": "Matemática Aplicada"
+    "matematica-aplicada": "Matemática Aplicada",
+    "estatistica": "Estadística"
   },
   "nav": {
     "subtitulo": "Herramientas matemáticas"
@@ -50,12 +51,14 @@
     "calculadora-juros": {
       "nome": "Calculadora de Intereses",
       "descricao": "Calcula el monto e intereses simples o compuestos con tabla de evolución período a período."
+    },
+    "estatistica-descritiva": {
+      "nome": "Estadística Descriptiva",
+      "descricao": "Calcula media, mediana, moda, desviación estándar y otras métricas a partir de una lista de números."
     }
   },
   "tools": {
     "lispCalculator": {
-      "prefixo": "herramientas/lisp-calculator",
-      "titulo": "Calculadora Científica (LISP)",
       "placeholder": "Ej: (3+4j) * conj(3+4j)",
       "calcular": "Calcular",
       "comparar": "Comparar",
@@ -117,9 +120,6 @@
       }
     },
     "matrixCircuit": {
-      "prefixo": "herramientas/circuito-eletrico",
-      "titulo": "Análisis de Circuito Eléctrico",
-      "subtitulo": "Calcula las corrientes de un circuito con 3 mallas usando la Ley de Kirchhoff",
       "malha": "Malla {{n}}",
       "calcular": "Calcular",
       "erros": {
@@ -150,9 +150,6 @@
       }
     },
     "interestCalculator": {
-      "prefixo": "herramientas/calculadora-juros",
-      "titulo": "Calculadora de Intereses",
-      "subtitulo": "Calcula intereses simples o compuestos y ve la evolución período a período",
       "calcular": "Calcular",
       "tipo": {
         "simples": "Interés Simple",
@@ -204,6 +201,46 @@
         "tabela": {
           "titulo": "Tabla de evolución",
           "desc": "Muestra el monto y los intereses acumulados al final de cada período, permitiendo seguir el crecimiento de la inversión a lo largo del tiempo."
+        }
+      }
+    },
+    "descriptiveStats": {
+      "placeholder": "Pega los números aquí: 10, 20, 30 o uno por línea",
+      "calcular": "Calcular",
+      "semModa": "Sin moda",
+      "erros": {
+        "vazio": "Ingresa al menos un número."
+      },
+      "output": {
+        "media": "Media",
+        "mediana": "Mediana",
+        "moda": "Moda",
+        "desvioPadrao": "Desv. Estándar",
+        "variancia": "Varianza",
+        "minimo": "Mínimo",
+        "maximo": "Máximo",
+        "amplitude": "Amplitud",
+        "contagem": "Cantidad",
+        "ordenados": "Valores ordenados"
+      },
+      "ajuda": {
+        "titulo": "Cómo usar esta herramienta",
+        "entrada": {
+          "titulo": "Cómo ingresar los datos",
+          "desc": "Pega o escribe los números separados por coma, espacio, punto y coma o salto de línea. Máximo de 1000 valores a la vez."
+        },
+        "metricas": {
+          "titulo": "Qué significa cada métrica",
+          "media": "Media — suma dividida por la cantidad",
+          "mediana": "Mediana — valor central de los datos ordenados",
+          "moda": "Moda — valor(es) que aparecen con mayor frecuencia",
+          "desvioPadrao": "Desv. Estándar — dispersión respecto a la media",
+          "variancia": "Varianza — media de los cuadrados de las desviaciones",
+          "amplitude": "Amplitud — diferencia entre máximo y mínimo"
+        },
+        "moda": {
+          "titulo": "Cuando no hay moda",
+          "desc": "Si todos los valores aparecen exactamente la misma cantidad de veces, la distribución no tiene moda — la herramienta muestra \"Sin moda\" en esos casos."
         }
       }
     }
