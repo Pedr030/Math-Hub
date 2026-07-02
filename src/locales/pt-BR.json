@@ -29,7 +29,9 @@
     "busca": {
       "placeholder": "Buscar ferramenta...",
       "semResultados": "Nenhuma ferramenta encontrada.",
-      "todosLabel": "Todas"
+      "todosLabel": "Todas",
+      "semResultadosDica": "Tente outros termos ou remova os filtros ativos.",
+      "limpar": "Limpar filtros"
     }
   },
   "toolPage": {
