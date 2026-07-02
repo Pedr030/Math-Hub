@@ -97,18 +97,15 @@ function MatrixCircuit() {
 
   return (
     <ToolCard>
-      <div className="flex items-center justify-between mb-1">
-        <p className="font-mono text-xs uppercase tracking-wide text-brand-500">
-          {t("tools.matrixCircuit.prefixo")}
-        </p>
+      <div className="flex justify-end mb-3">
         <button
           type="button"
           onClick={() => setMostrarAjuda(true)}
           aria-label={t("tools.matrixCircuit.ajuda.titulo")}
           title={t("tools.matrixCircuit.ajuda.titulo")}
           className="flex h-6 w-6 items-center justify-center rounded-full border border-brand-200
-                     text-xs font-semibold text-brand-500 hover:bg-brand-50
-                     dark:border-brand-700 dark:text-brand-300 dark:hover:bg-brand-900"
+                   text-xs font-semibold text-brand-500 hover:bg-brand-50
+                   dark:border-brand-700 dark:text-brand-300 dark:hover:bg-brand-900"
         >
           ?
         </button>

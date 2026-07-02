@@ -17,7 +17,8 @@
     "matrizes": "Matrices",
     "fisica": "Physics",
     "financeiro": "Finance",
-    "matematica-aplicada": "Applied Mathematics"
+    "matematica-aplicada": "Applied Mathematics",
+    "estatistica": "Statistics"
   },
   "nav": {
     "subtitulo": "Math tools"
@@ -50,12 +51,18 @@
     "calculadora-juros": {
       "nome": "Interest Calculator",
       "descricao": "Calculate simple or compound interest with a period-by-period evolution table."
+    },
+    "estatistica-descritiva": {
+      "nome": "Descriptive Statistics",
+      "descricao": "Calculate mean, median, mode, standard deviation and other metrics from a list of numbers."
+    },
+    "conversor-moeda": {
+      "nome": "Currency Converter",
+      "descricao": "Convert values between the world's major currencies with daily updated rates."
     }
   },
   "tools": {
     "lispCalculator": {
-      "prefixo": "tools/lisp-calculator",
-      "titulo": "Scientific Calculator (LISP)",
       "placeholder": "E.g.: (3+4j) * conj(3+4j)",
       "calcular": "Calculate",
       "comparar": "Compare",
@@ -117,9 +124,6 @@
       }
     },
     "matrixCircuit": {
-      "prefixo": "tools/circuito-eletrico",
-      "titulo": "Electrical Circuit Analysis",
-      "subtitulo": "Calculate the currents of a 3-mesh circuit using Kirchhoff's Law",
       "malha": "Mesh {{n}}",
       "calcular": "Calculate",
       "erros": {
@@ -150,9 +154,6 @@
       }
     },
     "interestCalculator": {
-      "prefixo": "tools/calculadora-juros",
-      "titulo": "Interest Calculator",
-      "subtitulo": "Calculate simple or compound interest and see the period-by-period evolution",
       "calcular": "Calculate",
       "tipo": {
         "simples": "Simple Interest",
@@ -204,6 +205,71 @@
         "tabela": {
           "titulo": "Evolution table",
           "desc": "Shows the amount and accumulated interest at the end of each period, allowing you to track the growth of the investment over time."
+        }
+      }
+    },
+    "descriptiveStats": {
+      "placeholder": "Paste numbers here: 10, 20, 30 or one per line",
+      "calcular": "Calculate",
+      "semModa": "No mode",
+      "erros": {
+        "vazio": "Enter at least one number."
+      },
+      "output": {
+        "media": "Mean",
+        "mediana": "Median",
+        "moda": "Mode",
+        "desvioPadrao": "Std Deviation",
+        "variancia": "Variance",
+        "minimo": "Minimum",
+        "maximo": "Maximum",
+        "amplitude": "Range",
+        "contagem": "Count",
+        "ordenados": "Sorted values"
+      },
+      "ajuda": {
+        "titulo": "How to use this tool",
+        "entrada": {
+          "titulo": "How to enter data",
+          "desc": "Paste or type numbers separated by comma, space, semicolon or line break. Maximum of 1000 values at a time."
+        },
+        "metricas": {
+          "titulo": "What each metric means",
+          "media": "Mean — sum divided by count",
+          "mediana": "Median — middle value of sorted data",
+          "moda": "Mode — value(s) that appear most frequently",
+          "desvioPadrao": "Std Deviation — spread around the mean",
+          "variancia": "Variance — mean of squared deviations",
+          "amplitude": "Range — difference between max and min"
+        },
+        "moda": {
+          "titulo": "When there is no mode",
+          "desc": "If all values appear exactly the same number of times, the distribution has no mode — the tool displays \"No mode\" in these cases."
+        }
+      }
+    },
+    "currencyConverter": {
+      "trocar": "Swap currencies",
+      "carregando": "Fetching rate...",
+      "atualizadoEm": "Rate from",
+      "doCache": "cached",
+      "erros": {
+        "apiKey": "API key not configured.",
+        "rede": "Could not fetch the exchange rate. Check your connection."
+      },
+      "ajuda": {
+        "titulo": "How to use the converter",
+        "comoUsar": {
+          "titulo": "How to use",
+          "desc": "Enter the amount, select the source and destination currencies. The result appears automatically once the rate is loaded."
+        },
+        "cotacao": {
+          "titulo": "Where the rates come from",
+          "desc": "Rates are provided by ExchangeRate-API and updated once a day. These are reference market rates — they may differ slightly from rates offered by banks and exchange houses."
+        },
+        "cache": {
+          "titulo": "Offline support",
+          "desc": "After the first fetch, the rate is saved locally for 24 hours. If you open the tool again within that period, the result appears instantly even without internet."
         }
       }
     }

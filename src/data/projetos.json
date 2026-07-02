@@ -35,6 +35,30 @@
       "componente": "InterestCalculator",
       "ativo": true,
       "destaque": false
+    },
+    {
+      "id": "estatistica-descritiva",
+      "nome": "Estatística Descritiva",
+      "descricao": "Calcule média, mediana, moda, desvio padrão e outras métricas a partir de uma lista de números.",
+      "icone": "chart",
+      "categoria": "estatistica",
+      "tags": ["estatistica", "matematica-aplicada"],
+      "rota": "/ferramentas/estatistica-descritiva",
+      "componente": "DescriptiveStats",
+      "ativo": true,
+      "destaque": false
+    },
+    {
+      "id": "conversor-moeda",
+      "nome": "Conversor de Moeda",
+      "descricao": "Converta valores entre as principais moedas do mundo com cotação atualizada diariamente.",
+      "icone": "currency",
+      "categoria": "financeiro",
+      "tags": ["financeiro", "matematica-aplicada"],
+      "rota": "/ferramentas/conversor-moeda",
+      "componente": "CurrencyConverter",
+      "ativo": true,
+      "destaque": false
     }
   ]
 }

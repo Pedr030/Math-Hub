@@ -17,7 +17,8 @@
     "matrizes": "Matrizes",
     "fisica": "Física",
     "financeiro": "Financeiro",
-    "matematica-aplicada": "Matemática Aplicada"
+    "matematica-aplicada": "Matemática Aplicada",
+    "estatistica": "Estatística"
   },
   "nav": {
     "subtitulo": "Ferramentas matemáticas"
@@ -50,12 +51,18 @@
     "calculadora-juros": {
       "nome": "Calculadora de Juros",
       "descricao": "Calcule montante e juros simples ou compostos com tabela de evolução período a período."
+    },
+    "estatistica-descritiva": {
+      "nome": "Estatística Descritiva",
+      "descricao": "Calcule média, mediana, moda, desvio padrão e outras métricas a partir de uma lista de números."
+    },
+    "conversor-moeda": {
+      "nome": "Conversor de Moeda",
+      "descricao": "Converta valores entre as principais moedas do mundo com cotação atualizada diariamente."
     }
   },
   "tools": {
     "lispCalculator": {
-      "prefixo": "ferramentas/lisp-calculator",
-      "titulo": "Calculadora Científica (LISP)",
       "placeholder": "Ex: (3+4j) * conj(3+4j)",
       "calcular": "Calcular",
       "comparar": "Comparar",
@@ -117,9 +124,6 @@
       }
     },
     "matrixCircuit": {
-      "prefixo": "ferramentas/circuito-eletrico",
-      "titulo": "Análise de Circuito Elétrico",
-      "subtitulo": "Calcule as correntes de um circuito com 3 malhas usando a Lei de Kirchhoff",
       "malha": "Malha {{n}}",
       "calcular": "Calcular",
       "erros": {
@@ -150,9 +154,6 @@
       }
     },
     "interestCalculator": {
-      "prefixo": "ferramentas/calculadora-juros",
-      "titulo": "Calculadora de Juros",
-      "subtitulo": "Calcule juros simples ou compostos e veja a evolução período a período",
       "calcular": "Calcular",
       "tipo": {
         "simples": "Juros Simples",
@@ -204,6 +205,71 @@
         "tabela": {
           "titulo": "Tabela de evolução",
           "desc": "Mostra o montante e os juros acumulados ao final de cada período, permitindo acompanhar o crescimento do investimento ao longo do tempo."
+        }
+      }
+    },
+    "descriptiveStats": {
+      "placeholder": "Cole os números aqui: 10, 20, 30 ou um por linha",
+      "calcular": "Calcular",
+      "semModa": "Sem moda",
+      "erros": {
+        "vazio": "Insira pelo menos um número."
+      },
+      "output": {
+        "media": "Média",
+        "mediana": "Mediana",
+        "moda": "Moda",
+        "desvioPadrao": "Desvio Padrão",
+        "variancia": "Variância",
+        "minimo": "Mínimo",
+        "maximo": "Máximo",
+        "amplitude": "Amplitude",
+        "contagem": "Contagem",
+        "ordenados": "Valores ordenados"
+      },
+      "ajuda": {
+        "titulo": "Como usar esta ferramenta",
+        "entrada": {
+          "titulo": "Como inserir os dados",
+          "desc": "Cole ou digite os números separados por vírgula, espaço, ponto e vírgula ou quebra de linha. Máximo de 1000 valores por vez."
+        },
+        "metricas": {
+          "titulo": "O que cada métrica significa",
+          "media": "Média — soma dividida pela contagem",
+          "mediana": "Mediana — valor central dos dados ordenados",
+          "moda": "Moda — valor(es) que aparecem com maior frequência",
+          "desvioPadrao": "Desvio Padrão — dispersão em relação à média",
+          "variancia": "Variância — média dos quadrados dos desvios",
+          "amplitude": "Amplitude — diferença entre máximo e mínimo"
+        },
+        "moda": {
+          "titulo": "Quando não há moda",
+          "desc": "Se todos os valores aparecem exatamente a mesma quantidade de vezes, a distribuição não tem moda — a ferramenta exibe \"Sem moda\" nesses casos."
+        }
+      }
+    },
+    "currencyConverter": {
+      "trocar": "Inverter moedas",
+      "carregando": "Buscando cotação...",
+      "atualizadoEm": "Cotação de",
+      "doCache": "em cache",
+      "erros": {
+        "apiKey": "API key não configurada.",
+        "rede": "Não foi possível buscar a cotação. Verifique sua conexão."
+      },
+      "ajuda": {
+        "titulo": "Como usar o conversor",
+        "comoUsar": {
+          "titulo": "Como usar",
+          "desc": "Digite o valor, selecione a moeda de origem e a de destino. O resultado aparece automaticamente assim que a cotação for carregada."
+        },
+        "cotacao": {
+          "titulo": "De onde vêm as cotações",
+          "desc": "As cotações são fornecidas pela ExchangeRate-API e atualizadas uma vez por dia. São taxas de mercado de referência — podem diferir ligeiramente das taxas praticadas por bancos e casas de câmbio."
+        },
+        "cache": {
+          "titulo": "Funcionamento offline",
+          "desc": "Após a primeira busca, a cotação fica salva localmente por 24 horas. Se você abrir a ferramenta novamente nesse período, o resultado aparece instantaneamente mesmo sem internet."
         }
       }
     }
