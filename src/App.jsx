@@ -15,6 +15,7 @@ const LispCalculator = lazy(() => import("./features/lisp-calculator"));
 const MatrixCircuit = lazy(() => import("./features/matrix-circuit"));
 const InterestCalculator = lazy(() => import("./features/interest-calculator"));
 const DescriptiveStats = lazy(() => import("./features/descriptive-stats"));
+const CurrencyConverter = lazy(() => import("./features/currency-converter"));
 
 // Registro de componentes: liga o nome string do JSON ao componente React.
 // Pra adicionar uma nova ferramenta no futuro, só adicionar uma linha aqui
@@ -24,6 +25,7 @@ const REGISTRO_COMPONENTES = {
   MatrixCircuit,
   InterestCalculator,
   DescriptiveStats,
+  CurrencyConverter,
 };
 
 // Tela exibida enquanto o chunk de uma ferramenta está sendo baixado.
