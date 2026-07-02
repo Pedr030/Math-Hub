@@ -17,7 +17,8 @@
     "matrizes": "Matrices",
     "fisica": "Physics",
     "financeiro": "Finance",
-    "matematica-aplicada": "Applied Mathematics"
+    "matematica-aplicada": "Applied Mathematics",
+    "estatistica": "Statistics"
   },
   "nav": {
     "subtitulo": "Math tools"
@@ -50,6 +51,10 @@
     "calculadora-juros": {
       "nome": "Interest Calculator",
       "descricao": "Calculate simple or compound interest with a period-by-period evolution table."
+    },
+    "estatistica-descritiva": {
+      "nome": "Descriptive Statistics",
+      "descricao": "Calculate mean, median, mode, standard deviation and other metrics from a list of numbers."
     }
   },
   "tools": {
@@ -204,6 +209,46 @@
         "tabela": {
           "titulo": "Evolution table",
           "desc": "Shows the amount and accumulated interest at the end of each period, allowing you to track the growth of the investment over time."
+        }
+      }
+    },
+    "descriptiveStats": {
+      "placeholder": "Paste numbers here: 10, 20, 30 or one per line",
+      "calcular": "Calculate",
+      "semModa": "No mode",
+      "erros": {
+        "vazio": "Enter at least one number."
+      },
+      "output": {
+        "media": "Mean",
+        "mediana": "Median",
+        "moda": "Mode",
+        "desvioPadrao": "Std Deviation",
+        "variancia": "Variance",
+        "minimo": "Minimum",
+        "maximo": "Maximum",
+        "amplitude": "Range",
+        "contagem": "Count",
+        "ordenados": "Sorted values"
+      },
+      "ajuda": {
+        "titulo": "How to use this tool",
+        "entrada": {
+          "titulo": "How to enter data",
+          "desc": "Paste or type numbers separated by comma, space, semicolon or line break. Maximum of 1000 values at a time."
+        },
+        "metricas": {
+          "titulo": "What each metric means",
+          "media": "Mean — sum divided by count",
+          "mediana": "Median — middle value of sorted data",
+          "moda": "Mode — value(s) that appear most frequently",
+          "desvioPadrao": "Std Deviation — spread around the mean",
+          "variancia": "Variance — mean of squared deviations",
+          "amplitude": "Range — difference between max and min"
+        },
+        "moda": {
+          "titulo": "When there is no mode",
+          "desc": "If all values appear exactly the same number of times, the distribution has no mode — the tool displays \"No mode\" in these cases."
         }
       }
     }

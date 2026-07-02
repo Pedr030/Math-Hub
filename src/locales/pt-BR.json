@@ -17,7 +17,8 @@
     "matrizes": "Matrizes",
     "fisica": "Física",
     "financeiro": "Financeiro",
-    "matematica-aplicada": "Matemática Aplicada"
+    "matematica-aplicada": "Matemática Aplicada",
+    "estatistica": "Estatística"
   },
   "nav": {
     "subtitulo": "Ferramentas matemáticas"
@@ -50,6 +51,10 @@
     "calculadora-juros": {
       "nome": "Calculadora de Juros",
       "descricao": "Calcule montante e juros simples ou compostos com tabela de evolução período a período."
+    },
+    "estatistica-descritiva": {
+      "nome": "Estatística Descritiva",
+      "descricao": "Calcule média, mediana, moda, desvio padrão e outras métricas a partir de uma lista de números."
     }
   },
   "tools": {
@@ -204,6 +209,46 @@
         "tabela": {
           "titulo": "Tabela de evolução",
           "desc": "Mostra o montante e os juros acumulados ao final de cada período, permitindo acompanhar o crescimento do investimento ao longo do tempo."
+        }
+      }
+    },
+    "descriptiveStats": {
+      "placeholder": "Cole os números aqui: 10, 20, 30 ou um por linha",
+      "calcular": "Calcular",
+      "semModa": "Sem moda",
+      "erros": {
+        "vazio": "Insira pelo menos um número."
+      },
+      "output": {
+        "media": "Média",
+        "mediana": "Mediana",
+        "moda": "Moda",
+        "desvioPadrao": "Desvio Padrão",
+        "variancia": "Variância",
+        "minimo": "Mínimo",
+        "maximo": "Máximo",
+        "amplitude": "Amplitude",
+        "contagem": "Contagem",
+        "ordenados": "Valores ordenados"
+      },
+      "ajuda": {
+        "titulo": "Como usar esta ferramenta",
+        "entrada": {
+          "titulo": "Como inserir os dados",
+          "desc": "Cole ou digite os números separados por vírgula, espaço, ponto e vírgula ou quebra de linha. Máximo de 1000 valores por vez."
+        },
+        "metricas": {
+          "titulo": "O que cada métrica significa",
+          "media": "Média — soma dividida pela contagem",
+          "mediana": "Mediana — valor central dos dados ordenados",
+          "moda": "Moda — valor(es) que aparecem com maior frequência",
+          "desvioPadrao": "Desvio Padrão — dispersão em relação à média",
+          "variancia": "Variância — média dos quadrados dos desvios",
+          "amplitude": "Amplitude — diferença entre máximo e mínimo"
+        },
+        "moda": {
+          "titulo": "Quando não há moda",
+          "desc": "Se todos os valores aparecem exatamente a mesma quantidade de vezes, a distribuição não tem moda — a ferramenta exibe \"Sem moda\" nesses casos."
         }
       }
     }
