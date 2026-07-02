@@ -59,8 +59,6 @@
   },
   "tools": {
     "lispCalculator": {
-      "prefixo": "ferramentas/lisp-calculator",
-      "titulo": "Calculadora Científica (LISP)",
       "placeholder": "Ex: (3+4j) * conj(3+4j)",
       "calcular": "Calcular",
       "comparar": "Comparar",
@@ -122,9 +120,6 @@
       }
     },
     "matrixCircuit": {
-      "prefixo": "ferramentas/circuito-eletrico",
-      "titulo": "Análise de Circuito Elétrico",
-      "subtitulo": "Calcule as correntes de um circuito com 3 malhas usando a Lei de Kirchhoff",
       "malha": "Malha {{n}}",
       "calcular": "Calcular",
       "erros": {
@@ -155,9 +150,6 @@
       }
     },
     "interestCalculator": {
-      "prefixo": "ferramentas/calculadora-juros",
-      "titulo": "Calculadora de Juros",
-      "subtitulo": "Calcule juros simples ou compostos e veja a evolução período a período",
       "calcular": "Calcular",
       "tipo": {
         "simples": "Juros Simples",

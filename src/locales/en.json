@@ -59,8 +59,6 @@
   },
   "tools": {
     "lispCalculator": {
-      "prefixo": "tools/lisp-calculator",
-      "titulo": "Scientific Calculator (LISP)",
       "placeholder": "E.g.: (3+4j) * conj(3+4j)",
       "calcular": "Calculate",
       "comparar": "Compare",
@@ -122,9 +120,6 @@
       }
     },
     "matrixCircuit": {
-      "prefixo": "tools/circuito-eletrico",
-      "titulo": "Electrical Circuit Analysis",
-      "subtitulo": "Calculate the currents of a 3-mesh circuit using Kirchhoff's Law",
       "malha": "Mesh {{n}}",
       "calcular": "Calculate",
       "erros": {
@@ -155,9 +150,6 @@
       }
     },
     "interestCalculator": {
-      "prefixo": "tools/calculadora-juros",
-      "titulo": "Interest Calculator",
-      "subtitulo": "Calculate simple or compound interest and see the period-by-period evolution",
       "calcular": "Calculate",
       "tipo": {
         "simples": "Simple Interest",
