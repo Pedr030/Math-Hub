@@ -29,7 +29,9 @@
     "busca": {
       "placeholder": "Search tool...",
       "semResultados": "No tools found.",
-      "todosLabel": "All"
+      "todosLabel": "All",
+      "semResultadosDica": "Try different terms or remove the active filters.",
+      "limpar": "Clear filters"
     }
   },
   "toolPage": {

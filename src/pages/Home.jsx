@@ -30,11 +30,11 @@ function Home({ ferramentas, registroComponentes }) {
   }, [ferramentas]);
 
   // Aplica os dois filtros combinados: busca por texto + tag ativa.
+  // Antes: .filter((f) => f.ativo)
+  // Agora: mostra todas, inativas aparecem com badge
   const ferramentasFiltradas = useMemo(() => {
     const termo = busca.toLowerCase().trim();
     return ferramentas.filter((f) => {
-      if (!f.ativo) return false;
-
       const nomeTraducido = t(`ferramentas.${f.id}.nome`, {
         defaultValue: f.nome,
       }).toLowerCase();
@@ -57,7 +57,7 @@ function Home({ ferramentas, registroComponentes }) {
   }
 
   return (
-    <>
+    <div className="animate-fadein">
       <p className="font-mono text-xs uppercase tracking-wide text-brand-500 mb-2">
         {t("home.prefixo")}
       </p>
@@ -104,12 +104,27 @@ function Home({ ferramentas, registroComponentes }) {
           </button>
         ))}
       </div>
-
-      {/* Grade de ferramentas */}
       {ferramentasFiltradas.length === 0 ? (
-        <p className="font-mono text-sm text-slate-400 dark:text-slate-500">
-          {t("home.busca.semResultados")}
-        </p>
+        <div className="flex flex-col items-center justify-center py-16 text-center">
+          <span className="text-4xl mb-4">🔍</span>
+          <p className="font-display font-semibold text-lg mb-1">
+            {t("home.busca.semResultados")}
+          </p>
+          <p className="text-sm text-slate-400 dark:text-slate-500 mb-4">
+            {t("home.busca.semResultadosDica")}
+          </p>
+          <button
+            onClick={() => {
+              setBusca("");
+              setTagAtiva(null);
+            }}
+            className="rounded-lg border border-brand-200 px-4 py-2 text-sm font-medium
+                 text-brand-500 hover:bg-brand-50 transition-colors
+                 dark:border-brand-700 dark:hover:bg-brand-900"
+          >
+            {t("home.busca.limpar")}
+          </button>
+        </div>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {ferramentasFiltradas.map((ferramenta) => {
@@ -120,17 +135,30 @@ function Home({ ferramentas, registroComponentes }) {
             return (
               <article
                 key={ferramenta.id}
-                onClick={() => temComponente && navigate(ferramenta.rota)}
+                onClick={() =>
+                  ferramenta.ativo && temComponente && navigate(ferramenta.rota)
+                }
                 className={`rounded-xl border p-5 shadow-sm transition-shadow flex flex-col
                   border-brand-100 bg-white dark:border-brand-900 dark:bg-brand-900/40
                   ${ferramenta.destaque ? "ring-1 ring-brand-300 dark:ring-brand-700" : ""}
-                  ${temComponente ? "cursor-pointer hover:shadow-md" : "opacity-60"}`}
+                  ${temComponente ? "cursor-pointer hover:shadow-md" : "opacity-60"}
+                  ${ferramenta.ativo && temComponente ? "cursor-pointer hover:shadow-md" : "cursor-default opacity-50"}`}
               >
-                <h3 className="font-display font-semibold text-lg">
-                  {t(`ferramentas.${ferramenta.id}.nome`, {
-                    defaultValue: ferramenta.nome,
-                  })}
-                </h3>
+                <div className="flex items-start justify-between gap-2">
+                  <h3 className="font-display font-semibold text-lg">
+                    {t(`ferramentas.${ferramenta.id}.nome`, {
+                      defaultValue: ferramenta.nome,
+                    })}
+                  </h3>
+                  {!ferramenta.ativo && (
+                    <span
+                      className="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 font-mono
+                     text-xs text-slate-400 dark:bg-brand-900 dark:text-slate-500"
+                    >
+                      {t("home.emBreve")}
+                    </span>
+                  )}
+                </div>
                 <p className="text-sm text-slate-600 dark:text-slate-300 mt-1 flex-1">
                   {t(`ferramentas.${ferramenta.id}.descricao`, {
                     defaultValue: ferramenta.descricao,
@@ -156,7 +184,7 @@ function Home({ ferramentas, registroComponentes }) {
           })}
         </div>
       )}
-    </>
+    </div>
   );
 }
 
