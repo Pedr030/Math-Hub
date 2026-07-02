@@ -1,10 +1,9 @@
 # Math Hub
 
 Portal de micro-ferramentas matemáticas utilitárias — uma central onde cada
-ferramenta resolve um problema específico (álgebra, números complexos,
-álgebra linear, finanças, etc.) com uma interface simples e consistente.
+ferramenta resolve um problema específico com uma interface simples e consistente.
 
-## ✨ Funcionalidades
+## ✨ Ferramentas disponíveis
 
 - 🧮 **Calculadora Científica (LISP)** — avalia expressões com números
   complexos e exibe a notação prefixa (LISP) equivalente.
@@ -12,9 +11,10 @@ ferramenta resolve um problema específico (álgebra, números complexos,
   3 malhas usando inversão de matriz e a Lei de Kirchhoff.
 - 💰 **Calculadora de Juros** — calcula juros simples ou compostos com
   tabela de evolução período a período e taxa equivalente entre unidades.
-- 🌗 Tema claro/escuro com persistência de preferência.
-- 🌐 Internacionalização: Português, Inglês e Espanhol.
-- 📱 Layout responsivo.
+- 📊 **Estatística Descritiva** — calcula média, mediana, moda, desvio
+  padrão e outras métricas a partir de uma lista de números.
+- 💱 **Conversor de Moeda** — converte valores entre as principais moedas
+  do mundo com cotação atualizada diariamente via ExchangeRate-API.
 
 ## 🛠️ Stack técnica
 
@@ -22,6 +22,7 @@ ferramenta resolve um problema específico (álgebra, números complexos,
 - **[Tailwind CSS](https://tailwindcss.com/)** para estilização
 - **[React Router](https://reactrouter.com/)** para navegação por URL
 - **[i18next](https://www.i18next.com/)** / `react-i18next` para tradução
+- **[Vitest](https://vitest.dev/)** para testes automatizados (80 testes)
 - Dados das ferramentas servidos por um arquivo JSON local (sem backend)
 - Deploy contínuo via **[Vercel](https://vercel.com/)**
 
@@ -32,37 +33,42 @@ src/
 ├── assets/                  # imagens, logo, ícones
 ├── components/
 │   ├── ui/                   # componentes reutilizáveis
-│   │   ├── Button.jsx         # botão com variantes (primary, secondary, ghost)
-│   │   ├── Input.jsx          # campo de texto em font-mono
-│   │   ├── Modal.jsx          # modal genérico (ajuda contextual)
-│   │   ├── ToolCard.jsx       # card container padrão de cada ferramenta
-│   │   ├── OutputPanel.jsx    # painel de saída em estilo terminal
-│   │   ├── ErrorBoundary.jsx  # captura erros de renderização por ferramenta
-│   │   ├── ThemeToggle.jsx    # botão de alternância de tema
-│   │   └── LangToggle.jsx     # seletor de idioma (PT | EN | ES)
+│   │   ├── Button.jsx
+│   │   ├── Input.jsx
+│   │   ├── Modal.jsx
+│   │   ├── ToolCard.jsx
+│   │   ├── OutputPanel.jsx
+│   │   ├── ErrorBoundary.jsx
+│   │   ├── Logo.jsx           # SVG inline — sem flash ao trocar tema
+│   │   ├── ThemeToggle.jsx
+│   │   └── LangToggle.jsx
 │   └── layout/
 │       ├── Header.jsx
 │       └── Footer.jsx
-├── features/                # cada ferramenta do Hub vive isolada aqui
+├── features/                # cada ferramenta vive isolada aqui
 │   ├── lisp-calculator/
 │   ├── matrix-circuit/
-│   └── interest-calculator/
+│   ├── interest-calculator/
+│   ├── descriptive-stats/
+│   └── currency-converter/
 ├── pages/
-│   ├── Home.jsx             # grade de ferramentas
-│   └── ToolPage.jsx         # casca que renderiza uma ferramenta por URL
+│   ├── Home.jsx             # grade com busca e filtros por tag
+│   └── ToolPage.jsx         # cabeçalho contextual + ferramenta
 ├── context/
-│   └── ThemeContext.jsx     # tema claro/escuro com persistência
+│   └── ThemeContext.jsx
+├── hooks/
+│   └── useDocumentTitle.js
 ├── data/
 │   └── projetos.json        # catálogo das ferramentas do Hub
-├── locales/                 # traduções
+├── locales/                 # traduções pt-BR / en / es
 │   ├── pt-BR.json
 │   ├── en.json
 │   └── es.json
 ├── utils/
-│   └── TranslateError.js    # mapeia mensagens de erro para chaves i18n
-├── i18n.js                  # configuração do i18next
-├── App.jsx                  # rotas e registro de componentes (com lazy loading)
-└── main.jsx                 # ponto de entrada
+│   └── TranslateError.js
+├── i18n.js
+├── App.jsx                  # rotas + lazy loading por ferramenta
+└── main.jsx
 ```
 
 Cada ferramenta nova segue o mesmo padrão: uma pasta isolada em
@@ -81,11 +87,24 @@ npm run dev
 
 O projeto abre por padrão em `http://localhost:5173`.
 
+### Variáveis de ambiente
+
+Copie `.env.example` para `.env` e preencha:
+
+```
+VITE_EXCHANGE_RATE_API_KEY=sua_chave_aqui
+```
+
+Obtenha uma chave gratuita em [exchangerate-api.com](https://www.exchangerate-api.com/).
+Na Vercel, adicione em `Settings → Environment Variables`.
+
 ### Outros comandos
 
 ```bash
-npm run build      # build de produção em /dist
-npm run preview    # serve o build de produção localmente
+npm run build          # build de produção em /dist
+npm run preview        # serve o build de produção localmente
+npm test               # roda os 80 testes automatizados
+npm run test:coverage  # relatório de cobertura
 ```
 
 ## 🌱 Adicionando uma nova ferramenta
@@ -93,27 +112,28 @@ npm run preview    # serve o build de produção localmente
 1. Crie uma pasta em `src/features/<nome-da-ferramenta>/` com a lógica pura
    e o componente React (`index.js` exportando o componente).
 2. Adicione uma entrada em `src/data/projetos.json` com `id`, `nome`,
-   `descricao`, `rota` e `componente`.
-3. Registre o componente em `src/App.jsx` via `React.lazy()` em
-   `REGISTRO_COMPONENTES` (garante code splitting automático).
-4. Adicione as traduções em `src/locales/{pt-BR,en,es}.json`, sob
+   `descricao`, `tags`, `rota` e `componente`.
+3. Registre o componente via `React.lazy()` em `src/App.jsx`.
+4. Adicione traduções em `src/locales/{pt-BR,en,es}.json` sob
    `tools.<nomeDoComponente>` e `ferramentas.<id>`.
+5. Escreva testes para a lógica pura em `<nome>.test.js`.
 
 ## ⚙️ Decisões de arquitetura
 
-- **Monorepo com features isoladas** — cada ferramenta vive em sua própria
-  pasta e pode ser extraída para um repositório separado no futuro sem
-  reescrever nada do resto do Hub.
-- **Code splitting por ferramenta** — cada feature é carregada sob demanda
-  via `React.lazy()`, sem impactar o tempo de carregamento inicial.
-- **Error Boundary por ferramenta** — erros de renderização em uma ferramenta
-  não derrubam o Hub inteiro; o usuário vê uma tela de fallback com opção
-  de tentar novamente.
-- **i18n por namespace** — traduções organizadas sob `tools.<nome>` mantêm
-  cada ferramenta responsável pelo próprio conteúdo textual.
-- **JSON como banco de dados temporário** — `projetos.json` serve como
-  catálogo sem necessidade de backend; a estrutura permite migrar para uma
-  API real sem alterar os componentes.
+- **Monorepo com features isoladas** — cada ferramenta pode ser extraída
+  para repositório separado no futuro sem reescrever o resto do Hub.
+- **Code splitting por ferramenta** — `React.lazy()` garante que cada
+  feature é carregada só quando a rota é acessada.
+- **Error Boundary por ferramenta** — erros de renderização não derrubam
+  o Hub inteiro; distingue erros de código de erros de rede (chunk).
+- **i18n por namespace** — `tools.<nome>` mantém cada ferramenta
+  responsável pelo próprio conteúdo textual.
+- **Cache de API com TTL** — cotações de moeda ficam no localStorage
+  por 24h, economizando requisições da cota gratuita.
+- **SVG inline para logo** — zero requisição de rede, sem flash ao
+  trocar tema, cores controladas por classes Tailwind.
+- **JSON como banco de dados temporário** — `projetos.json` pode migrar
+  para uma API real sem alterar os componentes.
 
 ## 🤝 Contribuindo
 

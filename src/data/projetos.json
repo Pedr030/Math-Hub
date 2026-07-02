@@ -59,6 +59,66 @@
       "componente": "CurrencyConverter",
       "ativo": true,
       "destaque": false
+    },
+    {
+      "id": "conversor-bases",
+      "nome": "Conversor de Bases Numéricas",
+      "descricao": "Converta números entre binário, octal, decimal e hexadecimal.",
+      "icone": "binary",
+      "categoria": "calculo",
+      "tags": ["algebra", "computacao"],
+      "rota": "/ferramentas/conversor-bases",
+      "componente": "BaseConverter",
+      "ativo": false,
+      "destaque": false
+    },
+    {
+      "id": "operacoes-matrizes",
+      "nome": "Operações com Matrizes",
+      "descricao": "Some, multiplique, transpose e calcule determinantes de matrizes 2x2 e 3x3.",
+      "icone": "matrix",
+      "categoria": "algebra-linear",
+      "tags": ["algebra-linear", "matrizes"],
+      "rota": "/ferramentas/operacoes-matrizes",
+      "componente": "MatrixOps",
+      "ativo": false,
+      "destaque": false
+    },
+    {
+      "id": "resolvedor-triangulos",
+      "nome": "Resolvedor de Triângulos",
+      "descricao": "Calcule lados, ângulos, área e perímetro usando a Lei dos Senos e dos Cossenos.",
+      "icone": "triangle",
+      "categoria": "geometria",
+      "tags": ["geometria", "trigonometria"],
+      "rota": "/ferramentas/resolvedor-triangulos",
+      "componente": "TriangleSolver",
+      "ativo": false,
+      "destaque": false
+    },
+    {
+      "id": "calculadora-progressoes",
+      "nome": "Calculadora de Progressões",
+      "descricao": "Calcule termo geral, soma e próximos termos de progressões aritméticas e geométricas.",
+      "icone": "sequence",
+      "categoria": "calculo",
+      "tags": ["algebra", "sequencias"],
+      "rota": "/ferramentas/calculadora-progressoes",
+      "componente": "ProgressionCalc",
+      "ativo": false,
+      "destaque": false
+    },
+    {
+      "id": "conversor-unidades",
+      "nome": "Conversor de Unidades",
+      "descricao": "Converta entre unidades de comprimento, massa, temperatura e volume.",
+      "icone": "ruler",
+      "categoria": "conversao",
+      "tags": ["conversao", "matematica-aplicada"],
+      "rota": "/ferramentas/conversor-unidades",
+      "componente": "UnitConverter",
+      "ativo": false,
+      "destaque": false
     }
   ]
 }
