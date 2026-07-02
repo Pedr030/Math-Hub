@@ -40,7 +40,7 @@ function ToolPage({ ferramentas, registroComponentes }) {
   }
 
   return (
-    <>
+    <div className="animate-fadein">
       <Link
         to="/"
         className="inline-block mb-6 font-mono text-sm text-brand-500 hover:underline"
@@ -51,7 +51,7 @@ function ToolPage({ ferramentas, registroComponentes }) {
       <ErrorBoundary key={retryKey} onReset={() => setRetryKey((k) => k + 1)}>
         <Componente />
       </ErrorBoundary>
-    </>
+    </div>
   );
 }
 

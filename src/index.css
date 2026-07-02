@@ -8,12 +8,45 @@
     @apply font-body antialiased;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     @apply font-display;
   }
 
-  /* Expressões matemáticas/código sempre em monoespaçado */
-  code, .math-expr {
+  code,
+  .math-expr {
     @apply font-mono;
+  }
+
+  /* Transição suave ao trocar tema claro/escuro */
+  html {
+    transition:
+      background-color 0.3s ease,
+      color 0.2s ease;
+  }
+
+  * {
+    transition-property: background-color, border-color, color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+  }
+}
+
+@layer utilities {
+  .animate-fadein {
+    animation: fadein 0.15s ease-out;
+  }
+
+  @keyframes fadein {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
