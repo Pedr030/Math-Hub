@@ -28,7 +28,7 @@
   }
 
   * {
-    transition-property: background-color, border-color, color;
+    transition-property: background-color, border-color, color, fill;
     transition-duration: 0.2s;
     transition-timing-function: ease;
   }
