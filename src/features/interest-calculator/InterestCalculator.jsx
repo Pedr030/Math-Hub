@@ -107,12 +107,6 @@ function InterestCalculator() {
           ?
         </button>
       </div>
-      <h3 className="font-display text-xl font-semibold mb-1">
-        {t("tools.interestCalculator.titulo")}
-      </h3>
-      <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-        {t("tools.interestCalculator.subtitulo")}
-      </p>
 
       {/* Toggle Simples / Composto */}
       <div className="flex gap-2 mb-5">

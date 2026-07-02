@@ -123,10 +123,6 @@ function LispCalculator() {
         </button>
       </div>
 
-      <h3 className="font-display text-xl font-semibold mb-4">
-        {t("tools.lispCalculator.titulo")}
-      </h3>
-
       <form
         onSubmit={handleCalcular}
         className="flex flex-col sm:flex-row gap-2"
