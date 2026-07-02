@@ -55,6 +55,10 @@
     "estatistica-descritiva": {
       "nome": "Estadística Descriptiva",
       "descricao": "Calcula media, mediana, moda, desviación estándar y otras métricas a partir de una lista de números."
+    },
+    "conversor-moeda": {
+      "nome": "Conversor de Moneda",
+      "descricao": "Convierte valores entre las principales monedas del mundo con cotización actualizada diariamente."
     }
   },
   "tools": {
@@ -241,6 +245,31 @@
         "moda": {
           "titulo": "Cuando no hay moda",
           "desc": "Si todos los valores aparecen exactamente la misma cantidad de veces, la distribución no tiene moda — la herramienta muestra \"Sin moda\" en esos casos."
+        }
+      }
+    },
+    "currencyConverter": {
+      "trocar": "Invertir monedas",
+      "carregando": "Obteniendo cotización...",
+      "atualizadoEm": "Cotización de",
+      "doCache": "en caché",
+      "erros": {
+        "apiKey": "API key no configurada.",
+        "rede": "No se pudo obtener la cotización. Verifica tu conexión."
+      },
+      "ajuda": {
+        "titulo": "Cómo usar el convertidor",
+        "comoUsar": {
+          "titulo": "Cómo usar",
+          "desc": "Ingresa el valor, selecciona la moneda de origen y la de destino. El resultado aparece automáticamente una vez cargada la cotización."
+        },
+        "cotacao": {
+          "titulo": "De dónde vienen las cotizaciones",
+          "desc": "Las cotizaciones son proporcionadas por ExchangeRate-API y se actualizan una vez al día. Son tasas de referencia de mercado — pueden diferir ligeramente de las tasas ofrecidas por bancos y casas de cambio."
+        },
+        "cache": {
+          "titulo": "Funcionamiento sin conexión",
+          "desc": "Después de la primera búsqueda, la cotización se guarda localmente por 24 horas. Si abres la herramienta nuevamente en ese período, el resultado aparece instantáneamente incluso sin internet."
         }
       }
     }
