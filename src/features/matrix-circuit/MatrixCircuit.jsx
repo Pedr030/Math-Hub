@@ -111,13 +111,6 @@ function MatrixCircuit() {
         </button>
       </div>
 
-      <h3 className="font-display text-xl font-semibold mb-1">
-        {t("tools.matrixCircuit.titulo")}
-      </h3>
-      <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-        {t("tools.matrixCircuit.subtitulo")}
-      </p>
-
       <form onSubmit={handleCalcular} className="space-y-4">
         {[0, 1, 2].map((i) => (
           <div key={i}>
