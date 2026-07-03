@@ -1,1 +1,1 @@
-export { default } from './LispCalculator';
+export { default } from "./LispCalculator.jsx";

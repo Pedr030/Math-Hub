@@ -1,1 +1,1 @@
-export { default } from "./DescriptiveStats";
+export { default } from "./DescriptiveStats.jsx";

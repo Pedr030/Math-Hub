@@ -1,1 +1,1 @@
-export { default } from "./InterestCalculator";
+export { default } from "./InterestCalculator.jsx";

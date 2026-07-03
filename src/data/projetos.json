@@ -69,7 +69,7 @@
       "tags": ["algebra", "computacao"],
       "rota": "/ferramentas/conversor-bases",
       "componente": "BaseConverter",
-      "ativo": false,
+      "ativo": true,
       "destaque": false
     },
     {

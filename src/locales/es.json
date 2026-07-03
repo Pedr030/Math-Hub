@@ -18,7 +18,12 @@
     "fisica": "Física",
     "financeiro": "Finanzas",
     "matematica-aplicada": "Matemática Aplicada",
-    "estatistica": "Estadística"
+    "estatistica": "Estadística",
+    "computacao": "Computación",
+    "geometria": "Geometría",
+    "trigonometria": "Trigonometría",
+    "sequencias": "Secuencias",
+    "conversao": "Conversión"
   },
   "nav": {
     "subtitulo": "Herramientas matemáticas"
@@ -59,6 +64,26 @@
     "conversor-moeda": {
       "nome": "Conversor de Moneda",
       "descricao": "Convierte valores entre las principales monedas del mundo con cotización actualizada diariamente."
+    },
+    "conversor-bases": {
+      "nome": "Conversor de Bases Numéricas",
+      "descricao": "Convierte números entre binario, octal, decimal y hexadecimal."
+    },
+    "operacoes-matrizes": {
+      "nome": "Operaciones con Matrices",
+      "descricao": "Suma, multiplica, transpone y calcula determinantes de matrices 2x2 y 3x3."
+    },
+    "resolvedor-triangulos": {
+      "nome": "Resolutor de Triángulos",
+      "descricao": "Calcula lados, ángulos, área y perímetro usando la Ley de los Senos y los Cosenos."
+    },
+    "calculadora-progressoes": {
+      "nome": "Calculadora de Progresiones",
+      "descricao": "Calcula el término general, la suma y los próximos términos de progresiones aritméticas y geométricas."
+    },
+    "conversor-unidades": {
+      "nome": "Conversor de Unidades",
+      "descricao": "Convierte entre diferentes unidades de longitud, área, volumen, masa, temperatura y tiempo."
     }
   },
   "tools": {
@@ -270,6 +295,40 @@
         "cache": {
           "titulo": "Funcionamiento sin conexión",
           "desc": "Después de la primera búsqueda, la cotización se guarda localmente por 24 horas. Si abres la herramienta nuevamente en ese período, el resultado aparece instantáneamente incluso sin internet."
+        }
+      }
+    },
+    "baseConverter": {
+      "converter": "Convertir",
+      "origem": "origen",
+      "verPassos": "+ ver conversión a base {{base}} paso a paso",
+      "ocultarPassos": "— ocultar pasos",
+      "passosTitle": "Convirtiendo {{decimal}} a base {{base}} (divisiones sucesivas)",
+      "lendoResto": "Leyendo los restos de abajo hacia arriba",
+      "placeholder": "Ingresa un número en {{base}}",
+      "bases": {
+        "2": "Binario",
+        "8": "Octal",
+        "10": "Decimal",
+        "16": "Hexadecimal"
+      },
+      "erros": {
+        "vazio": "Ingresa un número para convertir.",
+        "invalido": "Valor inválido para la base {{base}}."
+      },
+      "ajuda": {
+        "titulo": "Cómo usar el conversor de bases",
+        "oQueE": {
+          "titulo": "Qué son las bases numéricas",
+          "desc": "Una base numérica define cuántos símbolos diferentes existen. Base 10 usa 0-9 (decimal, lo que usamos a diario). Base 2 usa 0 y 1 (binario, usado en computadoras). Base 8 usa 0-7 (octal). Base 16 usa 0-9 y A-F (hexadecimal, común en programación y colores)."
+        },
+        "comoUsar": {
+          "titulo": "Cómo usar",
+          "desc": "Selecciona la base del número que tienes, ingresa el valor y haz clic en Convertir. El resultado aparece simultáneamente en las 4 bases. Para hexadecimal, las letras A-F se aceptan en mayúsculas o minúsculas."
+        },
+        "passos": {
+          "titulo": "Paso a paso",
+          "desc": "Para bases distintas del decimal, puedes expandir los pasos de la conversión — el algoritmo de divisiones sucesivas muestra cómo llegar al resultado, útil para aprender o verificar el razonamiento."
         }
       }
     }
