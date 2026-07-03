@@ -18,7 +18,12 @@
     "fisica": "Physics",
     "financeiro": "Finance",
     "matematica-aplicada": "Applied Mathematics",
-    "estatistica": "Statistics"
+    "estatistica": "Statistics",
+    "computacao": "Computing",
+    "geometria": "Geometry",
+    "trigonometria": "Trigonometry",
+    "sequencias": "Sequences",
+    "conversao": "Conversion"
   },
   "nav": {
     "subtitulo": "Math tools"
@@ -59,6 +64,26 @@
     "conversor-moeda": {
       "nome": "Currency Converter",
       "descricao": "Convert values between the world's major currencies with daily updated rates."
+    },
+    "conversor-bases": {
+      "nome": "Base Converter",
+      "descricao": "Convert numbers between binary, octal, decimal and hexadecimal."
+    },
+    "operacoes-matrizes": {
+      "nome": "Matrix Operations",
+      "descricao": "Add, multiply, transpose and calculate determinants of 2x2 and 3x3 matrices."
+    },
+    "resolvedor-triangulos": {
+      "nome": "Triangle Solver",
+      "descricao": "Calculate sides, angles, area and perimeter using the Law of Sines and the Law of Cosines."
+    },
+    "calculadora-progressoes": {
+      "nome": "Sequence Calculator",
+      "descricao": "Calculate general terms, sums and next terms of arithmetic and geometric sequences."
+    },
+    "conversor-unidades": {
+      "nome": "Unit Converter",
+      "descricao": "Convert between different units of length, area, volume, mass, temperature and time."
     }
   },
   "tools": {

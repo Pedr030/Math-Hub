@@ -18,7 +18,12 @@
     "fisica": "Física",
     "financeiro": "Financeiro",
     "matematica-aplicada": "Matemática Aplicada",
-    "estatistica": "Estatística"
+    "estatistica": "Estatística",
+    "computacao": "Computação",
+    "geometria": "Geometria",
+    "trigonometria": "Trigonometria",
+    "sequencias": "Sequências",
+    "conversao-de-unidades": "Conversão"
   },
   "nav": {
     "subtitulo": "Ferramentas matemáticas"
@@ -59,6 +64,26 @@
     "conversor-moeda": {
       "nome": "Conversor de Moeda",
       "descricao": "Converta valores entre as principais moedas do mundo com cotação atualizada diariamente."
+    },
+    "conversor-bases": {
+      "nome": "Conversor de Bases Numéricas",
+      "descricao": "Converta números entre binário, octal, decimal e hexadecimal."
+    },
+    "operacoes-matrizes": {
+      "nome": "Operações com Matrizes",
+      "descricao": "Some, multiplique, transpose e calcule determinantes de matrizes 2x2 e 3x3."
+    },
+    "resolvedor-triangulos": {
+      "nome": "Resolvedor de Triângulos",
+      "descricao": "Calcule lados, ângulos, área e perímetro usando a Lei dos Senos e dos Cossenos."
+    },
+    "calculadora-progressoes": {
+      "nome": "Calculadora de Progressões",
+      "descricao": "Calcule termo geral, soma e próximos termos de progressões aritméticas e geométricas."
+    },
+    "conversor-unidades": {
+      "nome": "Conversor de Unidades",
+      "descricao": "Converta entre diferentes unidades de comprimento, área, volume, massa, temperatura e tempo."
     }
   },
   "tools": {
