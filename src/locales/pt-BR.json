@@ -297,6 +297,40 @@
           "desc": "Após a primeira busca, a cotação fica salva localmente por 24 horas. Se você abrir a ferramenta novamente nesse período, o resultado aparece instantaneamente mesmo sem internet."
         }
       }
+    },
+    "baseConverter": {
+      "converter": "Converter",
+      "origem": "origem",
+      "verPassos": "+ ver conversão para base {{base}} passo a passo",
+      "ocultarPassos": "— ocultar passos",
+      "passosTitle": "Conversão de {{decimal}} para base {{base}} (divisões sucessivas)",
+      "lendoResto": "Lendo os restos de baixo para cima",
+      "placeholder": "Digite um número em {{base}}",
+      "bases": {
+        "2": "Binário",
+        "8": "Octal",
+        "10": "Decimal",
+        "16": "Hexadecimal"
+      },
+      "erros": {
+        "vazio": "Digite um número para converter.",
+        "invalido": "Valor inválido para a base {{base}}."
+      },
+      "ajuda": {
+        "titulo": "Como usar o conversor de bases",
+        "oQueE": {
+          "titulo": "O que são bases numéricas",
+          "desc": "Uma base numérica define quantos símbolos diferentes existem. Base 10 usa 0-9 (decimal, o que usamos no cotidiano). Base 2 usa 0 e 1 (binário, usado em computadores). Base 8 usa 0-7 (octal). Base 16 usa 0-9 e A-F (hexadecimal, comum em programação e cores)."
+        },
+        "comoUsar": {
+          "titulo": "Como usar",
+          "desc": "Selecione a base do número que você tem, digite o valor e clique em Converter. O resultado aparece simultaneamente nas 4 bases. Para hexadecimal, letras A-F são aceitas em maiúsculo ou minúsculo."
+        },
+        "passos": {
+          "titulo": "Passo a passo",
+          "desc": "Para bases diferentes de decimal, você pode expandir os passos da conversão — o algoritmo de divisões sucessivas mostra como chegar ao resultado, útil para aprender ou conferir o raciocínio."
+        }
+      }
     }
   }
 }

@@ -66,7 +66,7 @@
       "descricao": "Convert values between the world's major currencies with daily updated rates."
     },
     "conversor-bases": {
-      "nome": "Base Converter",
+      "nome": "Number Base Converter",
       "descricao": "Convert numbers between binary, octal, decimal and hexadecimal."
     },
     "operacoes-matrizes": {
@@ -295,6 +295,40 @@
         "cache": {
           "titulo": "Offline support",
           "desc": "After the first fetch, the rate is saved locally for 24 hours. If you open the tool again within that period, the result appears instantly even without internet."
+        }
+      }
+    },
+    "baseConverter": {
+      "converter": "Convert",
+      "origem": "source",
+      "verPassos": "+ show base {{base}} conversion step by step",
+      "ocultarPassos": "— hide steps",
+      "passosTitle": "Converting {{decimal}} to base {{base}} (successive divisions)",
+      "lendoResto": "Reading remainders bottom to top",
+      "placeholder": "Enter a {{base}} number",
+      "bases": {
+        "2": "Binary",
+        "8": "Octal",
+        "10": "Decimal",
+        "16": "Hexadecimal"
+      },
+      "erros": {
+        "vazio": "Enter a number to convert.",
+        "invalido": "Invalid value for base {{base}}."
+      },
+      "ajuda": {
+        "titulo": "How to use the base converter",
+        "oQueE": {
+          "titulo": "What are number bases",
+          "desc": "A number base defines how many different symbols exist. Base 10 uses 0-9 (decimal, what we use daily). Base 2 uses 0 and 1 (binary, used in computers). Base 8 uses 0-7 (octal). Base 16 uses 0-9 and A-F (hexadecimal, common in programming and colors)."
+        },
+        "comoUsar": {
+          "titulo": "How to use",
+          "desc": "Select the base of the number you have, enter the value and click Convert. The result appears simultaneously in all 4 bases. For hexadecimal, letters A-F are accepted in upper or lowercase."
+        },
+        "passos": {
+          "titulo": "Step by step",
+          "desc": "For non-decimal bases, you can expand the conversion steps — the successive division algorithm shows how to reach the result, useful for learning or checking the reasoning."
         }
       }
     }

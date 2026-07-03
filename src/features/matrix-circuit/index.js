@@ -1,1 +1,1 @@
-export { default } from "./MatrixCircuit";
+export { default } from "./MatrixCircuit.jsx";
