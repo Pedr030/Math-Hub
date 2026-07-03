@@ -81,7 +81,7 @@
       "tags": ["algebra-linear", "matrizes"],
       "rota": "/ferramentas/operacoes-matrizes",
       "componente": "MatrixOps",
-      "ativo": false,
+      "ativo": true,
       "destaque": false
     },
     {
