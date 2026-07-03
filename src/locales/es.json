@@ -331,6 +331,39 @@
           "desc": "Para bases distintas del decimal, puedes expandir los pasos de la conversión — el algoritmo de divisiones sucesivas muestra cómo llegar al resultado, útil para aprender o verificar el razonamiento."
         }
       }
+    },
+    "matrixOps": {
+      "calcular": "Calcular",
+      "matriz": "Matriz",
+      "matrizA": "Matriz A",
+      "matrizB": "Matriz B",
+      "resultado": "Resultado",
+      "operacoes": {
+        "somar": "A + B",
+        "subtrair": "A − B",
+        "multiplicar": "A × B",
+        "transposta": "Transpuesta",
+        "determinante": "Determinante"
+      },
+      "ajuda": {
+        "titulo": "Cómo usar operaciones con matrices",
+        "operacoes": {
+          "titulo": "Operaciones disponibles",
+          "somar": "A + B — suma elemento a elemento (matrices deben tener el mismo tamaño)",
+          "subtrair": "A − B — resta elemento a elemento",
+          "multiplicar": "A × B — producto matricial (no es elemento a elemento)",
+          "transposta": "Transpuesta — las filas se convierten en columnas y viceversa",
+          "determinante": "Determinante — escalar que resume propiedades de la matriz"
+        },
+        "multiplicacao": {
+          "titulo": "Sobre la multiplicación",
+          "desc": "La multiplicación de matrices no es conmutativa: A×B generalmente es distinto de B×A. El elemento en la fila i, columna j del resultado es el producto escalar de la fila i de A con la columna j de B."
+        },
+        "determinante": {
+          "titulo": "Sobre el determinante",
+          "desc": "Un determinante igual a cero indica que la matriz es singular — no tiene inversa y el sistema lineal asociado no tiene solución única."
+        }
+      }
     }
   }
 }
