@@ -364,6 +364,30 @@
           "desc": "Un determinante igual a cero indica que la matriz es singular — no tiene inversa y el sistema lineal asociado no tiene solución única."
         }
       }
+    },
+    "unitConverter": {
+      "origem": "origen",
+      "categorias": {
+        "comprimento": "Longitud",
+        "massa": "Masa",
+        "temperatura": "Temperatura",
+        "volume": "Volumen"
+      },
+      "ajuda": {
+        "titulo": "Cómo usar el conversor de unidades",
+        "comoUsar": {
+          "titulo": "Cómo usar",
+          "desc": "Selecciona la categoría, elige la unidad de origen en el selector junto al campo e ingresa el valor. Todos los equivalentes aparecen instantáneamente, sin necesidad de hacer clic en ningún botón."
+        },
+        "temperatura": {
+          "titulo": "Temperatura",
+          "desc": "La conversión de temperatura usa fórmulas directas (no es simple multiplicación): °C × 9/5 + 32 = °F, y °C + 273,15 = K. El conversor lo aplica automáticamente."
+        },
+        "precisao": {
+          "titulo": "Precisión de los resultados",
+          "desc": "Los resultados se muestran con hasta 6 dígitos significativos. Para valores muy grandes o muy pequeños, se usa notación científica automáticamente."
+        }
+      }
     }
   }
 }
