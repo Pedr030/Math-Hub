@@ -15,6 +15,12 @@ ferramenta resolve um problema específico com uma interface simples e consisten
   padrão e outras métricas a partir de uma lista de números.
 - 💱 **Conversor de Moeda** — converte valores entre as principais moedas
   do mundo com cotação atualizada diariamente via ExchangeRate-API.
+- 🔢 **Conversor de Bases Numéricas** — converte entre binário, octal,
+  decimal e hexadecimal com passo a passo das divisões sucessivas.
+- 🔢 **Operações com Matrizes** — soma, subtração, multiplicação,
+  transposta e determinante de matrizes 2×2 e 3×3.
+- 📐 **Conversor de Unidades** — converte entre unidades de comprimento,
+  massa, temperatura e volume em tempo real.
 
 ## 🛠️ Stack técnica
 
@@ -22,7 +28,7 @@ ferramenta resolve um problema específico com uma interface simples e consisten
 - **[Tailwind CSS](https://tailwindcss.com/)** para estilização
 - **[React Router](https://reactrouter.com/)** para navegação por URL
 - **[i18next](https://www.i18next.com/)** / `react-i18next` para tradução
-- **[Vitest](https://vitest.dev/)** para testes automatizados (80 testes)
+- **[Vitest](https://vitest.dev/)** para testes automatizados (117 testes)
 - Dados das ferramentas servidos por um arquivo JSON local (sem backend)
 - Deploy contínuo via **[Vercel](https://vercel.com/)**
 
@@ -50,7 +56,10 @@ src/
 │   ├── matrix-circuit/
 │   ├── interest-calculator/
 │   ├── descriptive-stats/
-│   └── currency-converter/
+│   ├── currency-converter/
+│   ├── base-converter/
+│   ├── matrix-ops/
+│   └── unit-converter/
 ├── pages/
 │   ├── Home.jsx             # grade com busca e filtros por tag
 │   └── ToolPage.jsx         # cabeçalho contextual + ferramenta
@@ -103,7 +112,7 @@ Na Vercel, adicione em `Settings → Environment Variables`.
 ```bash
 npm run build          # build de produção em /dist
 npm run preview        # serve o build de produção localmente
-npm test               # roda os 80 testes automatizados
+npm test               # roda os 117 testes automatizados
 npm run test:coverage  # relatório de cobertura
 ```
 

@@ -331,6 +331,63 @@
           "desc": "For non-decimal bases, you can expand the conversion steps — the successive division algorithm shows how to reach the result, useful for learning or checking the reasoning."
         }
       }
+    },
+    "matrixOps": {
+      "calcular": "Calculate",
+      "matriz": "Matrix",
+      "matrizA": "Matrix A",
+      "matrizB": "Matrix B",
+      "resultado": "Result",
+      "operacoes": {
+        "somar": "A + B",
+        "subtrair": "A − B",
+        "multiplicar": "A × B",
+        "transposta": "Transpose",
+        "determinante": "Determinant"
+      },
+      "ajuda": {
+        "titulo": "How to use matrix operations",
+        "operacoes": {
+          "titulo": "Available operations",
+          "somar": "A + B — element-wise addition (matrices must have the same size)",
+          "subtrair": "A − B — element-wise subtraction",
+          "multiplicar": "A × B — matrix product (not element-wise)",
+          "transposta": "Transpose — rows become columns and vice versa",
+          "determinante": "Determinant — scalar that summarizes matrix properties"
+        },
+        "multiplicacao": {
+          "titulo": "About multiplication",
+          "desc": "Matrix multiplication is not commutative: A×B is generally different from B×A. The element at row i, column j of the result is the dot product of row i of A with column j of B."
+        },
+        "determinante": {
+          "titulo": "About the determinant",
+          "desc": "A determinant equal to zero means the matrix is singular — it has no inverse and the associated linear system has no unique solution."
+        }
+      }
+    },
+    "unitConverter": {
+      "origem": "source",
+      "categorias": {
+        "comprimento": "Length",
+        "massa": "Mass",
+        "temperatura": "Temperature",
+        "volume": "Volume"
+      },
+      "ajuda": {
+        "titulo": "How to use the unit converter",
+        "comoUsar": {
+          "titulo": "How to use",
+          "desc": "Select the category, choose the source unit in the selector next to the field, and enter the value. All equivalents appear instantly, without clicking any button."
+        },
+        "temperatura": {
+          "titulo": "Temperature",
+          "desc": "Temperature conversion uses direct formulas (not simple multiplication): °C × 9/5 + 32 = °F, and °C + 273.15 = K. The converter applies this automatically."
+        },
+        "precisao": {
+          "titulo": "Result precision",
+          "desc": "Results are displayed with up to 6 significant digits. For very large or very small values, scientific notation is used automatically."
+        }
+      }
     }
   }
 }

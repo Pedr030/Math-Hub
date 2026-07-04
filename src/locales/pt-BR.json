@@ -331,6 +331,63 @@
           "desc": "Para bases diferentes de decimal, você pode expandir os passos da conversão — o algoritmo de divisões sucessivas mostra como chegar ao resultado, útil para aprender ou conferir o raciocínio."
         }
       }
+    },
+    "matrixOps": {
+      "calcular": "Calcular",
+      "matriz": "Matriz",
+      "matrizA": "Matriz A",
+      "matrizB": "Matriz B",
+      "resultado": "Resultado",
+      "operacoes": {
+        "somar": "A + B",
+        "subtrair": "A − B",
+        "multiplicar": "A × B",
+        "transposta": "Transposta",
+        "determinante": "Determinante"
+      },
+      "ajuda": {
+        "titulo": "Como usar operações com matrizes",
+        "operacoes": {
+          "titulo": "Operações disponíveis",
+          "somar": "A + B — soma elemento a elemento (matrizes devem ter o mesmo tamanho)",
+          "subtrair": "A − B — subtração elemento a elemento",
+          "multiplicar": "A × B — produto matricial (não é elemento a elemento)",
+          "transposta": "Transposta — linhas viram colunas e vice-versa",
+          "determinante": "Determinante — escalar que resume propriedades da matriz"
+        },
+        "multiplicacao": {
+          "titulo": "Sobre a multiplicação",
+          "desc": "A multiplicação de matrizes não é comutativa: A×B geralmente é diferente de B×A. O elemento na linha i, coluna j do resultado é o produto escalar da linha i de A com a coluna j de B."
+        },
+        "determinante": {
+          "titulo": "Sobre o determinante",
+          "desc": "Um determinante igual a zero indica que a matriz é singular — não tem inversa e o sistema linear associado não tem solução única."
+        }
+      }
+    },
+    "unitConverter": {
+      "origem": "origem",
+      "categorias": {
+        "comprimento": "Comprimento",
+        "massa": "Massa",
+        "temperatura": "Temperatura",
+        "volume": "Volume"
+      },
+      "ajuda": {
+        "titulo": "Como usar o conversor de unidades",
+        "comoUsar": {
+          "titulo": "Como usar",
+          "desc": "Selecione a categoria, escolha a unidade de origem no seletor ao lado do campo, e digite o valor. Todos os equivalentes aparecem instantaneamente, sem precisar clicar em nenhum botão."
+        },
+        "temperatura": {
+          "titulo": "Temperatura",
+          "desc": "A conversão de temperatura usa fórmulas diretas (não é simples multiplicação): °C × 9/5 + 32 = °F, e °C + 273,15 = K. O conversor aplica isso automaticamente."
+        },
+        "precisao": {
+          "titulo": "Precisão dos resultados",
+          "desc": "Os resultados são exibidos com até 6 dígitos significativos. Para valores muito grandes ou muito pequenos, a notação científica é usada automaticamente."
+        }
+      }
     }
   }
 }

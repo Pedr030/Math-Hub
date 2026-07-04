@@ -81,7 +81,7 @@
       "tags": ["algebra-linear", "matrizes"],
       "rota": "/ferramentas/operacoes-matrizes",
       "componente": "MatrixOps",
-      "ativo": false,
+      "ativo": true,
       "destaque": false
     },
     {
@@ -117,7 +117,7 @@
       "tags": ["conversao", "matematica-aplicada"],
       "rota": "/ferramentas/conversor-unidades",
       "componente": "UnitConverter",
-      "ativo": false,
+      "ativo": true,
       "destaque": false
     }
   ]
