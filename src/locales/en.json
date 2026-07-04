@@ -364,6 +364,30 @@
           "desc": "A determinant equal to zero means the matrix is singular — it has no inverse and the associated linear system has no unique solution."
         }
       }
+    },
+    "unitConverter": {
+      "origem": "source",
+      "categorias": {
+        "comprimento": "Length",
+        "massa": "Mass",
+        "temperatura": "Temperature",
+        "volume": "Volume"
+      },
+      "ajuda": {
+        "titulo": "How to use the unit converter",
+        "comoUsar": {
+          "titulo": "How to use",
+          "desc": "Select the category, choose the source unit in the selector next to the field, and enter the value. All equivalents appear instantly, without clicking any button."
+        },
+        "temperatura": {
+          "titulo": "Temperature",
+          "desc": "Temperature conversion uses direct formulas (not simple multiplication): °C × 9/5 + 32 = °F, and °C + 273.15 = K. The converter applies this automatically."
+        },
+        "precisao": {
+          "titulo": "Result precision",
+          "desc": "Results are displayed with up to 6 significant digits. For very large or very small values, scientific notation is used automatically."
+        }
+      }
     }
   }
 }
