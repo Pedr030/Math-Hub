@@ -84,8 +84,8 @@
       "descricao": "Calculate sides, angles, area and perimeter using the Law of Sines and the Law of Cosines."
     },
     "calculadora-progressoes": {
-      "nome": "Sequence Calculator",
-      "descricao": "Calculate general terms, sums and next terms of arithmetic and geometric sequences."
+      "nome": "Progression Calculator",
+      "descricao": "Calculate the general term, sum and sequence of arithmetic (AP) and geometric (GP) progressions."
     },
     "conversor-unidades": {
       "nome": "Unit Converter",
@@ -429,6 +429,53 @@
           "cup": "Cup (cup)",
           "floz": "Fl oz (fl oz)",
           "gal": "Gallon (gal)"
+        }
+      }
+    },
+    "progressionCalc": {
+      "calcular": "Calculate",
+      "identificar": "Identify",
+      "placeholderSeq": "E.g.: 2, 4, 6, 8, 10",
+      "modos": {
+        "pa": "AP — Arithmetic",
+        "pg": "GP — Geometric",
+        "identificar": "Identify Sequence"
+      },
+      "campos": {
+        "a1": "First term (a₁)",
+        "razaoPA": "Common difference (d)",
+        "razaoPG": "Common ratio (r)",
+        "n": "Number of terms (n)"
+      },
+      "erros": {
+        "camposVazios": "Fill in all fields before calculating.",
+        "numerosInvalidos": "One or more values are not valid numbers.",
+        "nInvalido": "Number of terms must be an integer between 1 and 100.",
+        "vazioSeq": "Enter a sequence of numbers to identify.",
+        "minimoTermos": "Enter at least 2 terms to identify."
+      },
+      "output": {
+        "an": "Last term (aₙ)",
+        "soma": "Sum of terms",
+        "a1": "First term",
+        "razao": "Common ratio",
+        "termos": "Sequence ({{n}} terms)",
+        "sequencia": "Analyzed sequence",
+        "nenhuma": "The sequence is neither AP nor GP."
+      },
+      "ajuda": {
+        "titulo": "How to use the progression calculator",
+        "pa": {
+          "titulo": "Arithmetic Progression (AP)",
+          "desc": "An AP has a constant difference between consecutive terms (common difference d). Enter the first term (a₁), the common difference and the number of terms to calculate the last term, sum and full sequence."
+        },
+        "pg": {
+          "titulo": "Geometric Progression (GP)",
+          "desc": "A GP has a constant ratio between consecutive terms (common ratio r). Works like AP but uses multiplication instead of addition. The ratio cannot be zero."
+        },
+        "identificar": {
+          "titulo": "Identify sequence",
+          "desc": "Paste a sequence of numbers separated by comma, space or semicolon. The tool automatically checks if it is AP, GP, both (like 1, 1, 1) or neither, and shows the corresponding ratio."
         }
       }
     }
