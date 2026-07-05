@@ -85,7 +85,7 @@
     },
     "calculadora-progressoes": {
       "nome": "Calculadora de Progresiones",
-      "descricao": "Calcula el término general, la suma y los próximos términos de progresiones aritméticas y geométricas."
+      "descricao": "Calcula el término general, la suma y la secuencia de progresiones aritméticas (PA) y geométricas (PG)."
     },
     "conversor-unidades": {
       "nome": "Conversor de Unidades",
@@ -429,6 +429,53 @@
           "cup": "Taza (cup)",
           "floz": "Fl oz (fl oz)",
           "gal": "Galón (gal)"
+        }
+      }
+    },
+    "progressionCalc": {
+      "calcular": "Calcular",
+      "identificar": "Identificar",
+      "placeholderSeq": "Ej: 2, 4, 6, 8, 10",
+      "modos": {
+        "pa": "PA — Aritmética",
+        "pg": "PG — Geométrica",
+        "identificar": "Identificar Secuencia"
+      },
+      "campos": {
+        "a1": "Primer término (a₁)",
+        "razaoPA": "Razón (r)",
+        "razaoPG": "Razón (q)",
+        "n": "Nº de términos (n)"
+      },
+      "erros": {
+        "camposVazios": "Completa todos los campos antes de calcular.",
+        "numerosInvalidos": "Uno o más valores no son números válidos.",
+        "nInvalido": "El número de términos debe ser entero entre 1 y 100.",
+        "vazioSeq": "Ingresa una secuencia de números para identificar.",
+        "minimoTermos": "Ingresa al menos 2 términos para identificar."
+      },
+      "output": {
+        "an": "Último término (aₙ)",
+        "soma": "Suma de términos",
+        "a1": "Primer término",
+        "razao": "Razón",
+        "termos": "Secuencia ({{n}} términos)",
+        "sequencia": "Secuencia analizada",
+        "nenhuma": "La secuencia no es PA ni PG."
+      },
+      "ajuda": {
+        "titulo": "Cómo usar la calculadora de progresiones",
+        "pa": {
+          "titulo": "Progresión Aritmética (PA)",
+          "desc": "Una PA tiene diferencia constante entre términos consecutivos (razón r). Ingresa el primer término (a₁), la razón y la cantidad de términos para calcular el último término, la suma y la secuencia completa."
+        },
+        "pg": {
+          "titulo": "Progresión Geométrica (PG)",
+          "desc": "Una PG tiene razón constante entre términos consecutivos (razón q). Funciona igual que la PA pero usando multiplicación en lugar de suma. La razón no puede ser cero."
+        },
+        "identificar": {
+          "titulo": "Identificar secuencia",
+          "desc": "Pega una secuencia de números separados por coma, espacio o punto y coma. La herramienta verifica automáticamente si es PA, PG, ambas (como 1, 1, 1) o ninguna, e informa la razón correspondiente."
         }
       }
     }
