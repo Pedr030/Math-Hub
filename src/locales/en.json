@@ -387,6 +387,43 @@
           "titulo": "Result precision",
           "desc": "Results are displayed with up to 6 significant digits. For very large or very small values, scientific notation is used automatically."
         }
+      },
+      "verTodas": "+ see all conversions",
+      "ocultarTodas": "— hide all conversions",
+      "unidades": {
+        "comprimento": {
+          "mm": "Millimeter (mm)",
+          "cm": "Centimeter (cm)",
+          "m": "Meter (m)",
+          "km": "Kilometer (km)",
+          "in": "Inch (in)",
+          "ft": "Foot (ft)",
+          "yd": "Yard (yd)",
+          "mi": "Mile (mi)"
+        },
+        "massa": {
+          "mg": "Milligram (mg)",
+          "g": "Gram (g)",
+          "kg": "Kilogram (kg)",
+          "t": "Tonne (t)",
+          "oz": "Ounce (oz)",
+          "lb": "Pound (lb)"
+        },
+        "temperatura": {
+          "C": "Celsius (°C)",
+          "F": "Fahrenheit (°F)",
+          "K": "Kelvin (K)"
+        },
+        "volume": {
+          "ml": "Milliliter (ml)",
+          "l": "Liter (l)",
+          "m3": "Cubic meter (m³)",
+          "tsp": "Teaspoon (tsp)",
+          "tbsp": "Tablespoon (tbsp)",
+          "cup": "Cup (cup)",
+          "floz": "Fl oz (fl oz)",
+          "gal": "Gallon (gal)"
+        }
       }
     }
   }

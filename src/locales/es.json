@@ -387,6 +387,43 @@
           "titulo": "Precisión de los resultados",
           "desc": "Los resultados se muestran con hasta 6 dígitos significativos. Para valores muy grandes o muy pequeños, se usa notación científica automáticamente."
         }
+      },
+      "verTodas": "+ ver todas las conversiones",
+      "ocultarTodas": "— ocultar todas las conversiones",
+      "unidades": {
+        "comprimento": {
+          "mm": "Milímetro (mm)",
+          "cm": "Centímetro (cm)",
+          "m": "Metro (m)",
+          "km": "Kilómetro (km)",
+          "in": "Pulgada (in)",
+          "ft": "Pie (ft)",
+          "yd": "Yarda (yd)",
+          "mi": "Milla (mi)"
+        },
+        "massa": {
+          "mg": "Miligramo (mg)",
+          "g": "Gramo (g)",
+          "kg": "Kilogramo (kg)",
+          "t": "Tonelada (t)",
+          "oz": "Onza (oz)",
+          "lb": "Libra (lb)"
+        },
+        "temperatura": {
+          "C": "Celsius (°C)",
+          "F": "Fahrenheit (°F)",
+          "K": "Kelvin (K)"
+        },
+        "volume": {
+          "ml": "Mililitro (ml)",
+          "l": "Litro (l)",
+          "m3": "Metro cúbico (m³)",
+          "tsp": "Cucharadita (tsp)",
+          "tbsp": "Cucharada (tbsp)",
+          "cup": "Taza (cup)",
+          "floz": "Fl oz (fl oz)",
+          "gal": "Galón (gal)"
+        }
       }
     }
   }
