@@ -38,6 +38,12 @@
       "todosLabel": "Todas",
       "semResultadosDica": "Prueba otros términos o elimina los filtros activos.",
       "limpar": "Limpiar filtros"
+    },
+    "favoritos": {
+      "titulo": "Favoritas",
+      "adicionar": "Agregar a favoritos",
+      "remover": "Quitar de favoritos",
+      "vazio": "Aún no hay herramientas favoritas."
     }
   },
   "toolPage": {
