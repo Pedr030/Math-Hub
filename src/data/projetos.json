@@ -105,7 +105,7 @@
       "tags": ["algebra", "sequencias"],
       "rota": "/ferramentas/calculadora-progressoes",
       "componente": "ProgressionCalc",
-      "ativo": false,
+      "ativo": true,
       "destaque": false
     },
     {
