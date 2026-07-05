@@ -23,7 +23,7 @@
     "geometria": "Geometria",
     "trigonometria": "Trigonometria",
     "sequencias": "Sequências",
-    "conversao-de-unidades": "Conversão"
+    "conversao": "Conversão"
   },
   "nav": {
     "subtitulo": "Ferramentas matemáticas"
@@ -71,7 +71,7 @@
     },
     "operacoes-matrizes": {
       "nome": "Operações com Matrizes",
-      "descricao": "Some, multiplique, transpose e calcule determinantes de matrizes 2x2 e 3x3."
+      "descricao": "Some, multiplique, transponha e calcule determinantes de matrizes 2x2 e 3x3."
     },
     "resolvedor-triangulos": {
       "nome": "Resolvedor de Triângulos",
@@ -386,6 +386,43 @@
         "precisao": {
           "titulo": "Precisão dos resultados",
           "desc": "Os resultados são exibidos com até 6 dígitos significativos. Para valores muito grandes ou muito pequenos, a notação científica é usada automaticamente."
+        }
+      },
+      "verTodas": "+ ver todas as conversões",
+      "ocultarTodas": "— ocultar todas as conversões",
+      "unidades": {
+        "comprimento": {
+          "mm": "Milímetro (mm)",
+          "cm": "Centímetro (cm)",
+          "m": "Metro (m)",
+          "km": "Quilômetro (km)",
+          "in": "Polegada (in)",
+          "ft": "Pé (ft)",
+          "yd": "Jarda (yd)",
+          "mi": "Milha (mi)"
+        },
+        "massa": {
+          "mg": "Miligrama (mg)",
+          "g": "Grama (g)",
+          "kg": "Quilograma (kg)",
+          "t": "Tonelada (t)",
+          "oz": "Onça (oz)",
+          "lb": "Libra (lb)"
+        },
+        "temperatura": {
+          "C": "Celsius (°C)",
+          "F": "Fahrenheit (°F)",
+          "K": "Kelvin (K)"
+        },
+        "volume": {
+          "ml": "Mililitro (ml)",
+          "l": "Litro (l)",
+          "m3": "Metro cúbico (m³)",
+          "tsp": "Colher de chá (tsp)",
+          "tbsp": "Colher de sopa (tbsp)",
+          "cup": "Xícara (cup)",
+          "floz": "Fl oz (fl oz)",
+          "gal": "Galão (gal)"
         }
       }
     }
