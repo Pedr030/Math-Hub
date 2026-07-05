@@ -34,21 +34,25 @@ function Home({ ferramentas, registroComponentes }) {
   // Agora: mostra todas, inativas aparecem com badge
   const ferramentasFiltradas = useMemo(() => {
     const termo = busca.toLowerCase().trim();
-    return ferramentas.filter((f) => {
-      const nomeTraducido = t(`ferramentas.${f.id}.nome`, {
-        defaultValue: f.nome,
-      }).toLowerCase();
-      const descTraducida = t(`ferramentas.${f.id}.descricao`, {
-        defaultValue: f.descricao,
-      }).toLowerCase();
-      const bateTexto =
-        !termo ||
-        nomeTraducido.includes(termo) ||
-        descTraducida.includes(termo);
-      const bateTag = !tagAtiva || (f.tags || []).includes(tagAtiva);
-
-      return bateTexto && bateTag;
-    });
+    return (
+      ferramentas
+        .filter((f) => {
+          const nomeTraducido = t(`ferramentas.${f.id}.nome`, {
+            defaultValue: f.nome,
+          }).toLowerCase();
+          const descTraducida = t(`ferramentas.${f.id}.descricao`, {
+            defaultValue: f.descricao,
+          }).toLowerCase();
+          const bateTexto =
+            !termo ||
+            nomeTraducido.includes(termo) ||
+            descTraducida.includes(termo);
+          const bateTag = !tagAtiva || (f.tags || []).includes(tagAtiva);
+          return bateTexto && bateTag;
+        })
+        // Ativas sempre antes das "Em breve"
+        .sort((a, b) => Number(b.ativo) - Number(a.ativo))
+    );
   }, [ferramentas, busca, tagAtiva, t]);
 
   function handleTagClick(tag) {
