@@ -9,6 +9,25 @@
       "mensagemRede": "Error de conexión — la herramienta no pudo cargarse. Verifica tu internet y recarga."
     }
   },
+  "calc": {
+    "normal": {
+      "placeholder": "Escribe o usa los botones...",
+      "ajuda": {
+        "titulo": "Cómo usar la calculadora",
+        "uso": {
+          "titulo": "Cómo usar",
+          "desc": "Haz clic en los botones o escribe directamente en el campo de texto y presiona Enter. Los ángulos de sin, cos y tan están en grados."
+        },
+        "funcoes": {
+          "titulo": "Funciones disponibles"
+        },
+        "lisp": {
+          "titulo": "Modo LISP",
+          "desc": "Haz clic en 'LISP →' para cambiar a la calculadora de números complejos con notación prefija."
+        }
+      }
+    }
+  },
   "tags": {
     "algebra": "Álgebra",
     "numeros-complexos": "Números Complejos",

@@ -9,6 +9,25 @@
       "mensagemRede": "Connection error — the tool could not be loaded. Check your internet and reload."
     }
   },
+  "calc": {
+    "normal": {
+      "placeholder": "Type or use the buttons...",
+      "ajuda": {
+        "titulo": "How to use the calculator",
+        "uso": {
+          "titulo": "How to use",
+          "desc": "Click the buttons or type directly in the text field and press Enter. Angles for sin, cos and tan are in degrees."
+        },
+        "funcoes": {
+          "titulo": "Available functions"
+        },
+        "lisp": {
+          "titulo": "LISP mode",
+          "desc": "Click 'LISP →' to switch to the complex number calculator with prefix notation."
+        }
+      }
+    }
+  },
   "tags": {
     "algebra": "Algebra",
     "numeros-complexos": "Complex Numbers",
