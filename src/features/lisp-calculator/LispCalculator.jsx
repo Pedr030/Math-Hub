@@ -520,18 +520,27 @@ function LispCalculator() {
               </p>
               <p>{t("calc.normal.ajuda.uso.desc")}</p>
             </div>
+
             <div>
               <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
                 {t("calc.normal.ajuda.funcoes.titulo")}
               </p>
               <ul className="font-mono text-xs space-y-0.5 text-slate-500 dark:text-slate-400">
-                <li>sin, cos, tan — ângulos em graus</li>
-                <li>log — logaritmo base 10</li>
-                <li>ln — logaritmo natural</li>
-                <li>sqrt — raiz quadrada</li>
-                <li>π, e — constantes matemáticas</li>
+                {t("calc.normal.ajuda.funcoes.lista", {
+                  returnObjects: true,
+                }).map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
               </ul>
             </div>
+
+            <div>
+              <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
+                {t("calc.normal.ajuda.ordemFuncoes.titulo")}
+              </p>
+              <p>{t("calc.normal.ajuda.ordemFuncoes.desc")}</p>
+            </div>
+
             <div>
               <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
                 {t("calc.normal.ajuda.lisp.titulo")}

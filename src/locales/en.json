@@ -19,7 +19,18 @@
           "desc": "Click the buttons or type directly in the text field and press Enter. Angles for sin, cos and tan are in degrees."
         },
         "funcoes": {
-          "titulo": "Available functions"
+          "titulo": "Available functions",
+          "lista": [
+            "sin, cos, tan — angles in degrees",
+            "log — base 10 logarithm",
+            "ln — natural logarithm",
+            "sqrt — square root",
+            "π, e — mathematical constants"
+          ]
+        },
+        "ordemFuncoes": {
+          "titulo": "Function order",
+          "desc": "Functions require a number on the display before being applied — just like a physical scientific calculator. Enter the value first, then click the function. The buttons are automatically disabled when the display is empty."
         },
         "lisp": {
           "titulo": "LISP mode",

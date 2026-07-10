@@ -19,7 +19,18 @@
           "desc": "Clique nos botões ou digite diretamente no campo de texto e pressione Enter. Os ângulos de sin, cos e tan são em graus."
         },
         "funcoes": {
-          "titulo": "Funções disponíveis"
+          "titulo": "Funções disponíveis",
+          "lista": [
+            "sin, cos, tan — ângulos em graus",
+            "log — logaritmo base 10",
+            "ln — logaritmo natural",
+            "sqrt — raiz quadrada",
+            "π, e — constantes matemáticas"
+          ]
+        },
+        "ordemFuncoes": {
+          "titulo": "Ordem de uso das funções",
+          "desc": "As funções precisam de um número no display antes de serem aplicadas — igual a uma calculadora científica física. Digite o valor primeiro, depois clique na função. Os botões ficam desativados automaticamente quando o display está vazio."
         },
         "lisp": {
           "titulo": "Modo LISP",
