@@ -9,6 +9,45 @@
       "mensagemRede": "Erro de conexão — a ferramenta não pôde ser carregada. Verifique sua internet e recarregue."
     }
   },
+  "calc": {
+    "normal": {
+      "placeholder": "Digite ou use os botões...",
+      "ajuda": {
+        "titulo": "Como usar a calculadora",
+        "uso": {
+          "titulo": "Como usar",
+          "desc": "Clique nos botões ou digite diretamente no campo de texto e pressione Enter. Os ângulos de sin, cos e tan são em graus."
+        },
+        "funcoes": {
+          "titulo": "Funções disponíveis",
+          "lista": [
+            "sin, cos, tan — ângulos em graus",
+            "log — logaritmo base 10",
+            "ln — logaritmo natural",
+            "sqrt — raiz quadrada",
+            "π, e — constantes matemáticas"
+          ]
+        },
+        "ordemFuncoes": {
+          "titulo": "Ordem de uso das funções",
+          "desc": "As funções precisam de um número no display antes de serem aplicadas — igual a uma calculadora científica física. Digite o valor primeiro, depois clique na função. Os botões ficam desativados automaticamente quando o display está vazio."
+        },
+        "lisp": {
+          "titulo": "Modo LISP",
+          "desc": "Clique em 'LISP →' para alternar para a calculadora de números complexos com notação prefixa."
+        }
+      },
+      "erros": {
+        "parenDesbalanceado": "Parênteses desbalanceados",
+        "operadorSozinho": "Operador sem operandos",
+        "parenVazio": "Parêntese vazio",
+        "divisaoPorZero": "Divisão por zero",
+        "resultadoInvalido": "Resultado inválido (verifique os argumentos)",
+        "sintaxeInvalida": "Expressão com sintaxe inválida",
+        "expressaoInvalida": "Expressão inválida"
+      }
+    }
+  },
   "tags": {
     "algebra": "Álgebra",
     "numeros-complexos": "Números Complexos",
