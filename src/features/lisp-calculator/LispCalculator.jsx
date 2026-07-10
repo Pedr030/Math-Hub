@@ -4,7 +4,7 @@ import { analisar } from "./pipeline";
 import { avaliar } from "./evaluator";
 import { ComplexNumber } from "./complexNumber";
 import { arvoresIguais } from "./compareTrees";
-import { avaliarExpressao, fmtNormal } from "./normalCalc";
+import { avaliarExpressao, fmtNormal, traduzirErroNormal } from "./normalCalc";
 import { traduzirErro } from "../../utils/TranslateError";
 import Modal from "../../components/ui/Modal";
 import Button from "../../components/ui/Button";
@@ -193,7 +193,11 @@ function ModoNormal({ t }) {
                 : "text-slate-400"
           }`}
         >
-          {erro || (resultado !== null ? fmtNormal(resultado) : "0")}
+          {erro
+            ? traduzirErroNormal(erro, t)
+            : resultado !== null
+              ? fmtNormal(resultado)
+              : "0"}
         </p>
       </div>
 

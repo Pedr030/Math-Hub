@@ -36,6 +36,15 @@
           "titulo": "LISP mode",
           "desc": "Click 'LISP →' to switch to the complex number calculator with prefix notation."
         }
+      },
+      "erros": {
+        "parenDesbalanceado": "Unbalanced parentheses",
+        "operadorSozinho": "Operator without operands",
+        "parenVazio": "Empty parentheses",
+        "divisaoPorZero": "Division by zero",
+        "resultadoInvalido": "Invalid result (check the arguments)",
+        "sintaxeInvalida": "Expression with invalid syntax",
+        "expressaoInvalida": "Invalid expression"
       }
     }
   },

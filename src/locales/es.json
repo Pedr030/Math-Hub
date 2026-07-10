@@ -36,6 +36,15 @@
           "titulo": "Modo LISP",
           "desc": "Haz clic en 'LISP →' para cambiar a la calculadora de números complejos con notación prefija."
         }
+      },
+      "erros": {
+        "parenDesbalanceado": "Paréntesis desbalanceados",
+        "operadorSozinho": "Operador sin operandos",
+        "parenVazio": "Paréntesis vacío",
+        "divisaoPorZero": "División por cero",
+        "resultadoInvalido": "Resultado inválido (verifica los argumentos)",
+        "sintaxeInvalida": "Expresión con sintaxis inválida",
+        "expressaoInvalida": "Expresión inválida"
       }
     }
   },
