@@ -5,8 +5,9 @@ ferramenta resolve um problema específico com uma interface simples e consisten
 
 ## ✨ Ferramentas disponíveis
 
-- 🧮 **Calculadora Científica (LISP)** — avalia expressões com números
-  complexos e exibe a notação prefixa (LISP) equivalente.
+- 🧮 **Calculadora Científica (LISP)** — calculadora científica com dois modos:
+  botões físicos para expressões reais e modo LISP para números complexos com
+  notação prefixa.
 - ⚡ **Análise de Circuito Elétrico** — calcula correntes em circuitos de
   3 malhas usando inversão de matriz e a Lei de Kirchhoff.
 - 💰 **Calculadora de Juros** — calcula juros simples ou compostos com
@@ -17,10 +18,20 @@ ferramenta resolve um problema específico com uma interface simples e consisten
   do mundo com cotação atualizada diariamente via ExchangeRate-API.
 - 🔢 **Conversor de Bases Numéricas** — converte entre binário, octal,
   decimal e hexadecimal com passo a passo das divisões sucessivas.
-- 🔢 **Operações com Matrizes** — soma, subtração, multiplicação,
+- 🔣 **Operações com Matrizes** — soma, subtração, multiplicação,
   transposta e determinante de matrizes 2×2 e 3×3.
 - 📐 **Conversor de Unidades** — converte entre unidades de comprimento,
-  massa, temperatura e volume em tempo real.
+  massa, temperatura e volume com resultado em tempo real.
+- 📈 **Calculadora de Progressões** — calcula termo geral, soma e sequência
+  de PA e PG, com identificação automática do tipo a partir de uma sequência.
+
+**Funcionalidades transversais:**
+
+- ⭐ Favoritos — marque ferramentas para acesso rápido no topo da Home.
+- 🌗 Tema claro/escuro com persistência de preferência.
+- 🌐 Internacionalização: Português, Inglês e Espanhol.
+- 🔍 Busca e filtros por tag na grade de ferramentas.
+- 📱 Layout responsivo.
 
 ## 🛠️ Stack técnica
 
@@ -28,7 +39,7 @@ ferramenta resolve um problema específico com uma interface simples e consisten
 - **[Tailwind CSS](https://tailwindcss.com/)** para estilização
 - **[React Router](https://reactrouter.com/)** para navegação por URL
 - **[i18next](https://www.i18next.com/)** / `react-i18next` para tradução
-- **[Vitest](https://vitest.dev/)** para testes automatizados (117 testes)
+- **[Vitest](https://vitest.dev/)** para testes automatizados
 - Dados das ferramentas servidos por um arquivo JSON local (sem backend)
 - Deploy contínuo via **[Vercel](https://vercel.com/)**
 
@@ -39,45 +50,47 @@ src/
 ├── assets/                  # imagens, logo, ícones
 ├── components/
 │   ├── ui/                   # componentes reutilizáveis
-│   │   ├── Button.jsx
-│   │   ├── Input.jsx
-│   │   ├── Modal.jsx
-│   │   ├── ToolCard.jsx
-│   │   ├── OutputPanel.jsx
-│   │   ├── ErrorBoundary.jsx
+│   │   ├── Button.jsx         # botão com variantes (primary, secondary, ghost)
+│   │   ├── Input.jsx          # campo de texto em font-mono
+│   │   ├── Modal.jsx          # modal genérico (ajuda contextual)
+│   │   ├── ToolCard.jsx       # card container padrão de cada ferramenta
+│   │   ├── OutputPanel.jsx    # painel de saída em estilo terminal
+│   │   ├── ErrorBoundary.jsx  # captura erros por ferramenta; distingue rede de código
 │   │   ├── Logo.jsx           # SVG inline — sem flash ao trocar tema
-│   │   ├── ThemeToggle.jsx
-│   │   └── LangToggle.jsx
+│   │   ├── ThemeToggle.jsx    # botão de alternância de tema
+│   │   └── LangToggle.jsx     # seletor de idioma (PT | EN | ES)
 │   └── layout/
 │       ├── Header.jsx
 │       └── Footer.jsx
 ├── features/                # cada ferramenta vive isolada aqui
-│   ├── lisp-calculator/
+│   ├── lisp-calculator/      # inclui normalCalc.js (modo normal) e pipeline LISP
 │   ├── matrix-circuit/
 │   ├── interest-calculator/
 │   ├── descriptive-stats/
 │   ├── currency-converter/
 │   ├── base-converter/
 │   ├── matrix-ops/
-│   └── unit-converter/
+│   ├── unit-converter/
+│   └── progression-calc/
 ├── pages/
-│   ├── Home.jsx             # grade com busca e filtros por tag
-│   └── ToolPage.jsx         # cabeçalho contextual + ferramenta
+│   ├── Home.jsx             # grade com busca, filtros por tag e seção de favoritos
+│   └── ToolPage.jsx         # cabeçalho contextual + ferramenta + ErrorBoundary
 ├── context/
-│   └── ThemeContext.jsx
+│   └── ThemeContext.jsx     # tema claro/escuro com persistência
 ├── hooks/
-│   └── useDocumentTitle.js
+│   ├── useDocumentTitle.js  # atualiza <title> por ferramenta (SEO)
+│   └── useFavoritos.js      # gerencia favoritos com persistência em localStorage
 ├── data/
 │   └── projetos.json        # catálogo das ferramentas do Hub
-├── locales/                 # traduções pt-BR / en / es
+├── locales/                 # traduções
 │   ├── pt-BR.json
 │   ├── en.json
 │   └── es.json
 ├── utils/
-│   └── TranslateError.js
-├── i18n.js
+│   └── TranslateError.js    # mapeia mensagens de erro para chaves i18n
+├── i18n.js                  # configuração do i18next
 ├── App.jsx                  # rotas + lazy loading por ferramenta
-└── main.jsx
+└── main.jsx                 # ponto de entrada
 ```
 
 Cada ferramenta nova segue o mesmo padrão: uma pasta isolada em
@@ -112,7 +125,7 @@ Na Vercel, adicione em `Settings → Environment Variables`.
 ```bash
 npm run build          # build de produção em /dist
 npm run preview        # serve o build de produção localmente
-npm test               # roda os 117 testes automatizados
+npm test               # roda os testes automatizados
 npm run test:coverage  # relatório de cobertura
 ```
 
@@ -134,13 +147,19 @@ npm run test:coverage  # relatório de cobertura
 - **Code splitting por ferramenta** — `React.lazy()` garante que cada
   feature é carregada só quando a rota é acessada.
 - **Error Boundary por ferramenta** — erros de renderização não derrubam
-  o Hub inteiro; distingue erros de código de erros de rede (chunk).
+  o Hub inteiro; distingue erros de código de erros de rede (chunk),
+  com comportamento de retry diferente para cada caso.
 - **i18n por namespace** — `tools.<nome>` mantém cada ferramenta
   responsável pelo próprio conteúdo textual.
 - **Cache de API com TTL** — cotações de moeda ficam no localStorage
   por 24h, economizando requisições da cota gratuita.
 - **SVG inline para logo** — zero requisição de rede, sem flash ao
-  trocar tema, cores controladas por classes Tailwind.
+  trocar tema, cores controladas por classes Tailwind com dark mode nativo.
+- **Favoritos em localStorage** — persistência sem backend; hook
+  `useFavoritos` isola a lógica e pode ser reutilizado por outras features.
+- **Dual-mode na calculadora LISP** — modo normal com botões físicos
+  para expressões reais, modo LISP para números complexos com notação
+  prefixa; lógicas completamente independentes no mesmo componente.
 - **JSON como banco de dados temporário** — `projetos.json` pode migrar
   para uma API real sem alterar os componentes.
 
