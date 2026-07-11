@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useFavoritos } from "../hooks/useFavoritos";
+import Logo from "../components/ui/Logo";
 
 // Ícone de estrela — preenchida ou vazia conforme o estado
 function StarIcon({ preenchida }) {
@@ -166,10 +167,59 @@ function Home({ ferramentas, registroComponentes }) {
 
   return (
     <>
-      <p className="font-mono text-xs uppercase tracking-wide text-brand-500 mb-2">
-        {t("home.prefixo")}
-      </p>
-      <h2 className="font-display text-2xl font-semibold mb-6">
+      {/* ── Hero ── */}
+      <div
+        className="mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6
+                pb-10 border-b border-brand-100 dark:border-brand-900"
+      >
+        <div className="flex-1">
+          <p className="font-mono text-xs uppercase tracking-wide text-brand-500 mb-3">
+            {t("home.prefixo")}
+          </p>
+          <h1 className="font-display text-3xl sm:text-4xl font-semibold mb-2">
+            {t("home.hero.titulo")}
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 text-base mb-1">
+            {t("home.hero.subtitulo")}
+          </p>
+          <p className="text-slate-400 dark:text-slate-500 text-sm mb-5">
+            {t("home.hero.desc")}
+          </p>
+
+          {/* Badges de contexto rápido */}
+          <div className="flex flex-wrap gap-2">
+            {[
+              {
+                texto: t("home.hero.badges.ferramentas", {
+                  n: ferramentas.filter((f) => f.ativo).length,
+                }),
+                icone: "🧮",
+              },
+              { texto: t("home.hero.badges.idiomas"), icone: "🌐" },
+              { texto: t("home.hero.badges.openSource"), icone: "⚡" },
+            ].map(({ texto, icone }) => (
+              <span
+                key={texto}
+                className="inline-flex items-center gap-1.5 rounded-full border border-brand-100
+                     bg-white px-3 py-1 font-mono text-xs text-brand-600
+                     dark:border-brand-800 dark:bg-brand-950/60 dark:text-brand-300"
+              >
+                {icone} {texto}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Logo decorativa — visível só em telas maiores */}
+        <div className="hidden sm:block opacity-40 dark:opacity-40 shrink-0">
+          <div className="w-32 h-32">
+            <Logo />
+          </div>
+        </div>
+      </div>
+
+      {/* ── Grade de ferramentas ── */}
+      <h2 className="font-display text-xl font-semibold mb-6">
         {t("home.titulo")}
       </h2>
 

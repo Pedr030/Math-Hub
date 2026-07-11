@@ -82,7 +82,17 @@
       "titulo": "Favoritas",
       "adicionar": "Adicionar aos favoritos",
       "remover": "Remover dos favoritos",
-      "vazio": "Nenhuma ferramenta favoritada ainda."
+      ",vazio": "Nenhuma ferramenta favoritada ainda."
+    },
+    "hero": {
+      "titulo": "Math Hub",
+      "subtitulo": "Central de micro-ferramentas matemáticas, gratuita e open-source.",
+      "desc": "Calcule, converta e analise — sem instalar nada, diretamente no navegador.",
+      "badges": {
+        "ferramentas": "{{n}} ferramentas",
+        "idiomas": "3 idiomas",
+        "openSource": "open-source"
+      }
     }
   },
   "toolPage": {
