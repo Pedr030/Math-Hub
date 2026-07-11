@@ -83,6 +83,16 @@
       "adicionar": "Agregar a favoritos",
       "remover": "Quitar de favoritos",
       "vazio": "Aún no hay herramientas favoritas."
+    },
+    "hero": {
+      "titulo": "Math Hub",
+      "subtitulo": "Central de micro-herramientas matemáticas, gratuita y open-source.",
+      "desc": "Calcula, convierte y analiza — sin instalar nada, directo en el navegador.",
+      "badges": {
+        "ferramentas": "{{n}} herramientas",
+        "idiomas": "3 idiomas",
+        "openSource": "open-source"
+      }
     }
   },
   "toolPage": {
