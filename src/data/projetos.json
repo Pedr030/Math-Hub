@@ -93,7 +93,7 @@
       "tags": ["geometria", "trigonometria"],
       "rota": "/ferramentas/resolvedor-triangulos",
       "componente": "TriangleSolver",
-      "ativo": false,
+      "ativo": true,
       "destaque": false
     },
     {
