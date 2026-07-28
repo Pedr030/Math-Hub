@@ -62,7 +62,8 @@
     "geometria": "Geometry",
     "trigonometria": "Trigonometry",
     "sequencias": "Sequences",
-    "conversao": "Conversion"
+    "conversao": "Conversion",
+    "calculadora": "Calculator"
   },
   "nav": {
     "subtitulo": "Math tools"
