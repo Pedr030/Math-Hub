@@ -8,7 +8,13 @@
       "recarregar": "Recargar página",
       "mensagemRede": "Error de conexión — la herramienta no pudo cargarse. Verifica tu internet y recarga."
     }
-  },
+  },"pwa": {
+  "banner": {
+    "titulo": "Instalar Math Hub",
+    "desc": "Acceso rápido, funciona sin conexión",
+    "instalar": "Instalar"
+  }
+},
   "calc": {
     "normal": {
       "placeholder": "Escribe o usa los botones...",
