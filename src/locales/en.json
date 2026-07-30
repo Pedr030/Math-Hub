@@ -553,7 +553,10 @@
         "razao": "Common ratio",
         "termos": "Sequence ({{n}} terms)",
         "sequencia": "Analyzed sequence",
-        "nenhuma": "The sequence is neither AP nor GP."
+        "nenhuma": "The sequence is neither AP nor GP.",
+        "grafico": "Sequence Behavior",
+        "valor": "Value",
+        "termo": "Term"
       },
       "ajuda": {
         "titulo": "How to use the progression calculator",

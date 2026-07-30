@@ -552,7 +552,10 @@
         "razao": "Razón",
         "termos": "Secuencia ({{n}} términos)",
         "sequencia": "Secuencia analizada",
-        "nenhuma": "La secuencia no es PA ni PG."
+        "nenhuma": "La secuencia no es PA ni PG.",
+        "grafico": "Comportamiento de la Secuencia",
+        "valor": "Valor",
+        "termo": "Término"
       },
       "ajuda": {
         "titulo": "Cómo usar la calculadora de progresiones",
