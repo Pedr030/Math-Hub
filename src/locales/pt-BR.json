@@ -293,7 +293,13 @@
         "taxaEquivalente": {
           "mes": "Taxa mensal equivalente: {{valor}}% ao mês",
           "ano": "Taxa anual equivalente: {{valor}}% ao ano"
-        }
+        },
+        "capitalLabel": "Capital Inicial",
+        "jurosLabel": "Juros Totais"
+      },
+      "graficos": {
+        "evolucao": "Evolução (Linha)",
+        "proporcao": "Proporção (Pizza)"
       },
       "ajuda": {
         "titulo": "Como usar a calculadora de juros",

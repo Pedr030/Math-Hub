@@ -293,7 +293,13 @@
         "taxaEquivalente": {
           "mes": "Equivalent monthly rate: {{valor}}% per month",
           "ano": "Equivalent annual rate: {{valor}}% per year"
-        }
+        },
+        "capitalLabel": "Initial Capital",
+        "jurosLabel": "Total Interest"
+      },
+      "graficos": {
+        "evolucao": "Evolution (Line)",
+        "proporcao": "Proportion (Pie)"
       },
       "ajuda": {
         "titulo": "How to use the interest calculator",

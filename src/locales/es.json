@@ -292,7 +292,13 @@
         "taxaEquivalente": {
           "mes": "Tasa mensual equivalente: {{valor}}% al mes",
           "ano": "Tasa anual equivalente: {{valor}}% al año"
-        }
+        },
+        "capitalLabel": "Capital Inicial",
+        "jurosLabel": "Intereses Totales"
+      },
+      "graficos": {
+        "evolucao": "Evolución (Línea)",
+        "proporcao": "Proporción (Circular)"
       },
       "ajuda": {
         "titulo": "Cómo usar la calculadora de intereses",
