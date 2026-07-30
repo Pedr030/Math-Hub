@@ -1,10 +1,20 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { calcularSimples, calcularComposto } from "./interest";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import ToolCard from "../../components/ui/ToolCard";
 import Modal from "../../components/ui/Modal";
+
+// Catálogo de moedas disponíveis para o usuário escolher
+const OPCOES_MOEDA = {
+  BRL: { locale: "pt-BR", symbol: "R$" },
+  USD: { locale: "en-US", symbol: "$" },
+  EUR: { locale: "es-ES", symbol: "€" },
+  GBP: { locale: "en-GB", symbol: "£" },
+  JPY: { locale: "ja-JP", symbol: "¥" },
+};
 
 function InterestCalculator() {
   const { t } = useTranslation();
@@ -14,14 +24,26 @@ function InterestCalculator() {
   const [periodos, setPeriodos] = useState("");
   const [unidade, setUnidade] = useState("mes");
   const [tipo, setTipo] = useState("composto");
+  
+  // Novo estado para controlar a moeda (padrão BRL)
+  const [moeda, setMoeda] = useState("BRL");
+  
   const [resultado, setResultado] = useState(null);
   const [erro, setErro] = useState(null);
   const [mostrarAjuda, setMostrarAjuda] = useState(false);
 
-  // Ao trocar a unidade, converte os períodos automaticamente:
-  // 12 meses → 1 ano, 1 ano → 12 meses.
-  // Assim o usuário vê que o resultado muda — não porque a fórmula
-  // mudou, mas porque a duração real se mantém ao converter.
+  // Extraímos os dados da moeda selecionada atualmente
+  const { locale, symbol } = OPCOES_MOEDA[moeda];
+
+  // Função dinâmica baseada na escolha do usuário
+  function formatarMoeda(valor) {
+    return valor.toLocaleString(locale, {
+      style: "currency",
+      currency: moeda,
+      minimumFractionDigits: 2,
+    });
+  }
+
   function handleTrocarUnidade(novaUnidade) {
     if (periodos && !isNaN(Number(periodos))) {
       const p = Number(periodos);
@@ -35,9 +57,6 @@ function InterestCalculator() {
     setResultado(null);
   }
 
-  // Calcula a taxa equivalente na outra unidade.
-  // Simples: divisão/multiplicação por 12.
-  // Composto: conversão exponencial correta — (1+i)^(1/12)-1 ou (1+i)^12-1.
   function taxaEquivalente(taxaPercent, tipo, unidadeAtual) {
     const i = taxaPercent / 100;
     if (unidadeAtual === "mes") {
@@ -84,14 +103,6 @@ function InterestCalculator() {
     setResultado({ ...calc(C, i, p), taxaEquivalente: equiv });
   }
 
-  function formatarMoeda(valor) {
-    return valor.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-      minimumFractionDigits: 2,
-    });
-  }
-
   return (
     <ToolCard>
       <div className="flex justify-end mb-3">
@@ -108,7 +119,6 @@ function InterestCalculator() {
         </button>
       </div>
 
-      {/* Toggle Simples / Composto */}
       <div className="flex gap-2 mb-5">
         {["simples", "composto"].map((opcao) => (
           <button
@@ -132,21 +142,40 @@ function InterestCalculator() {
 
       <form onSubmit={handleCalcular} className="space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          
+          {/* CAMPO CAPITAL COM SELETOR DE MOEDA */}
           <div>
             <label className="block font-mono text-xs text-brand-500 mb-1">
               {t("tools.interestCalculator.campos.capital")}
             </label>
-            <Input
-              type="number"
-              step="any"
-              min="0"
-              placeholder="Ex: 1000"
-              value={capital}
-              onChange={(e) => setCapital(e.target.value)}
-            />
+            <div className="flex gap-2">
+              <select
+                value={moeda}
+                onChange={(e) => {
+                  setMoeda(e.target.value);
+                  setResultado(null); // Limpa o resultado se trocar a moeda para evitar confusão
+                }}
+                className="rounded-lg border border-brand-100 bg-white px-2 py-2 text-sm font-medium
+                           dark:border-brand-800 dark:bg-brand-950 dark:text-slate-100 cursor-pointer"
+              >
+                <option value="BRL">R$</option>
+                <option value="USD">$</option>
+                <option value="EUR">€</option>
+                <option value="GBP">£</option>
+                <option value="JPY">¥</option>
+              </select>
+              <Input
+                type="number"
+                step="any"
+                min="0"
+                placeholder="Ex: 1000"
+                value={capital}
+                onChange={(e) => setCapital(e.target.value)}
+              />
+            </div>
           </div>
+
           <div>
-            {/* O label da taxa muda conforme a unidade selecionada */}
             <label className="block font-mono text-xs text-brand-500 mb-1">
               {t(
                 `tools.interestCalculator.campos.taxa${unidade === "mes" ? "Mensal" : "Anual"}`,
@@ -161,6 +190,7 @@ function InterestCalculator() {
               onChange={(e) => setTaxa(e.target.value)}
             />
           </div>
+
           <div>
             <label className="block font-mono text-xs text-brand-500 mb-1">
               {t("tools.interestCalculator.campos.periodos")}
@@ -179,7 +209,7 @@ function InterestCalculator() {
                 value={unidade}
                 onChange={(e) => handleTrocarUnidade(e.target.value)}
                 className="rounded-lg border border-brand-100 bg-white px-2 py-2 text-sm
-                           dark:border-brand-800 dark:bg-brand-950 dark:text-slate-100"
+                           dark:border-brand-800 dark:bg-brand-950 dark:text-slate-100 cursor-pointer"
               >
                 <option value="mes">
                   {t("tools.interestCalculator.unidade.mes")}
@@ -222,7 +252,6 @@ function InterestCalculator() {
             </div>
           </div>
 
-          {/* Taxa equivalente na outra unidade */}
           <p className="font-mono text-xs text-slate-400 dark:text-slate-500">
             {t(
               `tools.interestCalculator.output.taxaEquivalente.${resultado.taxaEquivalente.unidade}`,
@@ -232,11 +261,58 @@ function InterestCalculator() {
             )}
           </p>
 
-          {/* Tabela de evolução */}
+          <div className="rounded-lg border border-brand-100 dark:border-brand-900 bg-white dark:bg-brand-950 p-4">
+            <p className="font-mono text-xs text-brand-500 mb-3">
+              {t("tools.interestCalculator.output.evolucao")} (Gráfico)
+            </p>
+            <div className="h-64 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={resultado.tabela} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-slate-200 dark:stroke-slate-800" />
+                  <XAxis 
+                    dataKey="periodo" 
+                    stroke="currentColor" 
+                    className="text-xs text-slate-400 font-mono" 
+                  />
+                  <YAxis 
+                    stroke="currentColor" 
+                    className="text-xs text-slate-400 font-mono"
+                    width={90}
+                    tickFormatter={(valor) => {
+                      // Usa o símbolo da moeda selecionada dinamicamente
+                      if (valor >= 1000000) return `${symbol} ${(valor / 1000000).toFixed(1)}M`;
+                      if (valor >= 1000) return `${symbol} ${(valor / 1000).toFixed(0)}k`;
+                      return `${symbol} ${valor.toFixed(0)}`;
+                    }}
+                  />
+                  <Tooltip 
+                    formatter={(valor) => [formatarMoeda(valor), "Montante"]}
+                    labelFormatter={(label) => `Período: ${label}`}
+                    contentStyle={{ 
+                      backgroundColor: '#090d16', 
+                      borderColor: '#1e293b',
+                      borderRadius: '8px',
+                      color: '#fff',
+                      fontSize: '12px'
+                    }}
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="montante" 
+                    stroke="#0ea5e9" 
+                    strokeWidth={2.5}
+                    dot={false}
+                    activeDot={{ r: 6 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
           <div className="rounded-lg border border-brand-100 dark:border-brand-900 overflow-hidden">
             <div className="bg-brand-50 dark:bg-brand-900/40 px-4 py-2">
               <p className="font-mono text-xs text-brand-500">
-                {t("tools.interestCalculator.output.evolucao")}
+                {t("tools.interestCalculator.output.evolucao")} (Tabela)
               </p>
             </div>
             <div className="max-h-64 overflow-y-auto">
