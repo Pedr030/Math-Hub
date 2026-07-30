@@ -9,6 +9,13 @@
       "mensagemRede": "Connection error — the tool could not be loaded. Check your internet and reload."
     }
   },
+  "pwa": {
+  "banner": {
+    "titulo": "Install Math Hub",
+    "desc": "Quick access, works offline",
+    "instalar": "Install"
+  }
+},
   "calc": {
     "normal": {
       "placeholder": "Type or use the buttons...",

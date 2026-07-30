@@ -4,6 +4,7 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Home from "./pages/Home";
 import ToolPage from "./pages/ToolPage";
+import InstallBanner from './components/ui/InstallBanner';
 
 // lazy() recebe uma função que retorna um import() dinâmico, em vez do
 // import estático que tínhamos antes. Isso muda o comportamento do Vite:
@@ -139,6 +140,7 @@ function App() {
         </main>
 
         <Footer />
+        <InstallBanner />
       </div>
     </BrowserRouter>
   );
