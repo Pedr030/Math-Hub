@@ -1,17 +1,17 @@
 {
   "ferramentas": [
     {
-      "id": "lisp-calculator",
-      "nome": "Calculadora Científica (LISP)",
-      "descricao": "Avalie expressões matemáticas usando notação LISP (prefixa).",
-      "icone": "calculator",
-      "categoria": "calculo",
-      "tags": ["algebra", "numeros-complexos", "lisp"],
-      "rota": "/ferramentas/lisp-calculator",
-      "componente": "LispCalculator",
-      "ativo": true,
-      "destaque": true
-    },
+    "id": "lisp-calculator",
+    "nome": "Calculadora Científica (LISP)",
+    "descricao": "Calculadora científica com dois modos: botões físicos para expressões reais e modo LISP para números complexos com notação prefixa.",
+    "icone": "calculator",
+    "categoria": "calculo",
+    "tags": ["algebra", "numeros-complexos", "lisp", "calculadora"],
+    "rota": "/ferramentas/lisp-calculator",
+    "componente": "LispCalculator",
+    "ativo": true,
+    "destaque": true
+   },
     {
       "id": "circuito-eletrico",
       "nome": "Análise de Circuito Elétrico",
@@ -93,7 +93,7 @@
       "tags": ["geometria", "trigonometria"],
       "rota": "/ferramentas/resolvedor-triangulos",
       "componente": "TriangleSolver",
-      "ativo": false,
+      "ativo": true,
       "destaque": false
     },
     {

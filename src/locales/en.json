@@ -9,6 +9,13 @@
       "mensagemRede": "Connection error — the tool could not be loaded. Check your internet and reload."
     }
   },
+  "pwa": {
+  "banner": {
+    "titulo": "Install Math Hub",
+    "desc": "Quick access, works offline",
+    "instalar": "Install"
+  }
+},
   "calc": {
     "normal": {
       "placeholder": "Type or use the buttons...",
@@ -62,7 +69,8 @@
     "geometria": "Geometry",
     "trigonometria": "Trigonometry",
     "sequencias": "Sequences",
-    "conversao": "Conversion"
+    "conversao": "Conversion",
+    "calculadora": "Calculator"
   },
   "nav": {
     "subtitulo": "Math tools"
@@ -527,6 +535,60 @@
           "desc": "Paste a sequence of numbers separated by comma, space or semicolon. The tool automatically checks if it is AP, GP, both (like 1, 1, 1) or neither, and shows the corresponding ratio."
         }
       }
+    },"triangleSolver": {
+  "instrucao": "Fill in at least 3 fields (with at least 1 side). Leave the unknowns blank.",
+  "lados": "Sides",
+  "angulos": "Angles",
+  "calcular": "Calculate",
+  "limpar": "Clear",
+  "casoAmbiguo": "Ambiguous case (SSA) — two possible solutions exist.",
+  "solucao": "Solution {{n}}",
+  "erros": {
+    "invalido": "A triangle cannot be formed with these values.",
+    "angulos": "The sum of angles must be 180°.",
+    "insuficiente": "Fill in at least 3 fields (with at least 1 side).",
+    "precisaLado": "Enter at least one side.",
+    "casoNaoReconhecido": "Unrecognized data combination.",
+    "valorInvalido": "Invalid value in field {{campo}}."
+  },
+  "output": {
+    "ladoA": "side a",
+    "ladoB": "side b",
+    "ladoC": "side c",
+    "anguloA": "angle A",
+    "anguloB": "angle B",
+    "anguloC": "angle C",
+    "area": "Area",
+    "perimetro": "Perimeter",
+    "classificacao": "Classification"
+  },
+  "classificacao": {
+    "equilatero": "Equilateral",
+    "isosceles": "Isosceles",
+    "escaleno": "Scalene",
+    "acutangulo": "Acute",
+    "retangulo": "Right",
+    "obtusangulo": "Obtuse"
+  },
+  "ajuda": {
+    "titulo": "How to use the solver",
+    "comoUsar": {
+      "titulo": "How to use",
+      "desc": "Fill in any combination of 3 or more known fields (sides and/or angles), with at least 1 side. The tool automatically detects the case and calculates the remaining values."
+    },
+    "casos": {
+      "titulo": "Supported cases",
+      "lll": "SSS — 3 known sides",
+      "lal": "SAS — 2 sides and the angle between them",
+      "ala": "ASA — 2 angles and the side between them",
+      "aal": "AAS — 2 angles and a non-included side",
+      "ssa": "SSA — 2 sides and opposite angle (may have 2 solutions)"
+    },
+    "ambiguo": {
+      "titulo": "Ambiguous case (SSA)",
+      "desc": "When you provide two sides and an angle opposite one of them, more than one valid triangle may exist. The tool displays all possible solutions."
     }
+  }
+}
   }
 }

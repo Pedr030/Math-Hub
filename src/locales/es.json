@@ -8,7 +8,13 @@
       "recarregar": "Recargar página",
       "mensagemRede": "Error de conexión — la herramienta no pudo cargarse. Verifica tu internet y recarga."
     }
-  },
+  },"pwa": {
+  "banner": {
+    "titulo": "Instalar Math Hub",
+    "desc": "Acceso rápido, funciona sin conexión",
+    "instalar": "Instalar"
+  }
+},
   "calc": {
     "normal": {
       "placeholder": "Escribe o usa los botones...",
@@ -62,7 +68,8 @@
     "geometria": "Geometría",
     "trigonometria": "Trigonometría",
     "sequencias": "Secuencias",
-    "conversao": "Conversión"
+    "conversao": "Conversión",
+    "calculadora": "Calculadora"
   },
   "nav": {
     "subtitulo": "Herramientas matemáticas"
@@ -527,6 +534,60 @@
           "desc": "Pega una secuencia de números separados por coma, espacio o punto y coma. La herramienta verifica automáticamente si es PA, PG, ambas (como 1, 1, 1) o ninguna, e informa la razón correspondiente."
         }
       }
+    },"triangleSolver": {
+  "instrucao": "Completa al menos 3 campos (con al menos 1 lado). Deja los desconocidos en blanco.",
+  "lados": "Lados",
+  "angulos": "Ángulos",
+  "calcular": "Calcular",
+  "limpar": "Limpiar",
+  "casoAmbiguo": "Caso ambiguo (SSA) — existen dos soluciones posibles.",
+  "solucao": "Solución {{n}}",
+  "erros": {
+    "invalido": "No es posible formar un triángulo con estos valores.",
+    "angulos": "La suma de los ángulos debe ser 180°.",
+    "insuficiente": "Completa al menos 3 campos (con al menos 1 lado).",
+    "precisaLado": "Ingresa al menos un lado.",
+    "casoNaoReconhecido": "Combinación de datos no reconocida.",
+    "valorInvalido": "Valor inválido en el campo {{campo}}."
+  },
+  "output": {
+    "ladoA": "lado a",
+    "ladoB": "lado b",
+    "ladoC": "lado c",
+    "anguloA": "ángulo A",
+    "anguloB": "ángulo B",
+    "anguloC": "ángulo C",
+    "area": "Área",
+    "perimetro": "Perímetro",
+    "classificacao": "Clasificación"
+  },
+  "classificacao": {
+    "equilatero": "Equilátero",
+    "isosceles": "Isósceles",
+    "escaleno": "Escaleno",
+    "acutangulo": "Acutángulo",
+    "retangulo": "Rectángulo",
+    "obtusangulo": "Obtusángulo"
+  },
+  "ajuda": {
+    "titulo": "Cómo usar el resolvedor",
+    "comoUsar": {
+      "titulo": "Cómo usar",
+      "desc": "Completa cualquier combinación de 3 o más campos conocidos (lados y/o ángulos), con al menos 1 lado. La herramienta detecta automáticamente el caso y calcula los valores restantes."
+    },
+    "casos": {
+      "titulo": "Casos admitidos",
+      "lll": "LLL — 3 lados conocidos",
+      "lal": "LAL — 2 lados y el ángulo entre ellos",
+      "ala": "ALA — 2 ángulos y el lado entre ellos",
+      "aal": "AAL — 2 ángulos y un lado no entre ellos",
+      "ssa": "SSA — 2 lados y ángulo opuesto (puede tener 2 soluciones)"
+    },
+    "ambiguo": {
+      "titulo": "Caso ambiguo (SSA)",
+      "desc": "Cuando proporcionas dos lados y un ángulo opuesto a uno de ellos, puede existir más de un triángulo válido. La herramienta muestra todas las soluciones posibles."
     }
+  }
+}
   }
 }
