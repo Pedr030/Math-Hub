@@ -331,7 +331,17 @@
         "maximo": "Máximo",
         "amplitude": "Amplitud",
         "contagem": "Cantidad",
-        "ordenados": "Valores ordenados"
+        "ordenados": "Valores ordenados",
+        "frequencia": "Distribución de Frecuencias",
+        "valor": "Valor",
+        "frequenciaTooltip": "Frecuencia",
+        "ordem": "Orden"
+      },
+      "graficos": {
+        "barras": "Barras",
+        "pizza": "Circular",
+        "area": "Acumulada",
+        "dispersao": "Dispersión"
       },
       "ajuda": {
         "titulo": "Cómo usar esta herramienta",

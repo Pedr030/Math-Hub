@@ -332,7 +332,17 @@
         "maximo": "Maximum",
         "amplitude": "Range",
         "contagem": "Count",
-        "ordenados": "Sorted values"
+        "ordenados": "Sorted values",
+        "frequencia": "Frequency Distribution",
+        "valor": "Value",
+        "frequenciaTooltip": "Frequency",
+        "ordem": "Index"
+      },
+      "graficos": {
+        "barras": "Bar",
+        "pizza": "Pie",
+        "area": "Cumulative",
+        "dispersao": "Scatter"
       },
       "ajuda": {
         "titulo": "How to use this tool",
