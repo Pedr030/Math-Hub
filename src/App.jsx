@@ -5,13 +5,8 @@ import Footer from "./components/layout/Footer";
 import Home from "./pages/Home";
 import ToolPage from "./pages/ToolPage";
 import InstallBanner from './components/ui/InstallBanner';
+import FeedbackModal from './components/ui/FeedbackModal'; // Certifique-se de que o caminho está correto aqui
 
-// lazy() recebe uma função que retorna um import() dinâmico, em vez do
-// import estático que tínhamos antes. Isso muda o comportamento do Vite:
-// ao invés de incluir o código de CADA ferramenta no bundle principal
-// (o que o navegador baixa inteiro ao abrir o site, mesmo na Home),
-// cada ferramenta vira um arquivo .js separado, baixado sob demanda —
-// só quando a rota daquela ferramenta é de fato acessada.
 const LispCalculator = lazy(() => import("./features/lisp-calculator"));
 const MatrixCircuit = lazy(() => import("./features/matrix-circuit"));
 const InterestCalculator = lazy(() => import("./features/interest-calculator"));
@@ -23,9 +18,6 @@ const UnitConverter = lazy(() => import("./features/unit-converter"));
 const ProgressionCalc = lazy(() => import("./features/progression-calc"));
 const TriangleSolver = lazy(() => import('./features/triangle-solver'));
 
-// Registro de componentes: liga o nome string do JSON ao componente React.
-// Pra adicionar uma nova ferramenta no futuro, só adicionar uma linha aqui
-// (seguindo o mesmo padrão lazy() acima).
 const REGISTRO_COMPONENTES = {
   LispCalculator,
   MatrixCircuit,
@@ -39,9 +31,6 @@ const REGISTRO_COMPONENTES = {
   TriangleSolver,
 };
 
-// Tela exibida enquanto o chunk de uma ferramenta está sendo baixado.
-// Reaproveita o mesmo estilo da tela de carregamento inicial do app,
-// pra manter consistência visual.
 function CarregandoFerramenta() {
   return (
     <div className="flex items-center justify-center py-20 font-mono text-brand-500">
@@ -54,6 +43,9 @@ function App() {
   const [ferramentas, setFerramentas] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState(null);
+  
+  // AQUI: O estado que controla se o modal de feedback está visível ou não
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
 
   useEffect(() => {
     async function carregarFerramentas() {
@@ -138,8 +130,16 @@ function App() {
             </Routes>
           </Suspense>
         </main>
-
-        <Footer />
+        
+        {/* AQUI: O Modal recebe a variável pra saber se deve aparecer */}
+        <FeedbackModal 
+          isOpen={isFeedbackOpen} 
+          onClose={() => setIsFeedbackOpen(false)} 
+        />
+        
+        {/* AQUI: O Footer recebe a função que permite abrir o Modal */}
+        <Footer aoAbrirFeedback={() => setIsFeedbackOpen(true)} />
+        
         <InstallBanner />
       </div>
     </BrowserRouter>
