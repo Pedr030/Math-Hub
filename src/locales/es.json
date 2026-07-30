@@ -15,6 +15,22 @@
     "instalar": "Instalar"
   }
 },
+"feedback": {
+    "tooltip": "Reportar error o sugerir idea",
+    "titulo": "Sugerir Mejora o Reportar Error",
+    "nome": "Nombre",
+    "nomePlaceholder": "Tu nombre",
+    "email": "Correo (opcional)",
+    "emailPlaceholder": "Para que podamos responderte",
+    "mensagem": "Mensaje",
+    "mensagemPlaceholder": "Describe el error que encontraste o tu idea de herramienta...",
+    "cancelar": "Cancelar",
+    "enviar": "Enviar",
+    "enviando": "Enviando...",
+    "sucessoTitulo": "¡Mensaje enviado con éxito!",
+    "sucessoDesc": "Gracias por contribuir a mejorar Math Hub.",
+    "erro": "Ocurrió un error al enviar. Por favor, inténtalo de nuevo más tarde."
+  },
   "calc": {
     "normal": {
       "placeholder": "Escribe o usa los botones...",
