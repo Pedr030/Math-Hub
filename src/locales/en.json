@@ -293,7 +293,13 @@
         "taxaEquivalente": {
           "mes": "Equivalent monthly rate: {{valor}}% per month",
           "ano": "Equivalent annual rate: {{valor}}% per year"
-        }
+        },
+        "capitalLabel": "Initial Capital",
+        "jurosLabel": "Total Interest"
+      },
+      "graficos": {
+        "evolucao": "Evolution (Line)",
+        "proporcao": "Proportion (Pie)"
       },
       "ajuda": {
         "titulo": "How to use the interest calculator",
@@ -332,7 +338,17 @@
         "maximo": "Maximum",
         "amplitude": "Range",
         "contagem": "Count",
-        "ordenados": "Sorted values"
+        "ordenados": "Sorted values",
+        "frequencia": "Frequency Distribution",
+        "valor": "Value",
+        "frequenciaTooltip": "Frequency",
+        "ordem": "Index"
+      },
+      "graficos": {
+        "barras": "Bar",
+        "pizza": "Pie",
+        "area": "Cumulative",
+        "dispersao": "Scatter"
       },
       "ajuda": {
         "titulo": "How to use this tool",
@@ -537,7 +553,10 @@
         "razao": "Common ratio",
         "termos": "Sequence ({{n}} terms)",
         "sequencia": "Analyzed sequence",
-        "nenhuma": "The sequence is neither AP nor GP."
+        "nenhuma": "The sequence is neither AP nor GP.",
+        "grafico": "Sequence Behavior",
+        "valor": "Value",
+        "termo": "Term"
       },
       "ajuda": {
         "titulo": "How to use the progression calculator",

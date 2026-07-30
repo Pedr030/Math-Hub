@@ -292,7 +292,13 @@
         "taxaEquivalente": {
           "mes": "Tasa mensual equivalente: {{valor}}% al mes",
           "ano": "Tasa anual equivalente: {{valor}}% al año"
-        }
+        },
+        "capitalLabel": "Capital Inicial",
+        "jurosLabel": "Intereses Totales"
+      },
+      "graficos": {
+        "evolucao": "Evolución (Línea)",
+        "proporcao": "Proporción (Circular)"
       },
       "ajuda": {
         "titulo": "Cómo usar la calculadora de intereses",
@@ -331,7 +337,17 @@
         "maximo": "Máximo",
         "amplitude": "Amplitud",
         "contagem": "Cantidad",
-        "ordenados": "Valores ordenados"
+        "ordenados": "Valores ordenados",
+        "frequencia": "Distribución de Frecuencias",
+        "valor": "Valor",
+        "frequenciaTooltip": "Frecuencia",
+        "ordem": "Orden"
+      },
+      "graficos": {
+        "barras": "Barras",
+        "pizza": "Circular",
+        "area": "Acumulada",
+        "dispersao": "Dispersión"
       },
       "ajuda": {
         "titulo": "Cómo usar esta herramienta",
@@ -536,7 +552,10 @@
         "razao": "Razón",
         "termos": "Secuencia ({{n}} términos)",
         "sequencia": "Secuencia analizada",
-        "nenhuma": "La secuencia no es PA ni PG."
+        "nenhuma": "La secuencia no es PA ni PG.",
+        "grafico": "Comportamiento de la Secuencia",
+        "valor": "Valor",
+        "termo": "Término"
       },
       "ajuda": {
         "titulo": "Cómo usar la calculadora de progresiones",
