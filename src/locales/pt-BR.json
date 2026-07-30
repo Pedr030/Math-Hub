@@ -32,6 +32,9 @@
     "sucessoDesc": "Obrigado pela sua contribuição para melhorar o Math Hub.",
     "erro": "Ocorreu um erro ao enviar. Por favor, tente novamente mais tarde."
   },
+  "apoio": {
+    "apoiar":"Pagar um café para o desenvolvedor"
+  },
   "calc": {
     "normal": {
       "placeholder": "Digite ou use os botões...",

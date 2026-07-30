@@ -32,6 +32,9 @@
     "sucessoDesc": "Thank you for contributing to improve Math Hub.",
     "erro": "An error occurred while sending. Please try again later."
   },
+  "apoio": {
+    "apoiar":"Buy the developer a coffee"
+  },
   "calc": {
     "normal": {
       "placeholder": "Type or use the buttons...",
