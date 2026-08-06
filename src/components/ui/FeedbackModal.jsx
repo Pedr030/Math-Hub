@@ -12,12 +12,20 @@ function FeedbackModal({ isOpen, onClose }) {
     e.preventDefault();
     setStatus('loading');
 
+    // URL do Formspree vem de variável de ambiente — nunca hardcoded no
+    // componente, igual ao padrão já usado para a API de câmbio.
+    const formUrl = import.meta.env.VITE_FORMSPREE_URL;
+    if (!formUrl) {
+      console.error('VITE_FORMSPREE_URL não configurada');
+      setStatus('error');
+      return;
+    }
+
     // Recolhe todos os dados dos inputs do formulário
     const formData = new FormData(e.target);
 
     try {
-      // Substitua pela URL que o Formspree lhe deu no Passo 1
-      const response = await fetch('https://formspree.io/f/xlgqvalg', {
+      const response = await fetch(formUrl, {
         method: 'POST',
         body: formData,
         headers: {

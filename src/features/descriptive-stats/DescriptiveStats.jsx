@@ -15,6 +15,7 @@ import Button from "../../components/ui/Button";
 import ToolCard from "../../components/ui/ToolCard";
 import Modal from "../../components/ui/Modal";
 import ExportPanel from "../../components/ui/ExportPanel";
+import { PDF_CORES } from "../../utils/pdfColors";
 
 function fmt(n, casas = 4) {
   if (Number.isInteger(n)) return String(n);
@@ -133,19 +134,19 @@ function DescriptiveStats() {
         let currentY = 20;
 
         pdf.setFontSize(18);
-        pdf.setTextColor(15, 23, 42); 
+        pdf.setTextColor(...PDF_CORES.slate900);
         pdf.text(t("ferramentas.estatistica-descritiva.nome").toUpperCase(), margin, currentY);
         currentY += 12;
 
         pdf.setFontSize(10);
-        pdf.setTextColor(14, 165, 233);
+        pdf.setTextColor(...PDF_CORES.brand400);
         pdf.setFont(undefined, 'bold');
         pdf.text(`${t("tools.descriptiveStats.output.media", "Média")}: ${fmt(resultado.media)}`, margin, currentY);
         pdf.text(`${t("tools.descriptiveStats.output.mediana", "Mediana")}: ${fmt(resultado.mediana)}`, margin + 60, currentY);
         pdf.text(`${t("tools.descriptiveStats.output.moda", "Moda")}: ${formatarModa(resultado.moda)}`, margin + 120, currentY);
         currentY += 8;
 
-        pdf.setTextColor(100, 116, 139);
+        pdf.setTextColor(...PDF_CORES.slate500);
         pdf.setFont(undefined, 'normal');
         pdf.text(`${t("tools.descriptiveStats.output.desvioPadrao", "Desvio Padrão")}: ${fmt(resultado.desvioPadrao)}`, margin, currentY);
         pdf.text(`${t("tools.descriptiveStats.output.variancia", "Variância")}: ${fmt(resultado.variancia)}`, margin + 60, currentY);
@@ -195,7 +196,7 @@ function DescriptiveStats() {
         for (let i = 1; i <= pageCount; i++) {
           pdf.setPage(i);
           pdf.setFontSize(8);
-          pdf.setTextColor(148, 163, 184);
+          pdf.setTextColor(...PDF_CORES.slate400);
           const footerStr = `${t("common.exportar.marcaDagua", "Gerado por Math Hub")} - mathhub.app`;
           pdf.text(footerStr, margin, pageHeight - 10);
           pdf.text(`${i} / ${pageCount}`, pageWidth - margin, pageHeight - 10, { align: 'right' });
