@@ -120,6 +120,8 @@ function ProgressionCalc() {
         <button
           type="button"
           onClick={() => setMostrarAjuda(true)}
+          aria-label={t('tools.progressionCalc.ajuda.titulo')}
+          title={t('tools.progressionCalc.ajuda.titulo')}
           className="flex h-6 w-6 items-center justify-center rounded-full border border-brand-200 text-xs font-semibold text-brand-500 hover:bg-brand-50 dark:border-brand-700 dark:text-brand-300 dark:hover:bg-brand-900"
         >
           ?
@@ -252,8 +254,31 @@ function ProgressionCalc() {
           </div>
         </div>
       )}
-      
-      {/* O Modal permanece o mesmo... omitido por brevidade */}
+
+      <Modal
+        isOpen={mostrarAjuda}
+        onClose={() => setMostrarAjuda(false)}
+        title={t('tools.progressionCalc.ajuda.titulo')}
+      >
+        <div>
+          <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
+            {t('tools.progressionCalc.ajuda.pa.titulo')}
+          </p>
+          <p>{t('tools.progressionCalc.ajuda.pa.desc')}</p>
+        </div>
+        <div>
+          <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
+            {t('tools.progressionCalc.ajuda.pg.titulo')}
+          </p>
+          <p>{t('tools.progressionCalc.ajuda.pg.desc')}</p>
+        </div>
+        <div>
+          <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
+            {t('tools.progressionCalc.ajuda.identificar.titulo')}
+          </p>
+          <p>{t('tools.progressionCalc.ajuda.identificar.desc')}</p>
+        </div>
+      </Modal>
     </ToolCard>
   );
 }

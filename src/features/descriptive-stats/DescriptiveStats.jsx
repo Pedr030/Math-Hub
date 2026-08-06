@@ -425,7 +425,37 @@ function DescriptiveStats() {
         </div>
       )}
 
-      <Modal isOpen={mostrarAjuda} onClose={() => setMostrarAjuda(false)} title={t("tools.descriptiveStats.ajuda.titulo")} />
+      <Modal
+  isOpen={mostrarAjuda}
+  onClose={() => setMostrarAjuda(false)}
+  title={t('tools.descriptiveStats.ajuda.titulo')}
+>
+  <div>
+    <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
+      {t('tools.descriptiveStats.ajuda.entrada.titulo')}
+    </p>
+    <p>{t('tools.descriptiveStats.ajuda.entrada.desc')}</p>
+  </div>
+  <div>
+    <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
+      {t('tools.descriptiveStats.ajuda.metricas.titulo')}
+    </p>
+    <ul className="space-y-1 font-mono text-xs text-slate-500 dark:text-slate-400">
+      <li>{t('tools.descriptiveStats.ajuda.metricas.media')}</li>
+      <li>{t('tools.descriptiveStats.ajuda.metricas.mediana')}</li>
+      <li>{t('tools.descriptiveStats.ajuda.metricas.moda')}</li>
+      <li>{t('tools.descriptiveStats.ajuda.metricas.desvioPadrao')}</li>
+      <li>{t('tools.descriptiveStats.ajuda.metricas.variancia')}</li>
+      <li>{t('tools.descriptiveStats.ajuda.metricas.amplitude')}</li>
+    </ul>
+  </div>
+  <div>
+    <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
+      {t('tools.descriptiveStats.ajuda.moda.titulo')}
+    </p>
+    <p>{t('tools.descriptiveStats.ajuda.moda.desc')}</p>
+  </div>
+</Modal>
     </ToolCard>
   );
 }

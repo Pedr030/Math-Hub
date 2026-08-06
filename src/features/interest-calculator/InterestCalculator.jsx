@@ -459,7 +459,36 @@ function InterestCalculator() {
           </div>
         </div>
       )}
-      <Modal isOpen={mostrarAjuda} onClose={() => setMostrarAjuda(false)} title={t("tools.interestCalculator.ajuda.titulo")} />
+     <Modal
+  isOpen={mostrarAjuda}
+  onClose={() => setMostrarAjuda(false)}
+  title={t('tools.interestCalculator.ajuda.titulo')}
+>
+  <div>
+    <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
+      {t('tools.interestCalculator.ajuda.tipos.titulo')}
+    </p>
+    <p>{t('tools.interestCalculator.ajuda.tipos.desc')}</p>
+  </div>
+  <div>
+    <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
+      {t('tools.interestCalculator.ajuda.campos.titulo')}
+    </p>
+    <p>{t('tools.interestCalculator.ajuda.campos.desc')}</p>
+  </div>
+  <div>
+    <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
+      {t('tools.interestCalculator.ajuda.taxa.titulo')}
+    </p>
+    <p>{t('tools.interestCalculator.ajuda.taxa.desc')}</p>
+  </div>
+  <div>
+    <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
+      {t('tools.interestCalculator.ajuda.tabela.titulo')}
+    </p>
+    <p>{t('tools.interestCalculator.ajuda.tabela.desc')}</p>
+  </div>
+</Modal>
     </ToolCard>
   );
 }
