@@ -13,6 +13,7 @@ import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import ToolCard from "../../components/ui/ToolCard";
 import Modal from "../../components/ui/Modal";
+import ExportPanel from "../../components/ui/ExportPanel";
 
 const OPCOES_MOEDA = {
   BRL: { locale: "pt-BR", symbol: "R$" },
@@ -42,9 +43,13 @@ function InterestCalculator() {
   const [mostrarAjuda, setMostrarAjuda] = useState(false);
   const [graficoAtivo, setGraficoAtivo] = useState("evolucao");
   
-  const [isExporting, setIsExporting] = useState(false);
+  const [exportMode, setExportMode] = useState(null);
 
   const { locale, symbol } = OPCOES_MOEDA[moeda];
+
+  // Leitura de tema global
+  const isDark = document.documentElement.classList.contains("dark");
+  const legendColor = exportMode === 'pdf' ? '#475569' : (isDark ? '#94a3b8' : '#64748b');
 
   function formatarMoeda(valor) {
     return valor.toLocaleString(locale, {
@@ -111,7 +116,7 @@ function InterestCalculator() {
 
   const exportarGrafico = async () => {
     if (!graficoRef.current) return;
-    setIsExporting(true);
+    setExportMode('png'); 
 
     setTimeout(async () => {
       try {
@@ -129,13 +134,13 @@ function InterestCalculator() {
       } catch (err) {
         console.error("Erro ao exportar gráfico", err);
       } finally {
-        setIsExporting(false);
+        setExportMode(null);
       }
-    }, 250);
+    }, 350);
   };
 
   const exportarRelatorioPDF = async () => {
-    setIsExporting(true);
+    setExportMode('pdf'); 
 
     setTimeout(async () => {
       try {
@@ -227,15 +232,42 @@ function InterestCalculator() {
       } catch (err) {
         console.error("Erro ao exportar PDF", err);
       } finally {
-        setIsExporting(false);
+        setExportMode(null);
       }
-    }, 250);
+    }, 350);
   };
 
   const dadosComposicao = resultado ? [
     { nome: t("tools.interestCalculator.output.capitalLabel", "Capital Inicial"), valor: Number(capital) },
     { nome: t("tools.interestCalculator.output.jurosLabel", "Juros Totais"), valor: resultado.jurosTotais }
   ] : [];
+
+  // --- O PULO DO GATO: Função customizada para desenhar os textos da pizza de forma impecável ---
+  const renderCustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
+    if (percent < 0.001) return null; // Esconde textos de fatias que beiram 0% para não poluir visualmente
+    
+    const RADIAN = Math.PI / 180;
+    const radius = outerRadius + 18; // Distância perfeita para fora da fatia
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    const textColor = exportMode === 'pdf' ? '#475569' : (isDark ? '#cbd5e1' : '#475569');
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill={textColor}
+        textAnchor={x > cx ? 'start' : 'end'}
+        dominantBaseline="central"
+        fontSize="12px"
+        fontWeight="600"
+        className="font-mono"
+      >
+        {`${(percent * 100).toFixed(1)}%`}
+      </text>
+    );
+  };
 
   return (
     <ToolCard>
@@ -294,22 +326,11 @@ function InterestCalculator() {
       {resultado && (
         <div className="mt-6 space-y-4">
           
-          <div className="flex flex-wrap gap-3 justify-end border-b border-brand-100 dark:border-brand-900 pb-4">
-            <button 
-              onClick={exportarGrafico}
-              disabled={isExporting}
-              className="text-xs font-semibold px-4 py-2 rounded-lg border border-brand-200 text-brand-600 hover:bg-brand-50 dark:border-brand-700 dark:text-brand-400 dark:hover:bg-brand-900/50 transition-colors disabled:opacity-50"
-            >
-              {isExporting ? t("common.exportar.exportando", "Exportando...") : t("common.exportar.grafico", "Baixar Gráfico (PNG)")}
-            </button>
-            <button 
-              onClick={exportarRelatorioPDF}
-              disabled={isExporting}
-              className="text-xs font-semibold px-4 py-2 rounded-lg bg-brand-500 text-white hover:bg-brand-600 transition-colors disabled:opacity-50"
-            >
-              {isExporting ? t("common.exportar.exportando", "Exportando...") : t("common.exportar.relatorio", "Baixar Relatório (PDF)")}
-            </button>
-          </div>
+          <ExportPanel 
+            isExporting={exportMode !== null} 
+            onExportImage={exportarGrafico} 
+            onExportPDF={exportarRelatorioPDF} 
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="rounded-lg bg-brand-50 p-4 dark:bg-brand-900/40">
@@ -328,9 +349,15 @@ function InterestCalculator() {
 
           <div 
             ref={graficoRef} 
-            className={`w-full rounded-lg ${isExporting ? "bg-white text-slate-800 p-8" : "border border-brand-100 dark:border-brand-900 bg-white dark:bg-brand-950 p-4"}`}
+            className={`w-full rounded-lg ${
+              exportMode === 'pdf' 
+                ? "bg-white text-slate-800 p-8" 
+                : exportMode === 'png' 
+                ? "p-8 bg-white dark:bg-brand-950" 
+                : "border border-brand-100 dark:border-brand-900 bg-white dark:bg-brand-950 p-4"
+            }`}
           >
-            {!isExporting && (
+            {!exportMode && (
               <div className="flex gap-2 mb-6 border-b border-slate-100 dark:border-brand-900 pb-2">
                 {[
                   { id: "evolucao", label: t("tools.interestCalculator.graficos.evolucao", "Evolução (Linha)") },
@@ -348,8 +375,8 @@ function InterestCalculator() {
               </div>
             )}
 
-            {isExporting && (
-              <p className="font-mono text-xs text-brand-500 mb-6 text-center uppercase tracking-wider">
+            {exportMode && (
+              <p className={`font-mono text-xs mb-6 text-center uppercase tracking-wider ${exportMode === 'pdf' ? 'text-brand-500' : 'text-brand-500 dark:text-brand-400'}`}>
                 {graficoAtivo === "evolucao" ? t("tools.interestCalculator.graficos.evolucao", "Evolução (Linha)") : t("tools.interestCalculator.graficos.proporcao", "Proporção (Pizza)")}
               </p>
             )}
@@ -358,23 +385,32 @@ function InterestCalculator() {
               <ResponsiveContainer width="100%" height="100%">
                 {graficoAtivo === "evolucao" ? (
                   <LineChart data={resultado.tabela} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" className={isExporting ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
+                    <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
                     <XAxis dataKey="periodo" stroke="currentColor" className="text-xs font-mono" />
                     <YAxis stroke="currentColor" className="text-xs font-mono" width={90} tickFormatter={(valor) => { if (valor >= 1000000) return `${symbol} ${(valor / 1000000).toFixed(1)}M`; if (valor >= 1000) return `${symbol} ${(valor / 1000).toFixed(0)}k`; return `${symbol} ${valor.toFixed(0)}`; }} />
-                    <Tooltip formatter={(valor) => [formatarMoeda(valor), t("tools.interestCalculator.output.montanteTabela", "Montante")]} labelFormatter={(label) => `${t("tools.interestCalculator.output.periodo", "Período")}: ${label}`} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
-                    <Line isAnimationActive={!isExporting} type="monotone" dataKey="montante" stroke="#0ea5e9" strokeWidth={2.5} dot={false} activeDot={{ r: 6 }} />
+                    <Tooltip formatter={(valor) => [formatarMoeda(valor), t("tools.interestCalculator.output.montanteTabela", "Montante")]} labelFormatter={(label) => `${t("tools.interestCalculator.output.periodo", { unidade: t(`tools.interestCalculator.unidade.${unidade}`) })}: ${label}`} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
+                    <Line isAnimationActive={!exportMode} type="monotone" dataKey="montante" stroke="#0ea5e9" strokeWidth={2.5} dot={false} activeDot={{ r: 6 }} />
                   </LineChart>
                 ) : (
                   <PieChart>
                     <Tooltip formatter={(valor, name) => { const porcentagem = ((valor / resultado.montanteFinal) * 100).toFixed(1); return [`${formatarMoeda(valor)} (${porcentagem}%)`, name]; }} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
-                    <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{ fontSize: '12px', color: isExporting ? '#475569' : 'var(--text-slate-400, #94a3b8)' }} />
+                    <Legend 
+                      verticalAlign="bottom" 
+                      height={36} 
+                      iconType="circle" 
+                      wrapperStyle={{ fontSize: '12px' }} 
+                      formatter={(value) => {
+                        return <span style={{ color: legendColor }}>{value}</span>;
+                      }}
+                    />
                     <Pie
-                      isAnimationActive={!isExporting} 
+                      isAnimationActive={!exportMode} 
                       data={dadosComposicao}
                       dataKey="valor"
                       nameKey="nome"
-                      cx="50%" cy="45%" outerRadius={75} innerRadius={40} paddingAngle={2}
-                      label={isExporting ? ({ percent }) => `${(percent * 100).toFixed(1)}%` : false}
+                      cx="50%" cy="50%" outerRadius={75} innerRadius={40} paddingAngle={2}
+                      labelLine={false} // Mantém o layout de dashboard clean, sem o traço "espetando" a pizza
+                      label={renderCustomLabel} // Nossa mágica acontece aqui!
                     >
                       {dadosComposicao.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={CORES_PIE[index % CORES_PIE.length]} />
@@ -385,14 +421,13 @@ function InterestCalculator() {
               </ResponsiveContainer>
             </div>
 
-            {/* MARCA D'ÁGUA COM A LOGO COM CAMINHO CORRIGIDO */}
-            {isExporting && (
-              <div className="mt-8 pt-4 border-t border-slate-200 flex justify-between items-center">
+            {exportMode && (
+              <div className={`mt-8 pt-4 border-t flex justify-between items-center ${exportMode === 'pdf' ? 'border-slate-200' : 'border-slate-100 dark:border-brand-900'}`}>
                 <div className="flex items-center gap-2">
                   <img src="/favicon/web-app-manifest-192x192.png" alt="Logo" className="h-6 w-6 rounded-md" />
-                  <span className="font-display font-bold text-slate-800 text-sm tracking-wide">Math Hub</span>
+                  <span className={`font-display font-bold text-sm tracking-wide ${exportMode === 'pdf' ? 'text-slate-800' : 'text-slate-800 dark:text-slate-200'}`}>Math Hub</span>
                 </div>
-                <p className="text-slate-400 font-mono text-[10px]">mathhub.app</p>
+                <p className={`font-mono text-[10px] ${exportMode === 'pdf' ? 'text-slate-400' : 'text-slate-400 dark:text-slate-500'}`}>mathhub.app</p>
               </div>
             )}
           </div>
