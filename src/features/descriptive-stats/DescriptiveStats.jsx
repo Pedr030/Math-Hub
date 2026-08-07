@@ -62,7 +62,12 @@ function DescriptiveStats() {
     try {
       setResultado(calcularEstatisticas(entrada));
     } catch (err) {
-      setErro(err.message);
+      const chaves = {
+        VALOR_INVALIDO: () => t("tools.descriptiveStats.erros.valorInvalido", { valor: err.valor }),
+        NENHUM_NUMERO: () => t("tools.descriptiveStats.erros.nenhumNumero"),
+        MAX_EXCEDIDO: () => t("tools.descriptiveStats.erros.maxExcedido"),
+      };
+      setErro(chaves[err.codigo] ? chaves[err.codigo]() : err.message);
     }
   }
 
@@ -241,8 +246,8 @@ function DescriptiveStats() {
   const chartBarras = (
     <BarChart data={dadosAgrupados} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
       <CartesianGrid strokeDasharray="3 3" vertical={false} className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-      <XAxis dataKey="valorFormatado" stroke="currentColor" className="text-xs font-mono" />
-      <YAxis allowDecimals={false} stroke="currentColor" className="text-xs font-mono" width={40} />
+      <XAxis dataKey="valorFormatado" stroke={legendColor} className="text-xs font-mono" />
+      <YAxis allowDecimals={false} stroke={legendColor} className="text-xs font-mono" width={40} />
       <Tooltip formatter={(valor) => [valor, t("tools.descriptiveStats.output.frequenciaTooltip", "Frequência")]} labelFormatter={(label) => `${t("tools.descriptiveStats.output.valor", "Valor")}: ${label}`} cursor={{ fill: 'var(--tooltip-cursor, #334155)', opacity: 0.15 }} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
       <Bar isAnimationActive={!exportMode} dataKey="frequencia" fill="#0ea5e9" radius={[4, 4, 0, 0]} maxBarSize={60} />
     </BarChart>
@@ -277,8 +282,8 @@ function DescriptiveStats() {
   const chartArea = (
     <AreaChart data={dadosAgrupados} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
       <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-      <XAxis dataKey="valorFormatado" stroke="currentColor" className="text-xs font-mono" />
-      <YAxis allowDecimals={false} stroke="currentColor" className="text-xs font-mono" width={40} />
+      <XAxis dataKey="valorFormatado" stroke={legendColor} className="text-xs font-mono" />
+      <YAxis allowDecimals={false} stroke={legendColor} className="text-xs font-mono" width={40} />
       <Tooltip formatter={(valor) => [valor, t("tools.descriptiveStats.graficos.area", "Acumulada")]} labelFormatter={(label) => `${t("tools.descriptiveStats.output.valor", "Valor")}: ${label}`} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
       <Area isAnimationActive={!exportMode} type="monotone" dataKey="acumulada" stroke="#8b5cf6" fill="#8b5cf6" fillOpacity={0.2} strokeWidth={2} />
     </AreaChart>
@@ -287,8 +292,8 @@ function DescriptiveStats() {
   const chartDispersao = (
     <ScatterChart margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
       <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-      <XAxis type="number" dataKey="indice" name="Índice" stroke="currentColor" className="text-xs font-mono" tickCount={dadosDispersao.length > 10 ? 10 : dadosDispersao.length} />
-      <YAxis type="number" dataKey="valor" name="Valor" stroke="currentColor" className="text-xs font-mono" width={40} />
+      <XAxis type="number" dataKey="indice" name="Índice" stroke={legendColor} className="text-xs font-mono" tickCount={dadosDispersao.length > 10 ? 10 : dadosDispersao.length} />
+      <YAxis type="number" dataKey="valor" name="Valor" stroke={legendColor} className="text-xs font-mono" width={40} />
       <ZAxis range={[50, 50]} />
       <Tooltip cursor={{ strokeDasharray: '3 3' }} formatter={(valor, name) => [valor, name === 'Índice' ? t("tools.descriptiveStats.output.ordem", "Ordem") : t("tools.descriptiveStats.output.valor", "Valor")]} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
       <Scatter isAnimationActive={!exportMode} name="Valores" data={dadosDispersao} fill="#f43f5e" />
@@ -341,13 +346,13 @@ function DescriptiveStats() {
             <ResultCard label={t("tools.descriptiveStats.output.variancia")} value={fmt(resultado.variancia)} />
           </div>
 
-          <div 
-            ref={graficoRef} 
-            className={`w-full rounded-lg ${
-              exportMode === 'pdf' ? "bg-white text-slate-800 p-8" : 
-              exportMode === 'png' ? "p-8 bg-white dark:bg-brand-950" : 
+          <div
+            ref={graficoRef}
+            className={`rounded-lg ${exportMode ? "w-[640px]" : "w-full"} ${
+              exportMode === 'pdf' ? "bg-white text-slate-800 p-8" :
+              exportMode === 'png' ? "p-8 bg-white dark:bg-brand-950" :
               "border border-brand-100 dark:border-brand-900 bg-white dark:bg-brand-950 p-4"
-            }`}
+            } ${exportMode ? "[&_.recharts-tooltip-wrapper]:!hidden" : ""}`}
           >
             {exportMode !== 'pdf' && (
               <>

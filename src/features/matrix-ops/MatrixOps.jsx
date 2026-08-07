@@ -92,7 +92,11 @@ function MatrixOps() {
 
       setResultado(res);
     } catch (err) {
-      setErro(err.message);
+      if (err.codigo === "VALOR_INVALIDO") {
+        setErro(t("tools.matrixOps.erros.valorInvalido", { valor: err.valor }));
+      } else {
+        setErro(t("tools.matrixOps.erros.operacaoDesconhecida"));
+      }
     }
   }
 

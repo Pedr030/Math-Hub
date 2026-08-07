@@ -20,7 +20,11 @@ export function termoGeralPA(a1, razao, n) {
 // ─── PG ──────────────────────────────────────────────────────────────────────
 
 export function calcularPG(a1, razao, n) {
-  if (razao === 0) throw new Error("A razão de uma PG não pode ser zero.");
+  if (razao === 0) {
+    const erro = new Error("A razão de uma PG não pode ser zero.");
+    erro.codigo = "RAZAO_ZERO";
+    throw erro;
+  }
 
   const an = a1 * Math.pow(razao, n - 1);
 
@@ -79,7 +83,12 @@ export function parsearSequencia(texto) {
     .filter((s) => s !== "")
     .map((s) => {
       const n = Number(s);
-      if (isNaN(n)) throw new Error(`Valor inválido: "${s}"`);
+      if (isNaN(n)) {
+        const erro = new Error(`Valor inválido: "${s}"`);
+        erro.codigo = "VALOR_INVALIDO";
+        erro.valor = s;
+        throw erro;
+      }
       return n;
     });
 }
