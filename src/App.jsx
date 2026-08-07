@@ -4,6 +4,7 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Home from "./pages/Home";
 import ToolPage from "./pages/ToolPage";
+import { Analytics } from '@vercel/analytics/react';
 import InstallBanner from './components/ui/InstallBanner';
 import UpdateBanner from './components/ui/UpdateBanner';
 import FeedbackModal from './components/ui/FeedbackModal'; // Certifique-se de que o caminho está correto aqui
@@ -143,6 +144,7 @@ function App() {
         
         <InstallBanner />
         <UpdateBanner />
+        <Analytics />
       </div>
     </BrowserRouter>
   );

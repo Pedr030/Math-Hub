@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/gerar-sitemap.js && vite build",
+    "sitemap": "node scripts/gerar-sitemap.js",
     "preview": "vite preview",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "html-to-image": "^1.11.13",
     "i18next": "^26.3.3",
     "jspdf": "^4.2.1",
