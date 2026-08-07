@@ -23,7 +23,7 @@ const BOTOES = [
 ];
 
 const BOTOES_CIENTIFICOS = [
-  ["sin", "cos", "tan", "log", "ln"],
+  ["sin", "cos", "tan", "log", "ln", "^"],
   ["π", "e", "x²", "√", "1/x"],
 ];
 
@@ -174,7 +174,7 @@ function ModoNormal({ t }) {
     if (["÷", "×", "-", "+", "(", ")", "←"].includes(label)) return "operador";
     return "normal";
   }
-  const precisaDisplay = ["sin", "cos", "tan", "log", "ln", "x²", "√", "1/x"];
+  const precisaDisplay = ["sin", "cos", "tan", "log", "ln", "^", "x²", "√", "1/x"];
   const displayVazio = display.trim() === "";
 
   return (
@@ -202,7 +202,7 @@ function ModoNormal({ t }) {
       </div>
 
       {/* Botões científicos */}
-      <div className="grid grid-cols-5 gap-1">
+      <div className="grid grid-cols-6 gap-1">
         {BOTOES_CIENTIFICOS.flat().map((label) => (
           <BotaoCalc
             key={label}
