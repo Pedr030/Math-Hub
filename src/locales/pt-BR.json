@@ -61,6 +61,7 @@
             "log — logaritmo base 10",
             "ln — logaritmo natural",
             "sqrt — raiz quadrada",
+            "^ — potência (x elevado a y); x² eleva ao quadrado direto",
             "π, e — constantes matemáticas"
           ]
         },
