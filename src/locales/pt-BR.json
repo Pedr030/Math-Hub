@@ -7,6 +7,11 @@
       "botao": "Tentar novamente",
       "recarregar": "Recarregar página",
       "mensagemRede": "Erro de conexão — a ferramenta não pôde ser carregada. Verifique sua internet e recarregue."
+    },
+    "exportar": {
+      "grafico": "Baixar Gráfico (PNG)",
+      "relatorio": "Baixar Relatório (PDF)",
+      "exportando": "Exportando..."
     }
   },
   "pwa": {
@@ -275,7 +280,11 @@
       },
       "unidade": {
         "mes": "Mês",
-        "ano": "Ano"
+        "ano": "Ano",
+        "mes_singular": "mês",
+        "mes_plural": "meses",
+        "ano_singular": "ano",
+        "ano_plural": "anos"
       },
       "erros": {
         "camposVazios": "Preencha todos os campos antes de calcular.",
@@ -295,7 +304,11 @@
           "ano": "Taxa anual equivalente: {{valor}}% ao ano"
         },
         "capitalLabel": "Capital Inicial",
-        "jurosLabel": "Juros Totais"
+        "jurosLabel": "Juros Totais",
+        "resumoPdf": "Capital: {{capital}}   |   Taxa: {{taxa}}% ao {{unidadeTaxa}}   |   Períodos: {{periodos}} {{unidadePeriodos}}",
+        "marcaDagua": "Gerado por Math Hub",
+        "nomeArquivoGrafico": "grafico_juros",
+        "nomeArquivoPdf": "relatorio_juros"
       },
       "graficos": {
         "evolucao": "Evolução (Linha)",
@@ -556,7 +569,10 @@
         "nenhuma": "A sequência não é PA nem PG.",
         "grafico": "Comportamento da Sequência",
         "valor": "Valor",
-        "termo": "Termo"
+        "termo": "Termo",
+        "indice": "Índice",
+        "nomeArquivoGrafico": "grafico_progressao",
+        "nomeArquivoPdf": "relatorio_progressao"
       },
       "ajuda": {
         "titulo": "Como usar a calculadora de progressões",
