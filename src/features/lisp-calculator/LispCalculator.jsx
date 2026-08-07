@@ -181,7 +181,7 @@ function ModoNormal({ t }) {
     <div className="space-y-3">
       {/* Display */}
       <div className="rounded-xl bg-slate-50 dark:bg-brand-950/60 p-4 min-h-[80px] flex flex-col items-end justify-end">
-        <p className="font-mono text-slate-400 dark:text-slate-600 text-xs truncate max-w-full text-right mb-1">
+        <p className="font-mono text-slate-500 dark:text-slate-400 text-xs truncate max-w-full text-right mb-1">
           {display || " "}
         </p>
         <p
@@ -190,7 +190,7 @@ function ModoNormal({ t }) {
               ? "text-red-500 text-sm"
               : resultado !== null
                 ? "text-brand-600 dark:text-brand-300"
-                : "text-slate-400"
+                : "text-slate-500 dark:text-slate-400"
           }`}
         >
           {erro

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useId, useRef } from "react";
 
 /**
  * Modal genérico, reutilizável por qualquer ferramenta do Hub.
@@ -7,19 +7,49 @@ import { useEffect } from "react";
  * si só quando aparece, quem usa ele é quem decide, via useState.
  */
 function Modal({ isOpen, onClose, title, children }) {
-  // Fecha com a tecla ESC — boa prática de acessibilidade.
+  const tituloId = useId();
+  const dialogRef = useRef(null);
+  const elementoAnteriorRef = useRef(null);
+
+  // Fecha com ESC, prende o Tab dentro do modal, move o foco pra dentro
+  // ao abrir e devolve pro elemento que abriu o modal ao fechar.
   useEffect(() => {
     if (!isOpen) return;
 
+    elementoAnteriorRef.current = document.activeElement;
+    dialogRef.current?.focus();
+
     function handleKeyDown(e) {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const focaveis = dialogRef.current?.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focaveis || focaveis.length === 0) return;
+
+      const primeiro = focaveis[0];
+      const ultimo = focaveis[focaveis.length - 1];
+
+      if (e.shiftKey && document.activeElement === primeiro) {
+        e.preventDefault();
+        ultimo.focus();
+      } else if (!e.shiftKey && document.activeElement === ultimo) {
+        e.preventDefault();
+        primeiro.focus();
+      }
     }
 
     window.addEventListener("keydown", handleKeyDown);
-    // Função de "limpeza": remove o listener quando o modal fecha ou
-    // o componente desmonta. Sem isso, listeners se acumulariam a
-    // cada vez que o modal abrisse.
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    // Função de "limpeza": remove o listener e restaura o foco quando
+    // o modal fecha ou o componente desmonta.
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      elementoAnteriorRef.current?.focus();
+    };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
@@ -30,12 +60,17 @@ function Modal({ isOpen, onClose, title, children }) {
       onClick={onClose} // clique no overlay (fora do card) fecha o modal
     >
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={tituloId}
+        tabIndex={-1}
         onClick={(e) => e.stopPropagation()} // impede que clique DENTRO do card propague e feche
         className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-xl bg-white p-6 shadow-xl
-                   dark:bg-brand-900"
+                   dark:bg-brand-900 focus:outline-none"
       >
         <div className="mb-4 flex items-center justify-between">
-          <h3 className="font-display text-lg font-semibold">{title}</h3>
+          <h3 id={tituloId} className="font-display text-lg font-semibold">{title}</h3>
           <button
             onClick={onClose}
             aria-label="Fechar"

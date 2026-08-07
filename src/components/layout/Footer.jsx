@@ -11,7 +11,7 @@ function Footer({ aoAbrirFeedback }) {
   return (
     <footer className="mt-12 border-t border-brand-100 dark:border-brand-900">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-6">
-        <p className="font-mono text-xs text-slate-400 dark:text-slate-500">
+        <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
           math-hub • v0.1.0
         </p>
 

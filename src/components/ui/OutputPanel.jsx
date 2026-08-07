@@ -16,7 +16,7 @@ function OutputPanel({ rows = [], className = "" }) {
     >
       {rows.map(({ label, value, highlight, large }) => (
         <p key={label}>
-          <span className="text-slate-400">{label}:</span>{" "}
+          <span className="text-slate-500 dark:text-slate-400">{label}:</span>{" "}
           <span
             className={
               large

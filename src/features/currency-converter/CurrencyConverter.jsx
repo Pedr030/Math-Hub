@@ -147,7 +147,7 @@ function CurrencyConverter() {
           <div
             className={`flex-1 rounded-lg border px-3 py-2 font-mono text-sm
             border-brand-100 bg-slate-50 dark:border-brand-800 dark:bg-brand-950/60
-            ${resultado ? "text-brand-600 dark:text-brand-300 font-semibold" : "text-slate-400"}`}
+            ${resultado ? "text-brand-600 dark:text-brand-300 font-semibold" : "text-slate-500 dark:text-slate-400"}`}
           >
             {carregando
               ? t("tools.currencyConverter.carregando")
@@ -182,7 +182,7 @@ function CurrencyConverter() {
       {/* Taxa de câmbio e última atualização */}
       {taxas && taxaDireta && !erro && (
         <div className="mt-4 space-y-1">
-          <p className="font-mono text-xs text-slate-400 dark:text-slate-500">
+          <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
             1 {moedaOrigem} ={" "}
             {taxaDireta.toLocaleString(i18n.language, {
               minimumFractionDigits: 4,

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import autoTable from "jspdf-autotable";
 import {
   calcularPA,
   calcularPG,
@@ -16,7 +15,6 @@ import Modal from "../../components/ui/Modal";
 import ExportPanel from "../../components/ui/ExportPanel";
 import { PDF_CORES } from "../../utils/pdfColors";
 import { useChartExport } from "../../hooks/useChartExport";
-import { criarPDF, desenharGraficoComCard, adicionarRodapeEBaixar } from "../../utils/pdfExport";
 
 function ResultCard({ label, value, destaque = false }) {
   return (
@@ -27,7 +25,7 @@ function ResultCard({ label, value, destaque = false }) {
           : "bg-slate-50 dark:bg-brand-950/60"
       }`}
     >
-      <p className="font-mono text-xs text-slate-400 dark:text-slate-500 mb-0.5">
+      <p className="font-mono text-xs text-slate-500 dark:text-slate-400 mb-0.5">
         {label}
       </p>
       <p
@@ -134,6 +132,9 @@ function ProgressionCalc() {
 
   function handleExportarPDF() {
     exportarPDF(async () => {
+      const [{ criarPDF, desenharGraficoComCard, adicionarRodapeEBaixar }, { default: autoTable }] =
+        await Promise.all([import("../../utils/pdfExport"), import("jspdf-autotable")]);
+
       const { pdf, pageWidth, pageHeight, margin } = criarPDF();
       let currentY = 20;
 
@@ -311,7 +312,7 @@ function ProgressionCalc() {
                   <img src="/favicon/web-app-manifest-192x192.png" alt="Logo" className="h-6 w-6 rounded-md" />
                   <span className={`font-display font-bold text-sm tracking-wide whitespace-nowrap ${exportMode === 'pdf' ? 'text-slate-800' : 'text-slate-800 dark:text-slate-200'}`}>Math Hub</span>
                 </div>
-                <p className={`font-mono text-[10px] ${exportMode === 'pdf' ? 'text-slate-400' : 'text-slate-400 dark:text-slate-500'}`}>mathhub.app</p>
+                <p className={`font-mono text-[10px] ${exportMode === 'pdf' ? 'text-slate-400' : 'text-slate-500 dark:text-slate-400'}`}>mathhub.app</p>
               </div>
             )}
           </div>
@@ -382,7 +383,7 @@ function ProgressionCalc() {
                   <img src="/favicon/web-app-manifest-192x192.png" alt="Logo" className="h-6 w-6 rounded-md" />
                   <span className={`font-display font-bold text-sm tracking-wide whitespace-nowrap ${exportMode === 'pdf' ? 'text-slate-800' : 'text-slate-800 dark:text-slate-200'}`}>Math Hub</span>
                 </div>
-                <p className={`font-mono text-[10px] ${exportMode === 'pdf' ? 'text-slate-400' : 'text-slate-400 dark:text-slate-500'}`}>mathhub.app</p>
+                <p className={`font-mono text-[10px] ${exportMode === 'pdf' ? 'text-slate-400' : 'text-slate-500 dark:text-slate-400'}`}>mathhub.app</p>
               </div>
             )}
           </div>

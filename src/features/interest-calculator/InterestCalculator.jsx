@@ -5,7 +5,6 @@ import {
   PieChart, Pie, Cell, Legend,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from "recharts";
-import autoTable from "jspdf-autotable";
 import { calcularSimples, calcularComposto } from "./interest";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
@@ -14,7 +13,6 @@ import Modal from "../../components/ui/Modal";
 import ExportPanel from "../../components/ui/ExportPanel";
 import { PDF_CORES } from "../../utils/pdfColors";
 import { useChartExport } from "../../hooks/useChartExport";
-import { criarPDF, desenharGraficoComCard, adicionarRodapeEBaixar } from "../../utils/pdfExport";
 
 const OPCOES_MOEDA = {
   BRL: { locale: "pt-BR", symbol: "R$" },
@@ -112,6 +110,9 @@ function InterestCalculator() {
 
   function handleExportarPDF() {
     exportarPDF(async () => {
+      const [{ criarPDF, desenharGraficoComCard, adicionarRodapeEBaixar }, { default: autoTable }] =
+        await Promise.all([import("../../utils/pdfExport"), import("jspdf-autotable")]);
+
       const { pdf, pageWidth, pageHeight, margin } = criarPDF();
       let currentY = 20;
 
@@ -212,7 +213,7 @@ function InterestCalculator() {
   return (
     <ToolCard>
       <div className="flex justify-end mb-3">
-        <button type="button" onClick={() => setMostrarAjuda(true)} className="flex h-6 w-6 items-center justify-center rounded-full border border-brand-200 text-xs font-semibold text-brand-500 hover:bg-brand-50 dark:border-brand-700 dark:text-brand-300 dark:hover:bg-brand-900">?</button>
+        <button type="button" onClick={() => setMostrarAjuda(true)} aria-label={t("tools.interestCalculator.ajuda.titulo")} title={t("tools.interestCalculator.ajuda.titulo")} className="flex h-6 w-6 items-center justify-center rounded-full border border-brand-200 text-xs font-semibold text-brand-500 hover:bg-brand-50 dark:border-brand-700 dark:text-brand-300 dark:hover:bg-brand-900">?</button>
       </div>
 
       <div className="flex gap-2 mb-5">
@@ -283,7 +284,7 @@ function InterestCalculator() {
             </div>
           </div>
 
-          <p className="font-mono text-xs text-slate-400 dark:text-slate-500">
+          <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
             {t(`tools.interestCalculator.output.taxaEquivalente.${resultado.taxaEquivalente.unidade}`, { valor: resultado.taxaEquivalente.valor.toFixed(4) })}
           </p>
 
@@ -367,7 +368,7 @@ function InterestCalculator() {
                   <img src="/favicon/web-app-manifest-192x192.png" alt="Logo" className="h-6 w-6 rounded-md" />
                   <span className={`font-display font-bold text-sm tracking-wide whitespace-nowrap ${exportMode === 'pdf' ? 'text-slate-800' : 'text-slate-800 dark:text-slate-200'}`}>Math Hub</span>
                 </div>
-                <p className={`font-mono text-[10px] ${exportMode === 'pdf' ? 'text-slate-400' : 'text-slate-400 dark:text-slate-500'}`}>mathhub.app</p>
+                <p className={`font-mono text-[10px] ${exportMode === 'pdf' ? 'text-slate-400' : 'text-slate-500 dark:text-slate-400'}`}>mathhub.app</p>
               </div>
             )}
           </div>

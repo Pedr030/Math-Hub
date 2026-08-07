@@ -35,7 +35,7 @@ function InstallBanner() {
             <p className="font-display font-semibold text-sm">
               {t('pwa.banner.titulo')}
             </p>
-            <p className="font-mono text-xs text-slate-400 dark:text-slate-500">
+            <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
               {t('pwa.banner.desc')}
             </p>
           </div>
