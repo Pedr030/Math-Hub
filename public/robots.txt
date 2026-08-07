@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mathhub.app/sitemap.xml
+Sitemap: https://math-hub-umber.vercel.app/sitemap.xml
