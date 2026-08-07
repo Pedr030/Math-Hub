@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { converter, converterParaTodas, fmtResultado } from "./unitConverter";
+import { converter, converterParaTodas, fmtResultado, parsearValor } from "./unitConverter";
 
 describe("comprimento", () => {
   it("1 km = 1000 m", () => {
@@ -74,6 +74,38 @@ describe("converterParaTodas", () => {
     expect(r).toHaveProperty("mi");
     expect(r["m"]).toBeCloseTo(1);
     expect(r["cm"]).toBeCloseTo(100);
+  });
+});
+
+describe("parsearValor", () => {
+  it("decimal simples com ponto", () => {
+    expect(parsearValor("5.5", "ft")).toBeCloseTo(5.5);
+  });
+
+  it("decimal com vírgula (locale BR)", () => {
+    expect(parsearValor("5,5", "m")).toBeCloseTo(5.5);
+  });
+
+  it("notação pé'polegada\" — 5'10\" vira 5 + 10/12 pés", () => {
+    expect(parsearValor(`5'10"`, "ft")).toBeCloseTo(5 + 10 / 12);
+  });
+
+  it("notação pé'polegada sem as aspas de polegada", () => {
+    expect(parsearValor("5'10", "ft")).toBeCloseTo(5 + 10 / 12);
+  });
+
+  it("notação pé'polegada só é reconhecida quando a unidade é ft", () => {
+    // pra outras unidades, o apóstrofo não faz sentido — vira NaN mesmo
+    expect(parsearValor(`5'10"`, "m")).toBeNaN();
+  });
+
+  it("texto vazio vira NaN", () => {
+    expect(parsearValor("", "ft")).toBeNaN();
+    expect(parsearValor("   ", "m")).toBeNaN();
+  });
+
+  it("texto inválido vira NaN", () => {
+    expect(parsearValor("abc", "m")).toBeNaN();
   });
 });
 

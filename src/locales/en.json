@@ -492,6 +492,7 @@
     },
     "unitConverter": {
       "origem": "source",
+      "placeholderPe": "5.5 or 5'10\"",
       "categorias": {
         "comprimento": "Length",
         "massa": "Mass",
@@ -503,6 +504,10 @@
         "comoUsar": {
           "titulo": "How to use",
           "desc": "Select the category, choose the source unit in the selector next to the field, and enter the value. All equivalents appear instantly, without clicking any button."
+        },
+        "pe": {
+          "titulo": "Feet as feet′inches″",
+          "desc": "The feet field accepts both decimal (5.5) and feet'inches\" notation (5'10\" = 5 feet and 10 inches). Use the apostrophe to be explicit — otherwise a value like 5.10 is read as plain decimal feet, not 5 feet 10 inches."
         },
         "temperatura": {
           "titulo": "Temperature",

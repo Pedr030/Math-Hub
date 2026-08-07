@@ -491,6 +491,7 @@
     },
     "unitConverter": {
       "origem": "origen",
+      "placeholderPe": "5.5 o 5'10\"",
       "categorias": {
         "comprimento": "Longitud",
         "massa": "Masa",
@@ -502,6 +503,10 @@
         "comoUsar": {
           "titulo": "Cómo usar",
           "desc": "Selecciona la categoría, elige la unidad de origen en el selector junto al campo e ingresa el valor. Todos los equivalentes aparecen instantáneamente, sin necesidad de hacer clic en ningún botón."
+        },
+        "pe": {
+          "titulo": "Pie en pie′pulgada″",
+          "desc": "El campo de pie acepta tanto decimal (5.5) como la notación pie'pulgada\" (5'10\" = 5 pies y 10 pulgadas). Cuidado: \"5,10\" solo se lee como decimal (5,10 pies), no como 5 pies y 10 pulgadas — usa el apóstrofo para dejarlo explícito."
         },
         "temperatura": {
           "titulo": "Temperatura",
