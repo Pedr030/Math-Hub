@@ -46,6 +46,33 @@ export const CATEGORIAS = {
   },
 };
 
+// Reconhece a notação pé'polegada" (ex: 5'10" ou 5'10) — bem mais comum
+// no dia a dia do que pé decimal, que costuma ser confundido com a
+// vírgula decimal brasileira (5,10 parece "5 e 10", mas o navegador
+// lê como 5,10 pés decimais).
+const REGEX_PE_POLEGADA = /^(-?\d+(?:[.,]\d+)?)\s*'\s*(\d+(?:[.,]\d+)?)\s*"?$/;
+
+/**
+ * Interpreta o texto digitado num número. Para a unidade "ft" (pé),
+ * também aceita a notação pé'polegada" além do decimal comum.
+ */
+export function parsearValor(texto, unidade) {
+  const limpo = (texto ?? "").trim();
+  if (limpo === "") return NaN;
+
+  if (unidade === "ft") {
+    const match = limpo.match(REGEX_PE_POLEGADA);
+    if (match) {
+      const pes = Number(match[1].replace(",", "."));
+      const polegadas = Number(match[2].replace(",", "."));
+      if (isNaN(pes) || isNaN(polegadas)) return NaN;
+      return pes + polegadas / 12;
+    }
+  }
+
+  return Number(limpo.replace(",", "."));
+}
+
 function converterTemperatura(valor, de, para) {
   let celsius;
   switch (de) {

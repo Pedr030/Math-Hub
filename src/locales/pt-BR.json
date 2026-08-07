@@ -492,6 +492,7 @@
     },
     "unitConverter": {
       "origem": "origem",
+      "placeholderPe": "5.5 ou 5'10\"",
       "categorias": {
         "comprimento": "Comprimento",
         "massa": "Massa",
@@ -503,6 +504,10 @@
         "comoUsar": {
           "titulo": "Como usar",
           "desc": "Selecione a categoria, escolha a unidade de origem no seletor ao lado do campo, e digite o valor. Todos os equivalentes aparecem instantaneamente, sem precisar clicar em nenhum botão."
+        },
+        "pe": {
+          "titulo": "Pé em pé′polegada″",
+          "desc": "O campo de pé aceita tanto decimal (5.5) quanto a notação pé'polegada\" (5'10\" = 5 pés e 10 polegadas). Cuidado: \"5,10\" sozinho é lido como decimal (5,10 pés), não como 5 pés e 10 polegadas — use o apóstrofo pra deixar isso explícito."
         },
         "temperatura": {
           "titulo": "Temperatura",

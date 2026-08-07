@@ -5,6 +5,7 @@ import {
   converter,
   converterParaTodas,
   fmtResultado,
+  parsearValor,
 } from "./unitConverter";
 import Input from "../../components/ui/Input";
 import ToolCard from "../../components/ui/ToolCard";
@@ -33,7 +34,7 @@ function UnitConverter() {
 
   // Resultado da conversão principal (origem → destino)
   const resultadoPrincipal = (() => {
-    const n = Number(valor);
+    const n = parsearValor(valor, unidadeOrigem);
     if (valor.trim() === "" || isNaN(n)) return null;
     try {
       return converter(n, categoriaId, unidadeOrigem, unidadeDestino);
@@ -44,7 +45,7 @@ function UnitConverter() {
 
   // Resultados de todas as unidades (para a seção expansível)
   const todosResultados = (() => {
-    const n = Number(valor);
+    const n = parsearValor(valor, unidadeOrigem);
     if (!expandido || valor.trim() === "" || isNaN(n)) return null;
     try {
       return converterParaTodas(n, categoriaId, unidadeOrigem);
@@ -114,9 +115,9 @@ function UnitConverter() {
         {/* Linha de origem */}
         <div className="flex gap-2">
           <Input
-            type="number"
+            type={unidadeOrigem === "ft" ? "text" : "number"}
             step="any"
-            placeholder="0"
+            placeholder={unidadeOrigem === "ft" ? t("tools.unitConverter.placeholderPe", "5.5 ou 5'10\"") : "0"}
             value={valor}
             onChange={(e) => setValor(e.target.value)}
           />
@@ -227,6 +228,12 @@ function UnitConverter() {
             {t("tools.unitConverter.ajuda.comoUsar.titulo")}
           </p>
           <p>{t("tools.unitConverter.ajuda.comoUsar.desc")}</p>
+        </div>
+        <div>
+          <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
+            {t("tools.unitConverter.ajuda.pe.titulo")}
+          </p>
+          <p>{t("tools.unitConverter.ajuda.pe.desc")}</p>
         </div>
         <div>
           <p className="font-medium text-slate-800 dark:text-slate-100 mb-1">
