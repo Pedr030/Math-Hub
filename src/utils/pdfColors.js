@@ -12,4 +12,6 @@ export const PDF_CORES = {
   slate400: [148, 163, 184],  // texto terciário (rodapé, marca d'água)
   slate500: [100, 116, 139],  // texto secundário (rótulos)
   slate900: [15, 23, 42],     // texto principal (títulos/corpo)
+  cardBg: [248, 250, 252],   // fundo levemente cinza do card (slate-50)
+  cardBorder: [226, 232, 240], // borda sutil do card (slate-200)
 };

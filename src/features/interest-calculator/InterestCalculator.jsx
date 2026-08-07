@@ -14,6 +14,7 @@ import Input from "../../components/ui/Input";
 import ToolCard from "../../components/ui/ToolCard";
 import Modal from "../../components/ui/Modal";
 import ExportPanel from "../../components/ui/ExportPanel";
+import { PDF_CORES } from "../../utils/pdfColors";
 
 const OPCOES_MOEDA = {
   BRL: { locale: "pt-BR", symbol: "R$" },
@@ -189,6 +190,17 @@ function InterestCalculator() {
           const imgProps = pdf.getImageProperties(dataUrl);
           const printWidth = pageWidth - (margin * 2);
           const printHeight = (imgProps.height * printWidth) / imgProps.width;
+          const padding = 4;
+          pdf.setFillColor(...PDF_CORES.cardBg);
+          pdf.setDrawColor(...PDF_CORES.cardBorder);
+          pdf.setLineWidth(0.3);
+          pdf.roundedRect(
+            margin - padding,
+            currentY - padding,
+            printWidth + padding * 2,
+            printHeight + padding * 2,
+            2, 2, 'FD' // 'FD' = Fill + Draw (preenche E desenha a borda)
+          );
           
           pdf.addImage(dataUrl, "JPEG", margin, currentY, printWidth, printHeight);
           currentY += printHeight + 15;
