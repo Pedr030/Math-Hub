@@ -237,7 +237,8 @@
         "funcaoSemOperando": "Malformed expression: function without operand",
         "operadorSemOperandos": "Malformed expression: not enough operands for operator",
         "resultadoInvalido": "Malformed expression: invalid result",
-        "zeroPotenciaNegativa": "Cannot raise zero to a negative power"
+        "zeroPotenciaNegativa": "Cannot raise zero to a negative power",
+        "variaveisFaltando": "Fill in all variable values before calculating."
       }
     },
     "matrixCircuit": {
