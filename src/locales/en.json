@@ -19,6 +19,11 @@
     "titulo": "Install Math Hub",
     "desc": "Quick access, works offline",
     "instalar": "Install"
+  },
+  "atualizar": {
+    "titulo": "New version available",
+    "desc": "Update to get the latest improvements.",
+    "botao": "Update"
   }
 },
 "feedback": {
