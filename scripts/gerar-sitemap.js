@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const DOMINIO = "https://mathhub.app";
+const DOMINIO = "https://math-hub-umber.vercel.app";
 
 const { ferramentas } = JSON.parse(
   readFileSync(resolve(__dirname, "../src/data/projetos.json"), "utf-8"),
