@@ -278,7 +278,7 @@ function ProgressionCalc() {
           {/* GRÁFICO DA PROGRESSÃO */}
           <div
             ref={graficoRef}
-            className={`rounded-lg ${exportMode ? "w-[640px]" : "w-full"} ${
+            className={`rounded-lg w-full ${exportMode ? "min-w-[640px]" : ""} ${
               exportMode === 'pdf'
                 ? "bg-white text-slate-800 p-8"
                 : exportMode === 'png'
@@ -307,9 +307,9 @@ function ProgressionCalc() {
 
             {exportMode && (
               <div className={`mt-8 pt-4 border-t flex justify-between items-center ${exportMode === 'pdf' ? 'border-slate-200' : 'border-slate-100 dark:border-brand-900'}`}>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 shrink-0">
                   <img src="/favicon/web-app-manifest-192x192.png" alt="Logo" className="h-6 w-6 rounded-md" />
-                  <span className={`font-display font-bold text-sm tracking-wide ${exportMode === 'pdf' ? 'text-slate-800' : 'text-slate-800 dark:text-slate-200'}`}>Math Hub</span>
+                  <span className={`font-display font-bold text-sm tracking-wide whitespace-nowrap ${exportMode === 'pdf' ? 'text-slate-800' : 'text-slate-800 dark:text-slate-200'}`}>Math Hub</span>
                 </div>
                 <p className={`font-mono text-[10px] ${exportMode === 'pdf' ? 'text-slate-400' : 'text-slate-400 dark:text-slate-500'}`}>mathhub.app</p>
               </div>
@@ -349,7 +349,7 @@ function ProgressionCalc() {
           {/* GRÁFICO DA SEQUÊNCIA IDENTIFICADA */}
           <div
             ref={graficoRef}
-            className={`rounded-lg mt-4 ${exportMode ? "w-[640px]" : "w-full"} ${
+            className={`rounded-lg mt-4 w-full ${exportMode ? "min-w-[640px]" : ""} ${
               exportMode === 'pdf'
                 ? "bg-white text-slate-800 p-8"
                 : exportMode === 'png'
@@ -378,9 +378,9 @@ function ProgressionCalc() {
 
             {exportMode && (
               <div className={`mt-8 pt-4 border-t flex justify-between items-center ${exportMode === 'pdf' ? 'border-slate-200' : 'border-slate-100 dark:border-brand-900'}`}>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 shrink-0">
                   <img src="/favicon/web-app-manifest-192x192.png" alt="Logo" className="h-6 w-6 rounded-md" />
-                  <span className={`font-display font-bold text-sm tracking-wide ${exportMode === 'pdf' ? 'text-slate-800' : 'text-slate-800 dark:text-slate-200'}`}>Math Hub</span>
+                  <span className={`font-display font-bold text-sm tracking-wide whitespace-nowrap ${exportMode === 'pdf' ? 'text-slate-800' : 'text-slate-800 dark:text-slate-200'}`}>Math Hub</span>
                 </div>
                 <p className={`font-mono text-[10px] ${exportMode === 'pdf' ? 'text-slate-400' : 'text-slate-400 dark:text-slate-500'}`}>mathhub.app</p>
               </div>
