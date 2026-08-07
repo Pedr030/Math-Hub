@@ -54,7 +54,8 @@ ferramenta resolve um problema específico com uma interface simples e consisten
   com cache offline
 - **[Vitest](https://vitest.dev/)** para testes automatizados
 - Dados das ferramentas servidos por um arquivo JSON local (sem backend)
-- Deploy contínuo via **[Vercel](https://vercel.com/)**
+- Deploy contínuo via **[Vercel](https://vercel.com/)**, com
+  **[Vercel Web Analytics](https://vercel.com/analytics)** (sem cookies)
 
 ## 📁 Estrutura do projeto
 
@@ -95,8 +96,9 @@ src/
 ├── context/
 │   └── ThemeContext.jsx     # tema claro/escuro com persistência
 ├── hooks/
-│   ├── useDocumentTitle.js  # atualiza <title> por ferramenta (SEO)
+│   ├── useSEO.js            # título, meta description e OG/Twitter por ferramenta
 │   ├── useFavoritos.js      # gerencia favoritos com persistência em localStorage
+│   ├── useChartExport.js    # estado/ações de exportação de gráfico (PNG) e relatório (PDF)
 │   └── useInstallPWA.js     # controla o prompt/estado de instalação do PWA
 ├── data/
 │   └── projetos.json        # catálogo das ferramentas do Hub
@@ -106,7 +108,8 @@ src/
 │   └── es.json
 ├── utils/
 │   ├── TranslateError.js    # mapeia mensagens de erro para chaves i18n
-│   └── pdfColors.js         # paleta de cores da marca em RGB, para uso com jsPDF
+│   ├── pdfColors.js         # paleta de cores da marca em RGB, para uso com jsPDF
+│   └── pdfExport.js         # boilerplate de jsPDF compartilhado (imagem com card, rodapé)
 ├── i18n.js                  # configuração do i18next
 ├── App.jsx                  # rotas + lazy loading por ferramenta
 └── main.jsx                 # ponto de entrada
@@ -142,11 +145,28 @@ Na Vercel, adicione em `Settings → Environment Variables`.
 ### Outros comandos
 
 ```bash
-npm run build          # build de produção em /dist
+npm run build          # gera public/sitemap.xml e builda em /dist
+npm run sitemap        # só regenera public/sitemap.xml (útil em dev)
 npm run preview        # serve o build de produção localmente
 npm test               # roda os testes automatizados
 npm run test:coverage  # relatório de cobertura
 ```
+
+### SEO e analytics
+
+- `public/robots.txt` libera todo o crawling e aponta pro sitemap.
+- `public/sitemap.xml` é gerado por `scripts/gerar-sitemap.js` a partir de
+  `projetos.json` — toda vez que uma ferramenta é adicionada ao catálogo,
+  o sitemap já sai atualizado no próximo build, sem passo manual.
+- `useSEO` atualiza `<title>`, meta description e as tags OG/Twitter por
+  ferramenta. Como o site é uma SPA sem SSR, isso ajuda a indexação do
+  Google (que executa JS), mas **não** muda o preview de link em apps
+  como WhatsApp/Twitter — esses crawlers não executam JS e sempre veem
+  as tags estáticas do `index.html`.
+- **[Vercel Web Analytics](https://vercel.com/analytics)** via
+  `@vercel/analytics` — sem cookies, precisa estar habilitado no
+  dashboard do projeto na Vercel (`Analytics` → `Enable`) pra começar a
+  coletar dados.
 
 ## 🌱 Adicionando uma nova ferramenta
 

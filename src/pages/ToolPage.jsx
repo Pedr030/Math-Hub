@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import ErrorBoundary from "../components/ui/ErrorBoundary";
-import { useDocumentTitle } from "../hooks/useDocumentTitle";
+import { useSEO } from "../hooks/useSEO";
 
 function ToolPage({ ferramentas, registroComponentes }) {
   const { slug } = useParams();
@@ -15,8 +15,11 @@ function ToolPage({ ferramentas, registroComponentes }) {
   const tituloFerramenta = ferramenta
     ? t(`ferramentas.${ferramenta.id}.nome`, { defaultValue: ferramenta.nome })
     : null;
+  const descricaoFerramenta = ferramenta
+    ? t(`ferramentas.${ferramenta.id}.descricao`, { defaultValue: ferramenta.descricao })
+    : null;
 
-  useDocumentTitle(tituloFerramenta);
+  useSEO(tituloFerramenta, descricaoFerramenta);
 
   if (!ferramenta || !Componente) {
     return (
