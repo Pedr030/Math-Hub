@@ -20,6 +20,9 @@ ferramenta resolve um problema específico com uma interface simples e consisten
   decimal e hexadecimal com passo a passo das divisões sucessivas.
 - 🔣 **Operações com Matrizes** — soma, subtração, multiplicação,
   transposta e determinante de matrizes 2×2 e 3×3.
+- 📏 **Resolvedor de Triângulos** — calcula lados, ângulos, área e
+  perímetro a partir de qualquer combinação válida de dados, usando a
+  Lei dos Senos e dos Cossenos.
 - 📐 **Conversor de Unidades** — converte entre unidades de comprimento,
   massa, temperatura e volume com resultado em tempo real.
 - 📈 **Calculadora de Progressões** — calcula termo geral, soma e sequência
@@ -32,6 +35,10 @@ ferramenta resolve um problema específico com uma interface simples e consisten
 - 🌐 Internacionalização: Português, Inglês e Espanhol.
 - 🔍 Busca e filtros por tag na grade de ferramentas.
 - 📱 Layout responsivo.
+- 📊 Representação gráfica (Juros, Estatística Descritiva e Progressões)
+  com exportação do gráfico em PNG e de um relatório completo em PDF.
+- 📲 PWA instalável com cache offline.
+- 💬 Modal de feedback para reportar bugs ou sugerir novas ferramentas.
 
 ## 🛠️ Stack técnica
 
@@ -39,6 +46,12 @@ ferramenta resolve um problema específico com uma interface simples e consisten
 - **[Tailwind CSS](https://tailwindcss.com/)** para estilização
 - **[React Router](https://reactrouter.com/)** para navegação por URL
 - **[i18next](https://www.i18next.com/)** / `react-i18next` para tradução
+- **[Recharts](https://recharts.org/)** para os gráficos das ferramentas
+- **[jsPDF](https://github.com/parallax/jsPDF)** / `jspdf-autotable` e
+  **[html-to-image](https://github.com/bubkoo/html-to-image)** para exportar
+  gráficos (PNG) e relatórios (PDF)
+- **[vite-plugin-pwa](https://vite-pwa-org.netlify.app/)** para suporte a PWA
+  com cache offline
 - **[Vitest](https://vitest.dev/)** para testes automatizados
 - Dados das ferramentas servidos por um arquivo JSON local (sem backend)
 - Deploy contínuo via **[Vercel](https://vercel.com/)**
@@ -55,7 +68,10 @@ src/
 │   │   ├── Modal.jsx          # modal genérico (ajuda contextual)
 │   │   ├── ToolCard.jsx       # card container padrão de cada ferramenta
 │   │   ├── OutputPanel.jsx    # painel de saída em estilo terminal
+│   │   ├── ExportPanel.jsx    # botões de exportar gráfico (PNG) e relatório (PDF)
 │   │   ├── ErrorBoundary.jsx  # captura erros por ferramenta; distingue rede de código
+│   │   ├── FeedbackModal.jsx  # formulário de reportar bug / sugerir ferramenta
+│   │   ├── InstallBanner.jsx  # banner de instalação do PWA
 │   │   ├── Logo.jsx           # SVG inline — sem flash ao trocar tema
 │   │   ├── ThemeToggle.jsx    # botão de alternância de tema
 │   │   └── LangToggle.jsx     # seletor de idioma (PT | EN | ES)
@@ -70,6 +86,7 @@ src/
 │   ├── currency-converter/
 │   ├── base-converter/
 │   ├── matrix-ops/
+│   ├── triangle-solver/
 │   ├── unit-converter/
 │   └── progression-calc/
 ├── pages/
@@ -79,7 +96,8 @@ src/
 │   └── ThemeContext.jsx     # tema claro/escuro com persistência
 ├── hooks/
 │   ├── useDocumentTitle.js  # atualiza <title> por ferramenta (SEO)
-│   └── useFavoritos.js      # gerencia favoritos com persistência em localStorage
+│   ├── useFavoritos.js      # gerencia favoritos com persistência em localStorage
+│   └── useInstallPWA.js     # controla o prompt/estado de instalação do PWA
 ├── data/
 │   └── projetos.json        # catálogo das ferramentas do Hub
 ├── locales/                 # traduções
@@ -87,7 +105,8 @@ src/
 │   ├── en.json
 │   └── es.json
 ├── utils/
-│   └── TranslateError.js    # mapeia mensagens de erro para chaves i18n
+│   ├── TranslateError.js    # mapeia mensagens de erro para chaves i18n
+│   └── pdfColors.js         # paleta de cores da marca em RGB, para uso com jsPDF
 ├── i18n.js                  # configuração do i18next
 ├── App.jsx                  # rotas + lazy loading por ferramenta
 └── main.jsx                 # ponto de entrada
@@ -157,6 +176,10 @@ npm run test:coverage  # relatório de cobertura
   trocar tema, cores controladas por classes Tailwind com dark mode nativo.
 - **Favoritos em localStorage** — persistência sem backend; hook
   `useFavoritos` isola a lógica e pode ser reutilizado por outras features.
+- **Exportação de gráfico e relatório** — `ExportPanel` padroniza os botões
+  de exportar em todas as ferramentas com gráfico; `html-to-image` gera o
+  PNG a partir do próprio DOM renderizado e `jsPDF` monta o relatório,
+  reaproveitando a mesma paleta de cores via `utils/pdfColors.js`.
 - **Dual-mode na calculadora LISP** — modo normal com botões físicos
   para expressões reais, modo LISP para números complexos com notação
   prefixa; lógicas completamente independentes no mesmo componente.

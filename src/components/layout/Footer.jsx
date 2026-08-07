@@ -1,7 +1,12 @@
-import { useTranslation } from 'react-i18next'; // 1. Importar o hook de tradução
+import { useTranslation } from 'react-i18next';
 
 function Footer({ aoAbrirFeedback }) {
-  const { t } = useTranslation(); // 2. Instanciar a função de tradução
+  const { t, i18n } = useTranslation();
+
+  // Verifica o idioma para decidir o link de apoio
+  const linkApoio = i18n.language === 'pt-BR' 
+    ? 'https://livepix.gg/mathhub' 
+    : 'https://ko-fi.com/mathhub';
 
   return (
     <footer className="mt-12 border-t border-brand-100 dark:border-brand-900">
@@ -12,7 +17,25 @@ function Footer({ aoAbrirFeedback }) {
 
         <div className="flex items-center gap-4">
           
-          {/* Botão atualizado: Trocamos o texto pelo ícone SVG e adicionamos title/aria-label traduzidos */}
+          {/* Botão de Apoio (Café) */}
+          <a
+            href={linkApoio}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t('apoio.apoiar')}
+            title={t('apoio.apoiar')}
+            className="text-slate-400 transition-colors hover:text-brand-500 dark:text-slate-500 dark:hover:text-brand-300"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
+              <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
+              <line x1="6" y1="2" x2="6" y2="4"/>
+              <line x1="10" y1="2" x2="10" y2="4"/>
+              <line x1="14" y1="2" x2="14" y2="4"/>
+            </svg>
+          </a>
+
+          {/* Botão de Bug (Inseto) */}
           <button
             onClick={aoAbrirFeedback}
             aria-label={t('feedback.tooltip')}
@@ -32,20 +55,21 @@ function Footer({ aoAbrirFeedback }) {
             </svg>
           </button>
 
+          {/* Github */}
           <a
             href="https://github.com/Pedr030"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Perfil no GitHub"
             title="Perfil no GitHub"
-            className="text-slate-400 hover:text-brand-500 dark:text-slate-500 dark:hover:text-brand-300 transition-colors"
+            className="text-slate-400 transition-colors hover:text-brand-500 dark:text-slate-500 dark:hover:text-brand-300"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12Z" />
             </svg>
           </a>
+          
         </div>
-
       </div>
     </footer>
   );

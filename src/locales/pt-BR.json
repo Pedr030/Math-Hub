@@ -7,6 +7,11 @@
       "botao": "Tentar novamente",
       "recarregar": "Recarregar página",
       "mensagemRede": "Erro de conexão — a ferramenta não pôde ser carregada. Verifique sua internet e recarregue."
+    },
+    "exportar": {
+      "grafico": "Baixar Gráfico (PNG)",
+      "relatorio": "Baixar Relatório (PDF)",
+      "exportando": "Exportando..."
     }
   },
   "pwa": {
@@ -31,6 +36,9 @@
     "sucessoTitulo": "Mensagem enviada com sucesso!",
     "sucessoDesc": "Obrigado pela sua contribuição para melhorar o Math Hub.",
     "erro": "Ocorreu um erro ao enviar. Por favor, tente novamente mais tarde."
+  },
+  "apoio": {
+    "apoiar":"Pagar um café para o desenvolvedor"
   },
   "calc": {
     "normal": {
@@ -272,7 +280,11 @@
       },
       "unidade": {
         "mes": "Mês",
-        "ano": "Ano"
+        "ano": "Ano",
+        "mes_singular": "mês",
+        "mes_plural": "meses",
+        "ano_singular": "ano",
+        "ano_plural": "anos"
       },
       "erros": {
         "camposVazios": "Preencha todos os campos antes de calcular.",
@@ -290,7 +302,17 @@
         "taxaEquivalente": {
           "mes": "Taxa mensal equivalente: {{valor}}% ao mês",
           "ano": "Taxa anual equivalente: {{valor}}% ao ano"
-        }
+        },
+        "capitalLabel": "Capital Inicial",
+        "jurosLabel": "Juros Totais",
+        "resumoPdf": "Capital: {{capital}}   |   Taxa: {{taxa}}% ao {{unidadeTaxa}}   |   Períodos: {{periodos}} {{unidadePeriodos}}",
+        "marcaDagua": "Gerado por Math Hub",
+        "nomeArquivoGrafico": "grafico_juros",
+        "nomeArquivoPdf": "relatorio_juros"
+      },
+      "graficos": {
+        "evolucao": "Evolução (Linha)",
+        "proporcao": "Proporção (Pizza)"
       },
       "ajuda": {
         "titulo": "Como usar a calculadora de juros",
@@ -329,7 +351,17 @@
         "maximo": "Máximo",
         "amplitude": "Amplitude",
         "contagem": "Contagem",
-        "ordenados": "Valores ordenados"
+        "ordenados": "Valores ordenados",
+        "frequencia": "Distribuição de Frequência",
+        "valor": "Valor",
+        "frequenciaTooltip": "Frequência",
+        "ordem": "Ordem"
+      },
+      "graficos": {
+        "barras": "Barras",
+        "pizza": "Pizza",
+        "area": "Acumulada",
+        "dispersao": "Dispersão"
       },
       "ajuda": {
         "titulo": "Como usar esta ferramenta",
@@ -534,7 +566,13 @@
         "razao": "Razão",
         "termos": "Sequência ({{n}} termos)",
         "sequencia": "Sequência analisada",
-        "nenhuma": "A sequência não é PA nem PG."
+        "nenhuma": "A sequência não é PA nem PG.",
+        "grafico": "Comportamento da Sequência",
+        "valor": "Valor",
+        "termo": "Termo",
+        "indice": "Índice",
+        "nomeArquivoGrafico": "grafico_progressao",
+        "nomeArquivoPdf": "relatorio_progressao"
       },
       "ajuda": {
         "titulo": "Como usar a calculadora de progressões",

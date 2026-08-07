@@ -7,6 +7,11 @@
       "botao": "Intentar de nuevo",
       "recarregar": "Recargar página",
       "mensagemRede": "Error de conexión — la herramienta no pudo cargarse. Verifica tu internet y recarga."
+    },
+    "exportar": {
+      "grafico": "Descargar Gráfico (PNG)",
+      "relatorio": "Descargar Informe (PDF)",
+      "exportando": "Exportando..."
     }
   },"pwa": {
   "banner": {
@@ -30,6 +35,9 @@
     "sucessoTitulo": "¡Mensaje enviado con éxito!",
     "sucessoDesc": "Gracias por contribuir a mejorar Math Hub.",
     "erro": "Ocurrió un error al enviar. Por favor, inténtalo de nuevo más tarde."
+  },
+  "apoio": {
+    "apoiar":"Invítale un café al desarrollador"
   },
   "calc": {
     "normal": {
@@ -271,7 +279,11 @@
       },
       "unidade": {
         "mes": "Mes",
-        "ano": "Año"
+        "ano": "Año",
+        "mes_singular": "mes",
+        "mes_plural": "meses",
+        "ano_singular": "año",
+        "ano_plural": "años"
       },
       "erros": {
         "camposVazios": "Completa todos los campos antes de calcular.",
@@ -289,7 +301,17 @@
         "taxaEquivalente": {
           "mes": "Tasa mensual equivalente: {{valor}}% al mes",
           "ano": "Tasa anual equivalente: {{valor}}% al año"
-        }
+        },
+        "capitalLabel": "Capital Inicial",
+        "jurosLabel": "Intereses Totales",
+        "resumoPdf": "Capital: {{capital}}   |   Tasa: {{taxa}}% al {{unidadeTaxa}}   |   Períodos: {{periodos}} {{unidadePeriodos}}",
+        "marcaDagua": "Generado por Math Hub",
+        "nomeArquivoGrafico": "grafico_intereses",
+        "nomeArquivoPdf": "informe_intereses"
+      },
+      "graficos": {
+        "evolucao": "Evolución (Línea)",
+        "proporcao": "Proporción (Circular)"
       },
       "ajuda": {
         "titulo": "Cómo usar la calculadora de intereses",
@@ -328,7 +350,17 @@
         "maximo": "Máximo",
         "amplitude": "Amplitud",
         "contagem": "Cantidad",
-        "ordenados": "Valores ordenados"
+        "ordenados": "Valores ordenados",
+        "frequencia": "Distribución de Frecuencias",
+        "valor": "Valor",
+        "frequenciaTooltip": "Frecuencia",
+        "ordem": "Orden"
+      },
+      "graficos": {
+        "barras": "Barras",
+        "pizza": "Circular",
+        "area": "Acumulada",
+        "dispersao": "Dispersión"
       },
       "ajuda": {
         "titulo": "Cómo usar esta herramienta",
@@ -533,7 +565,13 @@
         "razao": "Razón",
         "termos": "Secuencia ({{n}} términos)",
         "sequencia": "Secuencia analizada",
-        "nenhuma": "La secuencia no es PA ni PG."
+        "nenhuma": "La secuencia no es PA ni PG.",
+        "grafico": "Comportamiento de la Secuencia",
+        "valor": "Valor",
+        "termo": "Término",
+        "indice": "Índice",
+        "nomeArquivoGrafico": "grafico_progresion",
+        "nomeArquivoPdf": "informe_progresion"
       },
       "ajuda": {
         "titulo": "Cómo usar la calculadora de progresiones",
