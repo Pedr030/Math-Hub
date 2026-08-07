@@ -359,15 +359,15 @@ function InterestCalculator() {
             {t(`tools.interestCalculator.output.taxaEquivalente.${resultado.taxaEquivalente.unidade}`, { valor: resultado.taxaEquivalente.valor.toFixed(4) })}
           </p>
 
-          <div 
-            ref={graficoRef} 
+          <div
+            ref={graficoRef}
             className={`w-full rounded-lg ${
-              exportMode === 'pdf' 
-                ? "bg-white text-slate-800 p-8" 
-                : exportMode === 'png' 
-                ? "p-8 bg-white dark:bg-brand-950" 
+              exportMode === 'pdf'
+                ? "bg-white text-slate-800 p-8"
+                : exportMode === 'png'
+                ? "p-8 bg-white dark:bg-brand-950"
                 : "border border-brand-100 dark:border-brand-900 bg-white dark:bg-brand-950 p-4"
-            }`}
+            } ${exportMode ? "[&_.recharts-tooltip-wrapper]:!hidden" : ""}`}
           >
             {!exportMode && (
               <div className="flex gap-2 mb-6 border-b border-slate-100 dark:border-brand-900 pb-2">
@@ -393,7 +393,7 @@ function InterestCalculator() {
               </p>
             )}
 
-            <div className="h-64 w-full">
+            <div className={`w-full ${exportMode ? "h-80" : "h-64"}`}>
               <ResponsiveContainer width="100%" height="100%">
                 {graficoAtivo === "evolucao" ? (
                   <LineChart data={resultado.tabela} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>

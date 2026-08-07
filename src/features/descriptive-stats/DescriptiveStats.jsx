@@ -62,7 +62,12 @@ function DescriptiveStats() {
     try {
       setResultado(calcularEstatisticas(entrada));
     } catch (err) {
-      setErro(err.message);
+      const chaves = {
+        VALOR_INVALIDO: () => t("tools.descriptiveStats.erros.valorInvalido", { valor: err.valor }),
+        NENHUM_NUMERO: () => t("tools.descriptiveStats.erros.nenhumNumero"),
+        MAX_EXCEDIDO: () => t("tools.descriptiveStats.erros.maxExcedido"),
+      };
+      setErro(chaves[err.codigo] ? chaves[err.codigo]() : err.message);
     }
   }
 
@@ -341,13 +346,13 @@ function DescriptiveStats() {
             <ResultCard label={t("tools.descriptiveStats.output.variancia")} value={fmt(resultado.variancia)} />
           </div>
 
-          <div 
-            ref={graficoRef} 
+          <div
+            ref={graficoRef}
             className={`w-full rounded-lg ${
-              exportMode === 'pdf' ? "bg-white text-slate-800 p-8" : 
-              exportMode === 'png' ? "p-8 bg-white dark:bg-brand-950" : 
+              exportMode === 'pdf' ? "bg-white text-slate-800 p-8" :
+              exportMode === 'png' ? "p-8 bg-white dark:bg-brand-950" :
               "border border-brand-100 dark:border-brand-900 bg-white dark:bg-brand-950 p-4"
-            }`}
+            } ${exportMode ? "[&_.recharts-tooltip-wrapper]:!hidden" : ""}`}
           >
             {exportMode !== 'pdf' && (
               <>
@@ -380,7 +385,7 @@ function DescriptiveStats() {
                   </p>
                 )}
 
-                <div className="h-64 w-full">
+                <div className={`w-full ${exportMode === 'png' ? "h-80" : "h-64"}`}>
                   <ResponsiveContainer width="100%" height="100%">
                     {graficoAtivo === "barras" ? chartBarras :
                      graficoAtivo === "pizza" ? chartPizza :
@@ -397,19 +402,19 @@ function DescriptiveStats() {
                 <div className="flex flex-col">
                   <p className="font-mono text-[10px] text-brand-500 mb-2 text-center uppercase">{t("tools.descriptiveStats.graficos.barras")}</p>
                   {/* AQUI: Aumentamos a altura de cada quadro de h-48 para h-56 */}
-                  <div className="h-56 w-full"><ResponsiveContainer width="100%" height="100%">{chartBarras}</ResponsiveContainer></div>
+                  <div className="h-64 w-full"><ResponsiveContainer width="100%" height="100%">{chartBarras}</ResponsiveContainer></div>
                 </div>
                 <div className="flex flex-col">
                   <p className="font-mono text-[10px] text-brand-500 mb-2 text-center uppercase">{t("tools.descriptiveStats.graficos.pizza")}</p>
-                  <div className="h-56 w-full"><ResponsiveContainer width="100%" height="100%">{chartPizza}</ResponsiveContainer></div>
+                  <div className="h-64 w-full"><ResponsiveContainer width="100%" height="100%">{chartPizza}</ResponsiveContainer></div>
                 </div>
                 <div className="flex flex-col">
                   <p className="font-mono text-[10px] text-brand-500 mb-2 text-center uppercase">{t("tools.descriptiveStats.graficos.area")}</p>
-                  <div className="h-56 w-full"><ResponsiveContainer width="100%" height="100%">{chartArea}</ResponsiveContainer></div>
+                  <div className="h-64 w-full"><ResponsiveContainer width="100%" height="100%">{chartArea}</ResponsiveContainer></div>
                 </div>
                 <div className="flex flex-col">
                   <p className="font-mono text-[10px] text-brand-500 mb-2 text-center uppercase">{t("tools.descriptiveStats.graficos.dispersao")}</p>
-                  <div className="h-56 w-full"><ResponsiveContainer width="100%" height="100%">{chartDispersao}</ResponsiveContainer></div>
+                  <div className="h-64 w-full"><ResponsiveContainer width="100%" height="100%">{chartDispersao}</ResponsiveContainer></div>
                 </div>
               </div>
             )}

@@ -343,7 +343,10 @@
       "calcular": "Calcular",
       "semModa": "Sin moda",
       "erros": {
-        "vazio": "Ingresa al menos un número."
+        "vazio": "Ingresa al menos un número.",
+        "valorInvalido": "Valor inválido: \"{{valor}}\"",
+        "nenhumNumero": "No se encontraron números.",
+        "maxExcedido": "Máximo de 1000 valores por vez."
       },
       "output": {
         "media": "Media",
@@ -460,6 +463,10 @@
         "transposta": "Transpuesta",
         "determinante": "Determinante"
       },
+      "erros": {
+        "valorInvalido": "Valor inválido: \"{{valor}}\"",
+        "operacaoDesconhecida": "Operación desconocida."
+      },
       "ajuda": {
         "titulo": "Cómo usar operaciones con matrices",
         "operacoes": {
@@ -561,7 +568,9 @@
         "numerosInvalidos": "Uno o más valores no son números válidos.",
         "nInvalido": "El número de términos debe ser entero entre 1 y 100.",
         "vazioSeq": "Ingresa una secuencia de números para identificar.",
-        "minimoTermos": "Ingresa al menos 2 términos para identificar."
+        "minimoTermos": "Ingresa al menos 2 términos para identificar.",
+        "valorInvalido": "Valor inválido: \"{{valor}}\"",
+        "razaoZero": "La razón de una PG no puede ser cero."
       },
       "output": {
         "an": "Último término (aₙ)",

@@ -61,20 +61,28 @@ export async function buscarTaxas(moedaBase) {
     };
 
   const apiKey = import.meta.env.VITE_EXCHANGE_RATE_API_KEY;
-  if (!apiKey) throw new Error("API key não configurada.");
+  if (!apiKey) {
+    const erro = new Error("API key não configurada.");
+    erro.codigo = "SEM_API_KEY";
+    throw erro;
+  }
 
   const response = await fetch(
     `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${moedaBase}`,
   );
 
   if (!response.ok) {
-    throw new Error(`Erro na API: ${response.status}`);
+    const erro = new Error(`Erro na API: ${response.status}`);
+    erro.codigo = "ERRO_API";
+    throw erro;
   }
 
   const data = await response.json();
 
   if (data.result !== "success") {
-    throw new Error(data["error-type"] || "Erro desconhecido na API");
+    const erro = new Error(data["error-type"] || "Erro desconhecido na API");
+    erro.codigo = "ERRO_API";
+    throw erro;
   }
 
   const rates = data.conversion_rates;

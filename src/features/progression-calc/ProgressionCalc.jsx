@@ -59,6 +59,12 @@ function ProgressionCalc() {
 
   const graficoRef = useRef(null);
 
+  function traduzirErroLocal(err) {
+    if (err.codigo === "VALOR_INVALIDO") return t("tools.progressionCalc.erros.valorInvalido", { valor: err.valor });
+    if (err.codigo === "RAZAO_ZERO") return t("tools.progressionCalc.erros.razaoZero");
+    return err.message;
+  }
+
   function handleCalcular(e) {
     e.preventDefault();
     setErro(null);
@@ -78,7 +84,7 @@ function ProgressionCalc() {
         }
         setIdentificacao({ nums, ...identificarProgressao(nums) });
       } catch (err) {
-        setErro(err.message);
+        setErro(traduzirErroLocal(err));
       }
       return;
     }
@@ -104,7 +110,7 @@ function ProgressionCalc() {
       const res = modo === "pa" ? calcularPA(vA1, vRazao, vN) : calcularPG(vA1, vRazao, vN);
       setResultado(res);
     } catch (err) {
-      setErro(err.message);
+      setErro(traduzirErroLocal(err));
     }
   }
 
@@ -340,12 +346,12 @@ function ProgressionCalc() {
                 : exportMode === 'png'
                 ? "p-8 bg-white dark:bg-brand-950"
                 : "border border-brand-100 dark:border-brand-900 bg-white dark:bg-brand-950 p-4"
-            }`}
+            } ${exportMode ? "[&_.recharts-tooltip-wrapper]:!hidden" : ""}`}
           >
             <p className={`font-mono text-xs mb-3 ${exportMode === 'pdf' ? 'text-brand-500 text-center uppercase tracking-wider' : 'text-brand-500'}`}>
               {t("tools.progressionCalc.output.grafico", "Comportamento da Sequência")}
             </p>
-            <div className="h-48 w-full">
+            <div className={`w-full ${exportMode ? "h-64" : "h-48"}`}>
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={dadosGrafico} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
@@ -411,12 +417,12 @@ function ProgressionCalc() {
                 : exportMode === 'png'
                 ? "p-8 bg-white dark:bg-brand-950"
                 : "border border-brand-100 dark:border-brand-900 bg-white dark:bg-brand-950 p-4"
-            }`}
+            } ${exportMode ? "[&_.recharts-tooltip-wrapper]:!hidden" : ""}`}
           >
             <p className={`font-mono text-xs mb-3 ${exportMode === 'pdf' ? 'text-brand-500 text-center uppercase tracking-wider' : 'text-brand-500'}`}>
               {t("tools.progressionCalc.output.grafico", "Comportamento da Sequência")}
             </p>
-            <div className="h-48 w-full">
+            <div className={`w-full ${exportMode ? "h-64" : "h-48"}`}>
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={dadosIdentificacao} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
