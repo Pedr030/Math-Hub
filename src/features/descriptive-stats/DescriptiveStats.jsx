@@ -1,14 +1,12 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { 
-  BarChart, Bar, 
-  PieChart, Pie, Cell, Legend, 
-  AreaChart, Area, 
-  ScatterChart, Scatter, 
-  XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, ResponsiveContainer 
+import {
+  BarChart, Bar,
+  PieChart, Pie, Cell, Legend,
+  AreaChart, Area,
+  ScatterChart, Scatter,
+  XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from "recharts";
-import { toPng, toJpeg } from "html-to-image";
-import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import { calcularEstatisticas } from "./statistics";
 import Button from "../../components/ui/Button";
@@ -16,6 +14,8 @@ import ToolCard from "../../components/ui/ToolCard";
 import Modal from "../../components/ui/Modal";
 import ExportPanel from "../../components/ui/ExportPanel";
 import { PDF_CORES } from "../../utils/pdfColors";
+import { useChartExport } from "../../hooks/useChartExport";
+import { criarPDF, desenharGraficoComCard, adicionarRodapeEBaixar } from "../../utils/pdfExport";
 
 function fmt(n, casas = 4) {
   if (Number.isInteger(n)) return String(n);
@@ -35,19 +35,14 @@ const CORES_PIE = ['#0ea5e9', '#8b5cf6', '#f43f5e', '#f97316', '#22c55e', '#eab3
 
 function DescriptiveStats() {
   const { t } = useTranslation();
-  
-  const graficoRef = useRef(null);
+
+  const { exportMode, graficoRef, isDark, axisColor, exportarGrafico, exportarPDF } = useChartExport();
 
   const [entrada, setEntrada] = useState("");
   const [resultado, setResultado] = useState(null);
   const [erro, setErro] = useState(null);
   const [mostrarAjuda, setMostrarAjuda] = useState(false);
   const [graficoAtivo, setGraficoAtivo] = useState("barras");
-  
-  const [exportMode, setExportMode] = useState(null);
-
-  const isDark = document.documentElement.classList.contains("dark");
-  const legendColor = exportMode === 'pdf' ? '#475569' : (isDark ? '#94a3b8' : '#64748b');
 
   function handleCalcular(e) {
     e.preventDefault();
@@ -62,7 +57,12 @@ function DescriptiveStats() {
     try {
       setResultado(calcularEstatisticas(entrada));
     } catch (err) {
-      setErro(err.message);
+      const chaves = {
+        VALOR_INVALIDO: () => t("tools.descriptiveStats.erros.valorInvalido", { valor: err.valor }),
+        NENHUM_NUMERO: () => t("tools.descriptiveStats.erros.nenhumNumero"),
+        MAX_EXCEDIDO: () => t("tools.descriptiveStats.erros.maxExcedido"),
+      };
+      setErro(chaves[err.codigo] ? chaves[err.codigo]() : err.message);
     }
   }
 
@@ -95,133 +95,72 @@ function DescriptiveStats() {
       });
   }
 
-  const getBackgroundColor = () => {
-    return document.documentElement.classList.contains("dark") ? "#020617" : "#ffffff";
-  };
+  function handleExportarGrafico() {
+    const baseName = t("tools.descriptiveStats.output.nomeArquivoGrafico", "grafico_estatistica");
+    exportarGrafico(`${baseName}.png`.replace(/\s+/g, '_').toLowerCase());
+  }
 
-  const exportarGrafico = async () => {
-    if (!graficoRef.current) return;
-    setExportMode('png'); 
+  function handleExportarPDF() {
+    exportarPDF(async () => {
+      const { pdf, pageWidth, pageHeight, margin } = criarPDF();
+      let currentY = 20;
 
-    setTimeout(async () => {
-      try {
-        const dataUrl = await toPng(graficoRef.current, { 
-          backgroundColor: getBackgroundColor(), 
-          pixelRatio: 2
-        });
-        const link = document.createElement("a");
-        const baseName = t("tools.descriptiveStats.output.nomeArquivoGrafico", "grafico_estatistica");
-        link.download = `${baseName}.png`.replace(/\s+/g, '_').toLowerCase();
-        link.href = dataUrl;
-        link.click();
-      } catch (err) {
-        console.error("Erro ao exportar gráfico", err);
-      } finally {
-        setExportMode(null);
-      }
-    }, 350);
-  };
+      pdf.setFontSize(18);
+      pdf.setTextColor(...PDF_CORES.slate900);
+      pdf.text(t("ferramentas.estatistica-descritiva.nome").toUpperCase(), margin, currentY);
+      currentY += 12;
 
-  const exportarRelatorioPDF = async () => {
-    setExportMode('pdf'); 
+      pdf.setFontSize(10);
+      pdf.setTextColor(...PDF_CORES.brand400);
+      pdf.setFont(undefined, 'bold');
+      pdf.text(`${t("tools.descriptiveStats.output.media", "Média")}: ${fmt(resultado.media)}`, margin, currentY);
+      pdf.text(`${t("tools.descriptiveStats.output.mediana", "Mediana")}: ${fmt(resultado.mediana)}`, margin + 60, currentY);
+      pdf.text(`${t("tools.descriptiveStats.output.moda", "Moda")}: ${formatarModa(resultado.moda)}`, margin + 120, currentY);
+      currentY += 8;
 
-    setTimeout(async () => {
-      try {
-        const pdf = new jsPDF("p", "mm", "a4");
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const margin = 15;
-        let currentY = 20;
+      pdf.setTextColor(...PDF_CORES.slate500);
+      pdf.setFont(undefined, 'normal');
+      pdf.text(`${t("tools.descriptiveStats.output.desvioPadrao", "Desvio Padrão")}: ${fmt(resultado.desvioPadrao)}`, margin, currentY);
+      pdf.text(`${t("tools.descriptiveStats.output.variancia", "Variância")}: ${fmt(resultado.variancia)}`, margin + 60, currentY);
+      pdf.text(`${t("tools.descriptiveStats.output.amplitude", "Amplitude")}: ${fmt(resultado.amplitude)}`, margin + 120, currentY);
+      currentY += 8;
 
-        pdf.setFontSize(18);
-        pdf.setTextColor(...PDF_CORES.slate900);
-        pdf.text(t("ferramentas.estatistica-descritiva.nome").toUpperCase(), margin, currentY);
-        currentY += 12;
+      pdf.text(`${t("tools.descriptiveStats.output.minimo", "Mínimo")}: ${fmt(resultado.minimo)}`, margin, currentY);
+      pdf.text(`${t("tools.descriptiveStats.output.maximo", "Máximo")}: ${fmt(resultado.maximo)}`, margin + 60, currentY);
+      pdf.text(`${t("tools.descriptiveStats.output.contagem", "Contagem")}: ${resultado.contagem}`, margin + 120, currentY);
+      currentY += 15;
 
-        pdf.setFontSize(10);
-        pdf.setTextColor(...PDF_CORES.brand400);
-        pdf.setFont(undefined, 'bold');
-        pdf.text(`${t("tools.descriptiveStats.output.media", "Média")}: ${fmt(resultado.media)}`, margin, currentY);
-        pdf.text(`${t("tools.descriptiveStats.output.mediana", "Mediana")}: ${fmt(resultado.mediana)}`, margin + 60, currentY);
-        pdf.text(`${t("tools.descriptiveStats.output.moda", "Moda")}: ${formatarModa(resultado.moda)}`, margin + 120, currentY);
-        currentY += 8;
+      currentY = await desenharGraficoComCard(pdf, { graficoRef, currentY, margin, pageWidth });
 
-        pdf.setTextColor(...PDF_CORES.slate500);
-        pdf.setFont(undefined, 'normal');
-        pdf.text(`${t("tools.descriptiveStats.output.desvioPadrao", "Desvio Padrão")}: ${fmt(resultado.desvioPadrao)}`, margin, currentY);
-        pdf.text(`${t("tools.descriptiveStats.output.variancia", "Variância")}: ${fmt(resultado.variancia)}`, margin + 60, currentY);
-        pdf.text(`${t("tools.descriptiveStats.output.amplitude", "Amplitude")}: ${fmt(resultado.amplitude)}`, margin + 120, currentY);
-        currentY += 8;
+      const tableBody = dadosAgrupados.map(d => [
+        d.valorFormatado,
+        d.frequencia,
+        d.acumulada
+      ]);
 
-        pdf.text(`${t("tools.descriptiveStats.output.minimo", "Mínimo")}: ${fmt(resultado.minimo)}`, margin, currentY);
-        pdf.text(`${t("tools.descriptiveStats.output.maximo", "Máximo")}: ${fmt(resultado.maximo)}`, margin + 60, currentY);
-        pdf.text(`${t("tools.descriptiveStats.output.contagem", "Contagem")}: ${resultado.contagem}`, margin + 120, currentY);
-        currentY += 15;
+      autoTable(pdf, {
+        startY: currentY,
+        head: [[
+          t("tools.descriptiveStats.output.valor", "Valor"),
+          t("tools.descriptiveStats.output.contagem", "Frequência"),
+          t("tools.descriptiveStats.graficos.area", "Frequência Acumulada")
+        ]],
+        body: tableBody,
+        theme: 'striped',
+        headStyles: { fillColor: [14, 165, 233], textColor: 255 },
+        styles: { fontSize: 9, halign: 'center', cellPadding: 3 },
+        alternateRowStyles: { fillColor: [248, 250, 252] },
+        margin: { left: margin, right: margin, bottom: 20 }
+      });
 
-        if (graficoRef.current) {
-          const dataUrl = await toJpeg(graficoRef.current, { 
-            backgroundColor: '#ffffff', 
-            quality: 0.95,              
-            pixelRatio: 1.5
-          });
-          const imgProps = pdf.getImageProperties(dataUrl);
-          const printWidth = pageWidth - (margin * 2);
-          const printHeight = (imgProps.height * printWidth) / imgProps.width;
-          const padding = 4;
-          pdf.setFillColor(...PDF_CORES.cardBg);
-          pdf.setDrawColor(...PDF_CORES.cardBorder);
-          pdf.setLineWidth(0.3);
-          pdf.roundedRect(
-            margin - padding,
-            currentY - padding,
-            printWidth + padding * 2,
-            printHeight + padding * 2,
-            2, 2, 'FD' // 'FD' = Fill + Draw (preenche E desenha a borda)
-          );
-          pdf.addImage(dataUrl, "JPEG", margin, currentY, printWidth, printHeight);
-          currentY += printHeight + 15;
-        }
-
-        const tableBody = dadosAgrupados.map(d => [
-          d.valorFormatado,
-          d.frequencia,
-          d.acumulada
-        ]);
-
-        autoTable(pdf, {
-          startY: currentY,
-          head: [[
-            t("tools.descriptiveStats.output.valor", "Valor"),
-            t("tools.descriptiveStats.output.contagem", "Frequência"),
-            t("tools.descriptiveStats.graficos.area", "Frequência Acumulada")
-          ]],
-          body: tableBody,
-          theme: 'striped',
-          headStyles: { fillColor: [14, 165, 233], textColor: 255 },
-          styles: { fontSize: 9, halign: 'center', cellPadding: 3 },
-          alternateRowStyles: { fillColor: [248, 250, 252] }, 
-          margin: { left: margin, right: margin, bottom: 20 }
-        });
-
-        const pageCount = pdf.internal.getNumberOfPages();
-        for (let i = 1; i <= pageCount; i++) {
-          pdf.setPage(i);
-          pdf.setFontSize(8);
-          pdf.setTextColor(...PDF_CORES.slate400);
-          const footerStr = `${t("common.exportar.marcaDagua", "Gerado por Math Hub")} - mathhub.app`;
-          pdf.text(footerStr, margin, pageHeight - 10);
-          pdf.text(`${i} / ${pageCount}`, pageWidth - margin, pageHeight - 10, { align: 'right' });
-        }
-
-        const baseName = t("tools.descriptiveStats.output.nomeArquivoPdf", "relatorio_estatistica");
-        pdf.save(`${baseName}.pdf`.replace(/\s+/g, '_').toLowerCase());
-      } catch (err) {
-        console.error("Erro ao exportar PDF", err);
-      } finally {
-        setExportMode(null);
-      }
-    }, 350);
-  };
+      const baseName = t("tools.descriptiveStats.output.nomeArquivoPdf", "relatorio_estatistica");
+      adicionarRodapeEBaixar(pdf, {
+        margin, pageWidth, pageHeight,
+        nomeArquivo: `${baseName}.pdf`.replace(/\s+/g, '_').toLowerCase(),
+        marcaDagua: t("common.exportar.marcaDagua", "Gerado por Math Hub"),
+      });
+    });
+  }
 
   const renderCustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
     if (percent < 0.001) return null;
@@ -241,8 +180,8 @@ function DescriptiveStats() {
   const chartBarras = (
     <BarChart data={dadosAgrupados} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
       <CartesianGrid strokeDasharray="3 3" vertical={false} className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-      <XAxis dataKey="valorFormatado" stroke="currentColor" className="text-xs font-mono" />
-      <YAxis allowDecimals={false} stroke="currentColor" className="text-xs font-mono" width={40} />
+      <XAxis dataKey="valorFormatado" stroke={axisColor} className="text-xs font-mono" />
+      <YAxis allowDecimals={false} stroke={axisColor} className="text-xs font-mono" width={40} />
       <Tooltip formatter={(valor) => [valor, t("tools.descriptiveStats.output.frequenciaTooltip", "Frequência")]} labelFormatter={(label) => `${t("tools.descriptiveStats.output.valor", "Valor")}: ${label}`} cursor={{ fill: 'var(--tooltip-cursor, #334155)', opacity: 0.15 }} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
       <Bar isAnimationActive={!exportMode} dataKey="frequencia" fill="#0ea5e9" radius={[4, 4, 0, 0]} maxBarSize={60} />
     </BarChart>
@@ -252,7 +191,7 @@ function DescriptiveStats() {
     // AQUI: Aumentamos a margem inferior para dar mais espaço para a legenda e evitamos cortes nas laterais
     <PieChart margin={{ top: 15, right: 35, left: 35, bottom: 25 }}>
       <Tooltip formatter={(valor, name, props) => { const porcentagem = ((valor / resultado?.contagem) * 100).toFixed(1); return [`${valor} (${porcentagem}%)`, `${t("tools.descriptiveStats.output.valor", "Valor")}: ${props.payload.valorFormatado}`]; }} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
-      <Legend verticalAlign="bottom" height={30} iconType="circle" wrapperStyle={{ fontSize: '12px' }} formatter={(value) => <span style={{ color: legendColor }}>{value}</span>} />
+      <Legend verticalAlign="bottom" height={30} iconType="circle" wrapperStyle={{ fontSize: '12px' }} formatter={(value) => <span style={{ color: axisColor }}>{value}</span>} />
       <Pie
         isAnimationActive={!exportMode}
         data={dadosAgrupados}
@@ -277,8 +216,8 @@ function DescriptiveStats() {
   const chartArea = (
     <AreaChart data={dadosAgrupados} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
       <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-      <XAxis dataKey="valorFormatado" stroke="currentColor" className="text-xs font-mono" />
-      <YAxis allowDecimals={false} stroke="currentColor" className="text-xs font-mono" width={40} />
+      <XAxis dataKey="valorFormatado" stroke={axisColor} className="text-xs font-mono" />
+      <YAxis allowDecimals={false} stroke={axisColor} className="text-xs font-mono" width={40} />
       <Tooltip formatter={(valor) => [valor, t("tools.descriptiveStats.graficos.area", "Acumulada")]} labelFormatter={(label) => `${t("tools.descriptiveStats.output.valor", "Valor")}: ${label}`} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
       <Area isAnimationActive={!exportMode} type="monotone" dataKey="acumulada" stroke="#8b5cf6" fill="#8b5cf6" fillOpacity={0.2} strokeWidth={2} />
     </AreaChart>
@@ -287,8 +226,8 @@ function DescriptiveStats() {
   const chartDispersao = (
     <ScatterChart margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
       <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-      <XAxis type="number" dataKey="indice" name="Índice" stroke="currentColor" className="text-xs font-mono" tickCount={dadosDispersao.length > 10 ? 10 : dadosDispersao.length} />
-      <YAxis type="number" dataKey="valor" name="Valor" stroke="currentColor" className="text-xs font-mono" width={40} />
+      <XAxis type="number" dataKey="indice" name="Índice" stroke={axisColor} className="text-xs font-mono" tickCount={dadosDispersao.length > 10 ? 10 : dadosDispersao.length} />
+      <YAxis type="number" dataKey="valor" name="Valor" stroke={axisColor} className="text-xs font-mono" width={40} />
       <ZAxis range={[50, 50]} />
       <Tooltip cursor={{ strokeDasharray: '3 3' }} formatter={(valor, name) => [valor, name === 'Índice' ? t("tools.descriptiveStats.output.ordem", "Ordem") : t("tools.descriptiveStats.output.valor", "Valor")]} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
       <Scatter isAnimationActive={!exportMode} name="Valores" data={dadosDispersao} fill="#f43f5e" />
@@ -317,10 +256,10 @@ function DescriptiveStats() {
       {resultado && (
         <div className="mt-6 space-y-4">
           
-          <ExportPanel 
-            isExporting={exportMode !== null} 
-            onExportImage={exportarGrafico} 
-            onExportPDF={exportarRelatorioPDF} 
+          <ExportPanel
+            isExporting={exportMode !== null}
+            onExportImage={handleExportarGrafico}
+            onExportPDF={handleExportarPDF}
           />
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -341,13 +280,13 @@ function DescriptiveStats() {
             <ResultCard label={t("tools.descriptiveStats.output.variancia")} value={fmt(resultado.variancia)} />
           </div>
 
-          <div 
-            ref={graficoRef} 
-            className={`w-full rounded-lg ${
-              exportMode === 'pdf' ? "bg-white text-slate-800 p-8" : 
-              exportMode === 'png' ? "p-8 bg-white dark:bg-brand-950" : 
+          <div
+            ref={graficoRef}
+            className={`rounded-lg ${exportMode ? "w-[640px]" : "w-full"} ${
+              exportMode === 'pdf' ? "bg-white text-slate-800 p-8" :
+              exportMode === 'png' ? "p-8 bg-white dark:bg-brand-950" :
               "border border-brand-100 dark:border-brand-900 bg-white dark:bg-brand-950 p-4"
-            }`}
+            } ${exportMode ? "[&_.recharts-tooltip-wrapper]:!hidden" : ""}`}
           >
             {exportMode !== 'pdf' && (
               <>

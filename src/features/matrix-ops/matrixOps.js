@@ -11,8 +11,12 @@ export function parseMatriz(matriz) {
   return matriz.map((linha) =>
     linha.map((v) => {
       const n = Number(v);
-      if (v.trim() === "" || isNaN(n))
-        throw new Error(`Valor inválido: "${v}"`);
+      if (v.trim() === "" || isNaN(n)) {
+        const erro = new Error(`Valor inválido: "${v}"`);
+        erro.codigo = "VALOR_INVALIDO";
+        erro.valor = v;
+        throw erro;
+      }
       return n;
     }),
   );

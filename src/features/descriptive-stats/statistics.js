@@ -11,7 +11,12 @@ export function parsearNumeros(texto) {
     .filter((s) => s !== "")
     .map((s) => {
       const n = Number(s.replace(",", "."));
-      if (isNaN(n)) throw new Error(`Valor inválido: "${s}"`);
+      if (isNaN(n)) {
+        const erro = new Error(`Valor inválido: "${s}"`);
+        erro.codigo = "VALOR_INVALIDO";
+        erro.valor = s;
+        throw erro;
+      }
       return n;
     });
 }
@@ -54,8 +59,16 @@ export function calcularVariancia(nums, media) {
 export function calcularEstatisticas(texto) {
   const nums = parsearNumeros(texto);
 
-  if (nums.length === 0) throw new Error("Nenhum número encontrado.");
-  if (nums.length > 1000) throw new Error("Máximo de 1000 valores por vez.");
+  if (nums.length === 0) {
+    const erro = new Error("Nenhum número encontrado.");
+    erro.codigo = "NENHUM_NUMERO";
+    throw erro;
+  }
+  if (nums.length > 1000) {
+    const erro = new Error("Máximo de 1000 valores por vez.");
+    erro.codigo = "MAX_EXCEDIDO";
+    throw erro;
+  }
 
   const sorted = [...nums].sort((a, b) => a - b);
   const media = calcularMedia(nums);

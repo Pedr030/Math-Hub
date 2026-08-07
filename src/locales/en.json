@@ -19,6 +19,11 @@
     "titulo": "Install Math Hub",
     "desc": "Quick access, works offline",
     "instalar": "Install"
+  },
+  "atualizar": {
+    "titulo": "New version available",
+    "desc": "Update to get the latest improvements.",
+    "botao": "Update"
   }
 },
 "feedback": {
@@ -232,7 +237,8 @@
         "funcaoSemOperando": "Malformed expression: function without operand",
         "operadorSemOperandos": "Malformed expression: not enough operands for operator",
         "resultadoInvalido": "Malformed expression: invalid result",
-        "zeroPotenciaNegativa": "Cannot raise zero to a negative power"
+        "zeroPotenciaNegativa": "Cannot raise zero to a negative power",
+        "variaveisFaltando": "Fill in all variable values before calculating."
       }
     },
     "matrixCircuit": {
@@ -339,7 +345,10 @@
       "calcular": "Calculate",
       "semModa": "No mode",
       "erros": {
-        "vazio": "Enter at least one number."
+        "vazio": "Enter at least one number.",
+        "valorInvalido": "Invalid value: \"{{valor}}\"",
+        "nenhumNumero": "No numbers found.",
+        "maxExcedido": "Maximum of 1000 values at a time."
       },
       "output": {
         "media": "Mean",
@@ -456,6 +465,10 @@
         "transposta": "Transpose",
         "determinante": "Determinant"
       },
+      "erros": {
+        "valorInvalido": "Invalid value: \"{{valor}}\"",
+        "operacaoDesconhecida": "Unknown operation."
+      },
       "ajuda": {
         "titulo": "How to use matrix operations",
         "operacoes": {
@@ -557,7 +570,9 @@
         "numerosInvalidos": "One or more values are not valid numbers.",
         "nInvalido": "Number of terms must be an integer between 1 and 100.",
         "vazioSeq": "Enter a sequence of numbers to identify.",
-        "minimoTermos": "Enter at least 2 terms to identify."
+        "minimoTermos": "Enter at least 2 terms to identify.",
+        "valorInvalido": "Invalid value: \"{{valor}}\"",
+        "razaoZero": "The common ratio of a GP cannot be zero."
       },
       "output": {
         "an": "Last term (aₙ)",

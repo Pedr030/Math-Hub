@@ -1,8 +1,6 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { toPng, toJpeg } from "html-to-image";
-import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import {
   calcularPA,
@@ -17,6 +15,8 @@ import ToolCard from "../../components/ui/ToolCard";
 import Modal from "../../components/ui/Modal";
 import ExportPanel from "../../components/ui/ExportPanel";
 import { PDF_CORES } from "../../utils/pdfColors";
+import { useChartExport } from "../../hooks/useChartExport";
+import { criarPDF, desenharGraficoComCard, adicionarRodapeEBaixar } from "../../utils/pdfExport";
 
 function ResultCard({ label, value, destaque = false }) {
   return (
@@ -55,9 +55,14 @@ function ProgressionCalc() {
   const [identificacao, setIdentificacao] = useState(null);
   const [erro, setErro] = useState(null);
   const [mostrarAjuda, setMostrarAjuda] = useState(false);
-  const [exportMode, setExportMode] = useState(null);
 
-  const graficoRef = useRef(null);
+  const { exportMode, graficoRef, axisColor, exportarGrafico, exportarPDF } = useChartExport();
+
+  function traduzirErroLocal(err) {
+    if (err.codigo === "VALOR_INVALIDO") return t("tools.progressionCalc.erros.valorInvalido", { valor: err.valor });
+    if (err.codigo === "RAZAO_ZERO") return t("tools.progressionCalc.erros.razaoZero");
+    return err.message;
+  }
 
   function handleCalcular(e) {
     e.preventDefault();
@@ -78,7 +83,7 @@ function ProgressionCalc() {
         }
         setIdentificacao({ nums, ...identificarProgressao(nums) });
       } catch (err) {
-        setErro(err.message);
+        setErro(traduzirErroLocal(err));
       }
       return;
     }
@@ -104,7 +109,7 @@ function ProgressionCalc() {
       const res = modo === "pa" ? calcularPA(vA1, vRazao, vN) : calcularPG(vA1, vRazao, vN);
       setResultado(res);
     } catch (err) {
-      setErro(err.message);
+      setErro(traduzirErroLocal(err));
     }
   }
 
@@ -122,140 +127,79 @@ function ProgressionCalc() {
     valorBruto: val
   })) : [];
 
-  const getBackgroundColor = () => {
-    return document.documentElement.classList.contains("dark") ? "#020617" : "#ffffff";
-  };
+  function handleExportarGrafico() {
+    const baseName = t("tools.progressionCalc.output.nomeArquivoGrafico", "grafico_progressao");
+    exportarGrafico(`${baseName}_${modo}.png`.replace(/\s+/g, '_').toLowerCase());
+  }
 
-  const exportarGrafico = async () => {
-    if (!graficoRef.current) return;
-    setExportMode('png');
+  function handleExportarPDF() {
+    exportarPDF(async () => {
+      const { pdf, pageWidth, pageHeight, margin } = criarPDF();
+      let currentY = 20;
 
-    setTimeout(async () => {
-      try {
-        const dataUrl = await toPng(graficoRef.current, {
-          backgroundColor: getBackgroundColor(),
-          pixelRatio: 2
-        });
-        const link = document.createElement("a");
-        const baseName = t("tools.progressionCalc.output.nomeArquivoGrafico", "grafico_progressao");
-        link.download = `${baseName}_${modo}.png`.replace(/\s+/g, '_').toLowerCase();
-        link.href = dataUrl;
-        link.click();
-      } catch (err) {
-        console.error("Erro ao exportar gráfico", err);
-      } finally {
-        setExportMode(null);
+      const isIdentificar = modo === "identificar";
+
+      pdf.setFontSize(18);
+      pdf.setTextColor(...PDF_CORES.slate900);
+      const titulo = isIdentificar
+        ? t("tools.progressionCalc.modos.identificar")
+        : t(`tools.progressionCalc.modos.${modo}`);
+      pdf.text(titulo.toUpperCase(), margin, currentY);
+      currentY += 10;
+
+      pdf.setFontSize(10);
+      pdf.setTextColor(...PDF_CORES.slate500);
+      if (isIdentificar) {
+        pdf.text(`${t("tools.progressionCalc.output.sequencia")}: ${identificacao.nums.map(fmt).join(", ")}`, margin, currentY, { maxWidth: pageWidth - margin * 2 });
+      } else {
+        const resumo = `a₁: ${fmt(resultado.a1)}   |   ${t("tools.progressionCalc.output.razao")}: ${fmt(resultado.razao)}   |   n: ${resultado.n}`;
+        pdf.text(resumo, margin, currentY);
       }
-    }, 350);
-  };
+      currentY += 12;
 
-  const exportarRelatorioPDF = async () => {
-    setExportMode('pdf');
-
-    setTimeout(async () => {
-      try {
-        const pdf = new jsPDF("p", "mm", "a4");
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const margin = 15;
-        let currentY = 20;
-
-        const isIdentificar = modo === "identificar";
-
-        pdf.setFontSize(18);
-        pdf.setTextColor(...PDF_CORES.slate900);
-        const titulo = isIdentificar
-          ? t("tools.progressionCalc.modos.identificar")
-          : t(`tools.progressionCalc.modos.${modo}`);
-        pdf.text(titulo.toUpperCase(), margin, currentY);
-        currentY += 10;
-
-        pdf.setFontSize(10);
-        pdf.setTextColor(...PDF_CORES.slate500);
-        if (isIdentificar) {
-          pdf.text(`${t("tools.progressionCalc.output.sequencia")}: ${identificacao.nums.map(fmt).join(", ")}`, margin, currentY, { maxWidth: pageWidth - margin * 2 });
-        } else {
-          const resumo = `a₁: ${fmt(resultado.a1)}   |   ${t("tools.progressionCalc.output.razao")}: ${fmt(resultado.razao)}   |   n: ${resultado.n}`;
-          pdf.text(resumo, margin, currentY);
-        }
-        currentY += 12;
-
-        pdf.setFontSize(12);
-        pdf.setTextColor(...PDF_CORES.brand400);
-        pdf.setFont(undefined, 'bold');
-        if (isIdentificar) {
-          const paTxt = `PA ${identificacao.tipoPA ? `✓ (r = ${fmt(identificacao.razaoPA)})` : "✗"}`;
-          const pgTxt = `PG ${identificacao.tipoPG ? `✓ (q = ${fmt(identificacao.razaoPG)})` : "✗"}`;
-          pdf.text(paTxt, margin, currentY);
-          pdf.text(pgTxt, pageWidth / 2, currentY);
-        } else {
-          pdf.text(`${t("tools.progressionCalc.output.an")}: ${fmt(resultado.an)}`, margin, currentY);
-          pdf.text(`${t("tools.progressionCalc.output.soma")}: ${fmt(resultado.soma)}`, pageWidth / 2, currentY);
-        }
-        currentY += 15;
-
-        pdf.setFont(undefined, 'normal');
-
-        if (graficoRef.current) {
-          const dataUrl = await toJpeg(graficoRef.current, {
-            backgroundColor: '#ffffff',
-            quality: 0.95,
-            pixelRatio: 1.5
-          });
-          const imgProps = pdf.getImageProperties(dataUrl);
-          const printWidth = pageWidth - (margin * 2);
-          const printHeight = (imgProps.height * printWidth) / imgProps.width;
-          const padding = 4;
-          pdf.setFillColor(...PDF_CORES.cardBg);
-          pdf.setDrawColor(...PDF_CORES.cardBorder);
-          pdf.setLineWidth(0.3);
-          pdf.roundedRect(
-            margin - padding,
-            currentY - padding,
-            printWidth + padding * 2,
-            printHeight + padding * 2,
-            2, 2, 'FD'
-          );
-          pdf.addImage(dataUrl, "JPEG", margin, currentY, printWidth, printHeight);
-          currentY += printHeight + 15;
-        }
-
-        const termosArray = isIdentificar ? identificacao.nums : resultado.termos;
-        const tableBody = termosArray.map((valor, idx) => [idx + 1, fmt(valor)]);
-
-        autoTable(pdf, {
-          startY: currentY,
-          head: [[
-            t("tools.progressionCalc.output.indice", "Índice"),
-            t("tools.progressionCalc.output.termo", "Termo")
-          ]],
-          body: tableBody,
-          theme: 'striped',
-          headStyles: { fillColor: [14, 165, 233], textColor: 255 },
-          styles: { fontSize: 9, halign: 'center', cellPadding: 3 },
-          alternateRowStyles: { fillColor: [248, 250, 252] },
-          margin: { left: margin, right: margin, bottom: 20 }
-        });
-
-        const pageCount = pdf.internal.getNumberOfPages();
-        for (let i = 1; i <= pageCount; i++) {
-          pdf.setPage(i);
-          pdf.setFontSize(8);
-          pdf.setTextColor(...PDF_CORES.slate400);
-          const footerStr = `${t("common.exportar.marcaDagua", "Gerado por Math Hub")} - mathhub.app`;
-          pdf.text(footerStr, margin, pageHeight - 10);
-          pdf.text(`${i} / ${pageCount}`, pageWidth - margin, pageHeight - 10, { align: 'right' });
-        }
-
-        const baseName = t("tools.progressionCalc.output.nomeArquivoPdf", "relatorio_progressao");
-        pdf.save(`${baseName}_${modo}.pdf`.replace(/\s+/g, '_').toLowerCase());
-      } catch (err) {
-        console.error("Erro ao exportar PDF", err);
-      } finally {
-        setExportMode(null);
+      pdf.setFontSize(12);
+      pdf.setTextColor(...PDF_CORES.brand400);
+      pdf.setFont(undefined, 'bold');
+      if (isIdentificar) {
+        const paTxt = `PA ${identificacao.tipoPA ? `✓ (r = ${fmt(identificacao.razaoPA)})` : "✗"}`;
+        const pgTxt = `PG ${identificacao.tipoPG ? `✓ (q = ${fmt(identificacao.razaoPG)})` : "✗"}`;
+        pdf.text(paTxt, margin, currentY);
+        pdf.text(pgTxt, pageWidth / 2, currentY);
+      } else {
+        pdf.text(`${t("tools.progressionCalc.output.an")}: ${fmt(resultado.an)}`, margin, currentY);
+        pdf.text(`${t("tools.progressionCalc.output.soma")}: ${fmt(resultado.soma)}`, pageWidth / 2, currentY);
       }
-    }, 350);
-  };
+      currentY += 15;
+
+      pdf.setFont(undefined, 'normal');
+
+      currentY = await desenharGraficoComCard(pdf, { graficoRef, currentY, margin, pageWidth });
+
+      const termosArray = isIdentificar ? identificacao.nums : resultado.termos;
+      const tableBody = termosArray.map((valor, idx) => [idx + 1, fmt(valor)]);
+
+      autoTable(pdf, {
+        startY: currentY,
+        head: [[
+          t("tools.progressionCalc.output.indice", "Índice"),
+          t("tools.progressionCalc.output.termo", "Termo")
+        ]],
+        body: tableBody,
+        theme: 'striped',
+        headStyles: { fillColor: [14, 165, 233], textColor: 255 },
+        styles: { fontSize: 9, halign: 'center', cellPadding: 3 },
+        alternateRowStyles: { fillColor: [248, 250, 252] },
+        margin: { left: margin, right: margin, bottom: 20 }
+      });
+
+      const baseName = t("tools.progressionCalc.output.nomeArquivoPdf", "relatorio_progressao");
+      adicionarRodapeEBaixar(pdf, {
+        margin, pageWidth, pageHeight,
+        nomeArquivo: `${baseName}_${modo}.pdf`.replace(/\s+/g, '_').toLowerCase(),
+        marcaDagua: t("common.exportar.marcaDagua", "Gerado por Math Hub"),
+      });
+    });
+  }
 
   return (
     <ToolCard>
@@ -320,8 +264,8 @@ function ProgressionCalc() {
         <div className="mt-6 space-y-4">
           <ExportPanel
             isExporting={exportMode !== null}
-            onExportImage={exportarGrafico}
-            onExportPDF={exportarRelatorioPDF}
+            onExportImage={handleExportarGrafico}
+            onExportPDF={handleExportarPDF}
           />
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -334,13 +278,13 @@ function ProgressionCalc() {
           {/* GRÁFICO DA PROGRESSÃO */}
           <div
             ref={graficoRef}
-            className={`w-full rounded-lg ${
+            className={`rounded-lg ${exportMode ? "w-[640px]" : "w-full"} ${
               exportMode === 'pdf'
                 ? "bg-white text-slate-800 p-8"
                 : exportMode === 'png'
                 ? "p-8 bg-white dark:bg-brand-950"
                 : "border border-brand-100 dark:border-brand-900 bg-white dark:bg-brand-950 p-4"
-            }`}
+            } ${exportMode ? "[&_.recharts-tooltip-wrapper]:!hidden" : ""}`}
           >
             <p className={`font-mono text-xs mb-3 ${exportMode === 'pdf' ? 'text-brand-500 text-center uppercase tracking-wider' : 'text-brand-500'}`}>
               {t("tools.progressionCalc.output.grafico", "Comportamento da Sequência")}
@@ -349,8 +293,8 @@ function ProgressionCalc() {
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={dadosGrafico} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-                  <XAxis dataKey="indice" stroke="currentColor" className="text-xs text-slate-400 font-mono" />
-                  <YAxis stroke="currentColor" className="text-xs text-slate-400 font-mono" width={40} tickFormatter={(v) => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v} />
+                  <XAxis dataKey="indice" stroke={axisColor} className="text-xs font-mono" />
+                  <YAxis stroke={axisColor} className="text-xs font-mono" width={40} tickFormatter={(v) => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v} />
                   <Tooltip
                     formatter={(valor) => [fmt(valor), t("tools.progressionCalc.output.valor", "Valor")]}
                     labelFormatter={(label) => `${t("tools.progressionCalc.output.termo", "Termo")}: ${label}`}
@@ -385,8 +329,8 @@ function ProgressionCalc() {
         <div className="mt-6 space-y-3">
           <ExportPanel
             isExporting={exportMode !== null}
-            onExportImage={exportarGrafico}
-            onExportPDF={exportarRelatorioPDF}
+            onExportImage={handleExportarGrafico}
+            onExportPDF={handleExportarPDF}
           />
 
           <div className="flex gap-3 flex-wrap">
@@ -405,13 +349,13 @@ function ProgressionCalc() {
           {/* GRÁFICO DA SEQUÊNCIA IDENTIFICADA */}
           <div
             ref={graficoRef}
-            className={`w-full rounded-lg mt-4 ${
+            className={`rounded-lg mt-4 ${exportMode ? "w-[640px]" : "w-full"} ${
               exportMode === 'pdf'
                 ? "bg-white text-slate-800 p-8"
                 : exportMode === 'png'
                 ? "p-8 bg-white dark:bg-brand-950"
                 : "border border-brand-100 dark:border-brand-900 bg-white dark:bg-brand-950 p-4"
-            }`}
+            } ${exportMode ? "[&_.recharts-tooltip-wrapper]:!hidden" : ""}`}
           >
             <p className={`font-mono text-xs mb-3 ${exportMode === 'pdf' ? 'text-brand-500 text-center uppercase tracking-wider' : 'text-brand-500'}`}>
               {t("tools.progressionCalc.output.grafico", "Comportamento da Sequência")}
@@ -420,8 +364,8 @@ function ProgressionCalc() {
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={dadosIdentificacao} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-                  <XAxis dataKey="indice" stroke="currentColor" className="text-xs text-slate-400 font-mono" />
-                  <YAxis stroke="currentColor" className="text-xs text-slate-400 font-mono" width={40} tickFormatter={(v) => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v} />
+                  <XAxis dataKey="indice" stroke={axisColor} className="text-xs font-mono" />
+                  <YAxis stroke={axisColor} className="text-xs font-mono" width={40} tickFormatter={(v) => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v} />
                   <Tooltip
                     formatter={(valor) => [fmt(valor), t("tools.progressionCalc.output.valor", "Valor")]}
                     labelFormatter={(label) => `${t("tools.progressionCalc.output.termo", "Termo")}: ${label}`}

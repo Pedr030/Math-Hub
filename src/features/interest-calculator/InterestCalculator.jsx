@@ -1,12 +1,10 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { 
-  LineChart, Line, 
+import {
+  LineChart, Line,
   PieChart, Pie, Cell, Legend,
-  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer 
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from "recharts";
-import { toPng, toJpeg } from "html-to-image";
-import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import { calcularSimples, calcularComposto } from "./interest";
 import Button from "../../components/ui/Button";
@@ -15,6 +13,8 @@ import ToolCard from "../../components/ui/ToolCard";
 import Modal from "../../components/ui/Modal";
 import ExportPanel from "../../components/ui/ExportPanel";
 import { PDF_CORES } from "../../utils/pdfColors";
+import { useChartExport } from "../../hooks/useChartExport";
+import { criarPDF, desenharGraficoComCard, adicionarRodapeEBaixar } from "../../utils/pdfExport";
 
 const OPCOES_MOEDA = {
   BRL: { locale: "pt-BR", symbol: "R$" },
@@ -29,7 +29,7 @@ const CORES_PIE = ['#0ea5e9', '#22c55e'];
 function InterestCalculator() {
   const { t } = useTranslation();
 
-  const graficoRef = useRef(null);
+  const { exportMode, graficoRef, isDark, axisColor, exportarGrafico, exportarPDF } = useChartExport();
 
   const [capital, setCapital] = useState("");
   const [taxa, setTaxa] = useState("");
@@ -43,14 +43,8 @@ function InterestCalculator() {
   const [erro, setErro] = useState(null);
   const [mostrarAjuda, setMostrarAjuda] = useState(false);
   const [graficoAtivo, setGraficoAtivo] = useState("evolucao");
-  
-  const [exportMode, setExportMode] = useState(null);
 
   const { locale, symbol } = OPCOES_MOEDA[moeda];
-
-  // Leitura de tema global
-  const isDark = document.documentElement.classList.contains("dark");
-  const legendColor = exportMode === 'pdf' ? '#475569' : (isDark ? '#94a3b8' : '#64748b');
 
   function formatarMoeda(valor) {
     return valor.toLocaleString(locale, {
@@ -111,143 +105,77 @@ function InterestCalculator() {
     setResultado({ ...calc(C, i, p), taxaEquivalente: equiv });
   }
 
-  const getBackgroundColor = () => {
-    return document.documentElement.classList.contains("dark") ? "#020617" : "#ffffff";
-  };
+  function handleExportarGrafico() {
+    const baseName = t("tools.interestCalculator.output.nomeArquivoGrafico", "grafico_juros");
+    exportarGrafico(`${baseName}_${tipo}.png`.replace(/\s+/g, '_').toLowerCase());
+  }
 
-  const exportarGrafico = async () => {
-    if (!graficoRef.current) return;
-    setExportMode('png'); 
+  function handleExportarPDF() {
+    exportarPDF(async () => {
+      const { pdf, pageWidth, pageHeight, margin } = criarPDF();
+      let currentY = 20;
 
-    setTimeout(async () => {
-      try {
-        const dataUrl = await toPng(graficoRef.current, { 
-          backgroundColor: getBackgroundColor(), 
-          pixelRatio: 2
-        });
-        const link = document.createElement("a");
-        
-        const baseName = t("tools.interestCalculator.output.nomeArquivoGrafico", "grafico_juros");
-        link.download = `${baseName}_${tipo}.png`.replace(/\s+/g, '_').toLowerCase();
-        
-        link.href = dataUrl;
-        link.click();
-      } catch (err) {
-        console.error("Erro ao exportar gráfico", err);
-      } finally {
-        setExportMode(null);
-      }
-    }, 350);
-  };
+      pdf.setFontSize(18);
+      pdf.setTextColor(...PDF_CORES.slate900);
+      const titulo = t(`tools.interestCalculator.tipo.${tipo}`).toUpperCase();
+      pdf.text(titulo, margin, currentY);
+      currentY += 10;
 
-  const exportarRelatorioPDF = async () => {
-    setExportMode('pdf'); 
+      pdf.setFontSize(10);
+      pdf.setTextColor(...PDF_CORES.slate500);
+      const resumoInputs = t("tools.interestCalculator.output.resumoPdf", {
+        capital: formatarMoeda(Number(capital)),
+        taxa: taxa,
+        unidadeTaxa: t(`tools.interestCalculator.unidade.${unidade}_singular`),
+        periodos: periodos,
+        unidadePeriodos: Number(periodos) === 1
+          ? t(`tools.interestCalculator.unidade.${unidade}_singular`)
+          : t(`tools.interestCalculator.unidade.${unidade}_plural`)
+      });
+      pdf.text(resumoInputs, margin, currentY);
+      currentY += 12;
 
-    setTimeout(async () => {
-      try {
-        const pdf = new jsPDF("p", "mm", "a4");
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const margin = 15;
-        let currentY = 20;
+      pdf.setFontSize(12);
+      pdf.setTextColor(...PDF_CORES.brand400);
+      pdf.setFont(undefined, 'bold');
+      pdf.text(`${t("tools.interestCalculator.output.montante")}: ${formatarMoeda(resultado.montanteFinal)}`, margin, currentY);
+      pdf.text(`${t("tools.interestCalculator.output.juros")}: ${formatarMoeda(resultado.jurosTotais)}`, pageWidth / 2, currentY);
+      currentY += 15;
 
-        pdf.setFontSize(18);
-        pdf.setTextColor(15, 23, 42); 
-        const titulo = t(`tools.interestCalculator.tipo.${tipo}`).toUpperCase();
-        pdf.text(titulo, margin, currentY);
-        currentY += 10;
+      pdf.setFont(undefined, 'normal');
 
-        pdf.setFontSize(10);
-        pdf.setTextColor(100, 116, 139); 
-        const resumoInputs = t("tools.interestCalculator.output.resumoPdf", {
-          capital: formatarMoeda(Number(capital)),
-          taxa: taxa,
-          unidadeTaxa: t(`tools.interestCalculator.unidade.${unidade}_singular`),
-          periodos: periodos,
-          unidadePeriodos: Number(periodos) === 1 
-            ? t(`tools.interestCalculator.unidade.${unidade}_singular`) 
-            : t(`tools.interestCalculator.unidade.${unidade}_plural`)
-        });
-        pdf.text(resumoInputs, margin, currentY);
-        currentY += 12;
+      currentY = await desenharGraficoComCard(pdf, { graficoRef, currentY, margin, pageWidth });
 
-        pdf.setFontSize(12);
-        pdf.setTextColor(14, 165, 233); 
-        pdf.setFont(undefined, 'bold');
-        pdf.text(`${t("tools.interestCalculator.output.montante")}: ${formatarMoeda(resultado.montanteFinal)}`, margin, currentY);
-        pdf.text(`${t("tools.interestCalculator.output.juros")}: ${formatarMoeda(resultado.jurosTotais)}`, pageWidth / 2, currentY);
-        currentY += 15;
+      const tableBody = resultado.tabela.map(linha => [
+        linha.periodo,
+        formatarMoeda(linha.juros),
+        formatarMoeda(linha.montante)
+      ]);
 
-        pdf.setFont(undefined, 'normal');
+      autoTable(pdf, {
+        startY: currentY,
+        head: [[
+          t("tools.interestCalculator.output.periodo", { unidade: t(`tools.interestCalculator.unidade.${unidade}`) }),
+          t("tools.interestCalculator.output.jurosAcumulados"),
+          t("tools.interestCalculator.output.montanteTabela")
+        ]],
+        body: tableBody,
+        theme: 'striped',
+        headStyles: { fillColor: [14, 165, 233], textColor: 255 },
+        styles: { fontSize: 9, halign: 'right', cellPadding: 3 },
+        columnStyles: { 0: { halign: 'center' } },
+        alternateRowStyles: { fillColor: [248, 250, 252] },
+        margin: { left: margin, right: margin, bottom: 20 }
+      });
 
-        if (graficoRef.current) {
-          const dataUrl = await toJpeg(graficoRef.current, { 
-            backgroundColor: '#ffffff', 
-            quality: 0.95,              
-            pixelRatio: 1.5
-          });
-          
-          const imgProps = pdf.getImageProperties(dataUrl);
-          const printWidth = pageWidth - (margin * 2);
-          const printHeight = (imgProps.height * printWidth) / imgProps.width;
-          const padding = 4;
-          pdf.setFillColor(...PDF_CORES.cardBg);
-          pdf.setDrawColor(...PDF_CORES.cardBorder);
-          pdf.setLineWidth(0.3);
-          pdf.roundedRect(
-            margin - padding,
-            currentY - padding,
-            printWidth + padding * 2,
-            printHeight + padding * 2,
-            2, 2, 'FD' // 'FD' = Fill + Draw (preenche E desenha a borda)
-          );
-          
-          pdf.addImage(dataUrl, "JPEG", margin, currentY, printWidth, printHeight);
-          currentY += printHeight + 15;
-        }
-
-        const tableBody = resultado.tabela.map(linha => [
-          linha.periodo,
-          formatarMoeda(linha.juros),
-          formatarMoeda(linha.montante)
-        ]);
-
-        autoTable(pdf, {
-          startY: currentY,
-          head: [[
-            t("tools.interestCalculator.output.periodo", { unidade: t(`tools.interestCalculator.unidade.${unidade}`) }),
-            t("tools.interestCalculator.output.jurosAcumulados"),
-            t("tools.interestCalculator.output.montanteTabela")
-          ]],
-          body: tableBody,
-          theme: 'striped',
-          headStyles: { fillColor: [14, 165, 233], textColor: 255 },
-          styles: { fontSize: 9, halign: 'right', cellPadding: 3 },
-          columnStyles: { 0: { halign: 'center' } }, 
-          alternateRowStyles: { fillColor: [248, 250, 252] }, 
-          margin: { left: margin, right: margin, bottom: 20 }
-        });
-
-        const pageCount = pdf.internal.getNumberOfPages();
-        for (let i = 1; i <= pageCount; i++) {
-          pdf.setPage(i);
-          pdf.setFontSize(8);
-          pdf.setTextColor(148, 163, 184);
-          
-          const footerStr = `${t("tools.interestCalculator.output.marcaDagua", "Gerado por Math Hub")} - mathhub.app`;
-          pdf.text(footerStr, margin, pageHeight - 10);
-          pdf.text(`${i} / ${pageCount}`, pageWidth - margin, pageHeight - 10, { align: 'right' });
-        }
-
-        const baseName = t("tools.interestCalculator.output.nomeArquivoPdf", "relatorio_juros");
-        pdf.save(`${baseName}_${tipo}.pdf`.replace(/\s+/g, '_').toLowerCase());
-      } catch (err) {
-        console.error("Erro ao exportar PDF", err);
-      } finally {
-        setExportMode(null);
-      }
-    }, 350);
-  };
+      const baseName = t("tools.interestCalculator.output.nomeArquivoPdf", "relatorio_juros");
+      adicionarRodapeEBaixar(pdf, {
+        margin, pageWidth, pageHeight,
+        nomeArquivo: `${baseName}_${tipo}.pdf`.replace(/\s+/g, '_').toLowerCase(),
+        marcaDagua: t("tools.interestCalculator.output.marcaDagua", "Gerado por Math Hub"),
+      });
+    });
+  }
 
   const dadosComposicao = resultado ? [
     { nome: t("tools.interestCalculator.output.capitalLabel", "Capital Inicial"), valor: Number(capital) },
@@ -338,10 +266,10 @@ function InterestCalculator() {
       {resultado && (
         <div className="mt-6 space-y-4">
           
-          <ExportPanel 
-            isExporting={exportMode !== null} 
-            onExportImage={exportarGrafico} 
-            onExportPDF={exportarRelatorioPDF} 
+          <ExportPanel
+            isExporting={exportMode !== null}
+            onExportImage={handleExportarGrafico}
+            onExportPDF={handleExportarPDF}
           />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -359,15 +287,15 @@ function InterestCalculator() {
             {t(`tools.interestCalculator.output.taxaEquivalente.${resultado.taxaEquivalente.unidade}`, { valor: resultado.taxaEquivalente.valor.toFixed(4) })}
           </p>
 
-          <div 
-            ref={graficoRef} 
-            className={`w-full rounded-lg ${
-              exportMode === 'pdf' 
-                ? "bg-white text-slate-800 p-8" 
-                : exportMode === 'png' 
-                ? "p-8 bg-white dark:bg-brand-950" 
+          <div
+            ref={graficoRef}
+            className={`rounded-lg ${exportMode ? "w-[640px]" : "w-full"} ${
+              exportMode === 'pdf'
+                ? "bg-white text-slate-800 p-8"
+                : exportMode === 'png'
+                ? "p-8 bg-white dark:bg-brand-950"
                 : "border border-brand-100 dark:border-brand-900 bg-white dark:bg-brand-950 p-4"
-            }`}
+            } ${exportMode ? "[&_.recharts-tooltip-wrapper]:!hidden" : ""}`}
           >
             {!exportMode && (
               <div className="flex gap-2 mb-6 border-b border-slate-100 dark:border-brand-900 pb-2">
@@ -398,8 +326,8 @@ function InterestCalculator() {
                 {graficoAtivo === "evolucao" ? (
                   <LineChart data={resultado.tabela} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-                    <XAxis dataKey="periodo" stroke="currentColor" className="text-xs font-mono" />
-                    <YAxis stroke="currentColor" className="text-xs font-mono" width={90} tickFormatter={(valor) => { if (valor >= 1000000) return `${symbol} ${(valor / 1000000).toFixed(1)}M`; if (valor >= 1000) return `${symbol} ${(valor / 1000).toFixed(0)}k`; return `${symbol} ${valor.toFixed(0)}`; }} />
+                    <XAxis dataKey="periodo" stroke={axisColor} className="text-xs font-mono" />
+                    <YAxis stroke={axisColor} className="text-xs font-mono" width={90} tickFormatter={(valor) => { if (valor >= 1000000) return `${symbol} ${(valor / 1000000).toFixed(1)}M`; if (valor >= 1000) return `${symbol} ${(valor / 1000).toFixed(0)}k`; return `${symbol} ${valor.toFixed(0)}`; }} />
                     <Tooltip formatter={(valor) => [formatarMoeda(valor), t("tools.interestCalculator.output.montanteTabela", "Montante")]} labelFormatter={(label) => `${t("tools.interestCalculator.output.periodo", { unidade: t(`tools.interestCalculator.unidade.${unidade}`) })}: ${label}`} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
                     <Line isAnimationActive={!exportMode} type="monotone" dataKey="montante" stroke="#0ea5e9" strokeWidth={2.5} dot={false} activeDot={{ r: 6 }} />
                   </LineChart>
@@ -412,7 +340,7 @@ function InterestCalculator() {
                       iconType="circle" 
                       wrapperStyle={{ fontSize: '12px' }} 
                       formatter={(value) => {
-                        return <span style={{ color: legendColor }}>{value}</span>;
+                        return <span style={{ color: axisColor }}>{value}</span>;
                       }}
                     />
                     <Pie

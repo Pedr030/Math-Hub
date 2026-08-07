@@ -5,6 +5,7 @@ import Footer from "./components/layout/Footer";
 import Home from "./pages/Home";
 import ToolPage from "./pages/ToolPage";
 import InstallBanner from './components/ui/InstallBanner';
+import UpdateBanner from './components/ui/UpdateBanner';
 import FeedbackModal from './components/ui/FeedbackModal'; // Certifique-se de que o caminho está correto aqui
 
 const LispCalculator = lazy(() => import("./features/lisp-calculator"));
@@ -141,6 +142,7 @@ function App() {
         <Footer aoAbrirFeedback={() => setIsFeedbackOpen(true)} />
         
         <InstallBanner />
+        <UpdateBanner />
       </div>
     </BrowserRouter>
   );

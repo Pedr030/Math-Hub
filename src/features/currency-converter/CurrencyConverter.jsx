@@ -38,7 +38,11 @@ function CurrencyConverter() {
       const resultado = await buscarTaxas(moeda);
       setTaxas(resultado);
     } catch (err) {
-      setErro(err.message);
+      setErro(
+        err.codigo === "SEM_API_KEY"
+          ? t("tools.currencyConverter.erros.apiKey")
+          : t("tools.currencyConverter.erros.rede")
+      );
       setTaxas(null);
     } finally {
       setCarregando(false);
