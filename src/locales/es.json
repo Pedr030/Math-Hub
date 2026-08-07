@@ -568,7 +568,10 @@
         "nenhuma": "La secuencia no es PA ni PG.",
         "grafico": "Comportamiento de la Secuencia",
         "valor": "Valor",
-        "termo": "Término"
+        "termo": "Término",
+        "indice": "Índice",
+        "nomeArquivoGrafico": "grafico_progresion",
+        "nomeArquivoPdf": "informe_progresion"
       },
       "ajuda": {
         "titulo": "Cómo usar la calculadora de progresiones",

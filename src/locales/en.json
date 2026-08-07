@@ -569,7 +569,10 @@
         "nenhuma": "The sequence is neither AP nor GP.",
         "grafico": "Sequence Behavior",
         "valor": "Value",
-        "termo": "Term"
+        "termo": "Term",
+        "indice": "Index",
+        "nomeArquivoGrafico": "progression_chart",
+        "nomeArquivoPdf": "progression_report"
       },
       "ajuda": {
         "titulo": "How to use the progression calculator",

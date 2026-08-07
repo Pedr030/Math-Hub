@@ -569,7 +569,10 @@
         "nenhuma": "A sequência não é PA nem PG.",
         "grafico": "Comportamento da Sequência",
         "valor": "Valor",
-        "termo": "Termo"
+        "termo": "Termo",
+        "indice": "Índice",
+        "nomeArquivoGrafico": "grafico_progressao",
+        "nomeArquivoPdf": "relatorio_progressao"
       },
       "ajuda": {
         "titulo": "Como usar a calculadora de progressões",
