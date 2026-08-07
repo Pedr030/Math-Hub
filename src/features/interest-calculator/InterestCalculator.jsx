@@ -361,7 +361,7 @@ function InterestCalculator() {
 
           <div
             ref={graficoRef}
-            className={`w-full rounded-lg ${
+            className={`rounded-lg ${exportMode ? "w-[640px]" : "w-full"} ${
               exportMode === 'pdf'
                 ? "bg-white text-slate-800 p-8"
                 : exportMode === 'png'
@@ -393,13 +393,13 @@ function InterestCalculator() {
               </p>
             )}
 
-            <div className={`w-full ${exportMode ? "h-80" : "h-64"}`}>
+            <div className="h-64 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 {graficoAtivo === "evolucao" ? (
                   <LineChart data={resultado.tabela} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-                    <XAxis dataKey="periodo" stroke="currentColor" className="text-xs font-mono" />
-                    <YAxis stroke="currentColor" className="text-xs font-mono" width={90} tickFormatter={(valor) => { if (valor >= 1000000) return `${symbol} ${(valor / 1000000).toFixed(1)}M`; if (valor >= 1000) return `${symbol} ${(valor / 1000).toFixed(0)}k`; return `${symbol} ${valor.toFixed(0)}`; }} />
+                    <XAxis dataKey="periodo" stroke={legendColor} className="text-xs font-mono" />
+                    <YAxis stroke={legendColor} className="text-xs font-mono" width={90} tickFormatter={(valor) => { if (valor >= 1000000) return `${symbol} ${(valor / 1000000).toFixed(1)}M`; if (valor >= 1000) return `${symbol} ${(valor / 1000).toFixed(0)}k`; return `${symbol} ${valor.toFixed(0)}`; }} />
                     <Tooltip formatter={(valor) => [formatarMoeda(valor), t("tools.interestCalculator.output.montanteTabela", "Montante")]} labelFormatter={(label) => `${t("tools.interestCalculator.output.periodo", { unidade: t(`tools.interestCalculator.unidade.${unidade}`) })}: ${label}`} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
                     <Line isAnimationActive={!exportMode} type="monotone" dataKey="montante" stroke="#0ea5e9" strokeWidth={2.5} dot={false} activeDot={{ r: 6 }} />
                   </LineChart>

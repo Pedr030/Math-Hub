@@ -246,8 +246,8 @@ function DescriptiveStats() {
   const chartBarras = (
     <BarChart data={dadosAgrupados} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
       <CartesianGrid strokeDasharray="3 3" vertical={false} className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-      <XAxis dataKey="valorFormatado" stroke="currentColor" className="text-xs font-mono" />
-      <YAxis allowDecimals={false} stroke="currentColor" className="text-xs font-mono" width={40} />
+      <XAxis dataKey="valorFormatado" stroke={legendColor} className="text-xs font-mono" />
+      <YAxis allowDecimals={false} stroke={legendColor} className="text-xs font-mono" width={40} />
       <Tooltip formatter={(valor) => [valor, t("tools.descriptiveStats.output.frequenciaTooltip", "Frequência")]} labelFormatter={(label) => `${t("tools.descriptiveStats.output.valor", "Valor")}: ${label}`} cursor={{ fill: 'var(--tooltip-cursor, #334155)', opacity: 0.15 }} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
       <Bar isAnimationActive={!exportMode} dataKey="frequencia" fill="#0ea5e9" radius={[4, 4, 0, 0]} maxBarSize={60} />
     </BarChart>
@@ -282,8 +282,8 @@ function DescriptiveStats() {
   const chartArea = (
     <AreaChart data={dadosAgrupados} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
       <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-      <XAxis dataKey="valorFormatado" stroke="currentColor" className="text-xs font-mono" />
-      <YAxis allowDecimals={false} stroke="currentColor" className="text-xs font-mono" width={40} />
+      <XAxis dataKey="valorFormatado" stroke={legendColor} className="text-xs font-mono" />
+      <YAxis allowDecimals={false} stroke={legendColor} className="text-xs font-mono" width={40} />
       <Tooltip formatter={(valor) => [valor, t("tools.descriptiveStats.graficos.area", "Acumulada")]} labelFormatter={(label) => `${t("tools.descriptiveStats.output.valor", "Valor")}: ${label}`} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
       <Area isAnimationActive={!exportMode} type="monotone" dataKey="acumulada" stroke="#8b5cf6" fill="#8b5cf6" fillOpacity={0.2} strokeWidth={2} />
     </AreaChart>
@@ -292,8 +292,8 @@ function DescriptiveStats() {
   const chartDispersao = (
     <ScatterChart margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
       <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-      <XAxis type="number" dataKey="indice" name="Índice" stroke="currentColor" className="text-xs font-mono" tickCount={dadosDispersao.length > 10 ? 10 : dadosDispersao.length} />
-      <YAxis type="number" dataKey="valor" name="Valor" stroke="currentColor" className="text-xs font-mono" width={40} />
+      <XAxis type="number" dataKey="indice" name="Índice" stroke={legendColor} className="text-xs font-mono" tickCount={dadosDispersao.length > 10 ? 10 : dadosDispersao.length} />
+      <YAxis type="number" dataKey="valor" name="Valor" stroke={legendColor} className="text-xs font-mono" width={40} />
       <ZAxis range={[50, 50]} />
       <Tooltip cursor={{ strokeDasharray: '3 3' }} formatter={(valor, name) => [valor, name === 'Índice' ? t("tools.descriptiveStats.output.ordem", "Ordem") : t("tools.descriptiveStats.output.valor", "Valor")]} contentStyle={{ backgroundColor: '#090d16', borderColor: '#1e293b', borderRadius: '8px', color: '#fff', fontSize: '12px' }} />
       <Scatter isAnimationActive={!exportMode} name="Valores" data={dadosDispersao} fill="#f43f5e" />
@@ -348,7 +348,7 @@ function DescriptiveStats() {
 
           <div
             ref={graficoRef}
-            className={`w-full rounded-lg ${
+            className={`rounded-lg ${exportMode ? "w-[640px]" : "w-full"} ${
               exportMode === 'pdf' ? "bg-white text-slate-800 p-8" :
               exportMode === 'png' ? "p-8 bg-white dark:bg-brand-950" :
               "border border-brand-100 dark:border-brand-900 bg-white dark:bg-brand-950 p-4"
@@ -385,7 +385,7 @@ function DescriptiveStats() {
                   </p>
                 )}
 
-                <div className={`w-full ${exportMode === 'png' ? "h-80" : "h-64"}`}>
+                <div className="h-64 w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     {graficoAtivo === "barras" ? chartBarras :
                      graficoAtivo === "pizza" ? chartPizza :
@@ -402,19 +402,19 @@ function DescriptiveStats() {
                 <div className="flex flex-col">
                   <p className="font-mono text-[10px] text-brand-500 mb-2 text-center uppercase">{t("tools.descriptiveStats.graficos.barras")}</p>
                   {/* AQUI: Aumentamos a altura de cada quadro de h-48 para h-56 */}
-                  <div className="h-64 w-full"><ResponsiveContainer width="100%" height="100%">{chartBarras}</ResponsiveContainer></div>
+                  <div className="h-56 w-full"><ResponsiveContainer width="100%" height="100%">{chartBarras}</ResponsiveContainer></div>
                 </div>
                 <div className="flex flex-col">
                   <p className="font-mono text-[10px] text-brand-500 mb-2 text-center uppercase">{t("tools.descriptiveStats.graficos.pizza")}</p>
-                  <div className="h-64 w-full"><ResponsiveContainer width="100%" height="100%">{chartPizza}</ResponsiveContainer></div>
+                  <div className="h-56 w-full"><ResponsiveContainer width="100%" height="100%">{chartPizza}</ResponsiveContainer></div>
                 </div>
                 <div className="flex flex-col">
                   <p className="font-mono text-[10px] text-brand-500 mb-2 text-center uppercase">{t("tools.descriptiveStats.graficos.area")}</p>
-                  <div className="h-64 w-full"><ResponsiveContainer width="100%" height="100%">{chartArea}</ResponsiveContainer></div>
+                  <div className="h-56 w-full"><ResponsiveContainer width="100%" height="100%">{chartArea}</ResponsiveContainer></div>
                 </div>
                 <div className="flex flex-col">
                   <p className="font-mono text-[10px] text-brand-500 mb-2 text-center uppercase">{t("tools.descriptiveStats.graficos.dispersao")}</p>
-                  <div className="h-64 w-full"><ResponsiveContainer width="100%" height="100%">{chartDispersao}</ResponsiveContainer></div>
+                  <div className="h-56 w-full"><ResponsiveContainer width="100%" height="100%">{chartDispersao}</ResponsiveContainer></div>
                 </div>
               </div>
             )}

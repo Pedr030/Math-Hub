@@ -59,6 +59,9 @@ function ProgressionCalc() {
 
   const graficoRef = useRef(null);
 
+  const isDark = document.documentElement.classList.contains("dark");
+  const axisColor = exportMode === 'pdf' ? '#475569' : (isDark ? '#94a3b8' : '#64748b');
+
   function traduzirErroLocal(err) {
     if (err.codigo === "VALOR_INVALIDO") return t("tools.progressionCalc.erros.valorInvalido", { valor: err.valor });
     if (err.codigo === "RAZAO_ZERO") return t("tools.progressionCalc.erros.razaoZero");
@@ -340,7 +343,7 @@ function ProgressionCalc() {
           {/* GRÁFICO DA PROGRESSÃO */}
           <div
             ref={graficoRef}
-            className={`w-full rounded-lg ${
+            className={`rounded-lg ${exportMode ? "w-[640px]" : "w-full"} ${
               exportMode === 'pdf'
                 ? "bg-white text-slate-800 p-8"
                 : exportMode === 'png'
@@ -351,12 +354,12 @@ function ProgressionCalc() {
             <p className={`font-mono text-xs mb-3 ${exportMode === 'pdf' ? 'text-brand-500 text-center uppercase tracking-wider' : 'text-brand-500'}`}>
               {t("tools.progressionCalc.output.grafico", "Comportamento da Sequência")}
             </p>
-            <div className={`w-full ${exportMode ? "h-64" : "h-48"}`}>
+            <div className="h-48 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={dadosGrafico} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-                  <XAxis dataKey="indice" stroke="currentColor" className="text-xs text-slate-400 font-mono" />
-                  <YAxis stroke="currentColor" className="text-xs text-slate-400 font-mono" width={40} tickFormatter={(v) => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v} />
+                  <XAxis dataKey="indice" stroke={axisColor} className="text-xs font-mono" />
+                  <YAxis stroke={axisColor} className="text-xs font-mono" width={40} tickFormatter={(v) => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v} />
                   <Tooltip
                     formatter={(valor) => [fmt(valor), t("tools.progressionCalc.output.valor", "Valor")]}
                     labelFormatter={(label) => `${t("tools.progressionCalc.output.termo", "Termo")}: ${label}`}
@@ -411,7 +414,7 @@ function ProgressionCalc() {
           {/* GRÁFICO DA SEQUÊNCIA IDENTIFICADA */}
           <div
             ref={graficoRef}
-            className={`w-full rounded-lg mt-4 ${
+            className={`rounded-lg mt-4 ${exportMode ? "w-[640px]" : "w-full"} ${
               exportMode === 'pdf'
                 ? "bg-white text-slate-800 p-8"
                 : exportMode === 'png'
@@ -422,12 +425,12 @@ function ProgressionCalc() {
             <p className={`font-mono text-xs mb-3 ${exportMode === 'pdf' ? 'text-brand-500 text-center uppercase tracking-wider' : 'text-brand-500'}`}>
               {t("tools.progressionCalc.output.grafico", "Comportamento da Sequência")}
             </p>
-            <div className={`w-full ${exportMode ? "h-64" : "h-48"}`}>
+            <div className="h-48 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={dadosIdentificacao} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" className={exportMode === 'pdf' ? "stroke-slate-200" : "stroke-slate-200 dark:stroke-slate-800"} />
-                  <XAxis dataKey="indice" stroke="currentColor" className="text-xs text-slate-400 font-mono" />
-                  <YAxis stroke="currentColor" className="text-xs text-slate-400 font-mono" width={40} tickFormatter={(v) => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v} />
+                  <XAxis dataKey="indice" stroke={axisColor} className="text-xs font-mono" />
+                  <YAxis stroke={axisColor} className="text-xs font-mono" width={40} tickFormatter={(v) => v >= 1000 ? `${(v/1000).toFixed(1)}k` : v} />
                   <Tooltip
                     formatter={(valor) => [fmt(valor), t("tools.progressionCalc.output.valor", "Valor")]}
                     labelFormatter={(label) => `${t("tools.progressionCalc.output.termo", "Termo")}: ${label}`}
