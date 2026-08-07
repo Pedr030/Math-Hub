@@ -236,7 +236,8 @@
         "funcaoSemOperando": "Expresión malformada: función sin operando",
         "operadorSemOperandos": "Expresión malformada: operador sin suficientes operandos",
         "resultadoInvalido": "Expresión malformada: resultado inválido",
-        "zeroPotenciaNegativa": "No se puede elevar cero a una potencia negativa"
+        "zeroPotenciaNegativa": "No se puede elevar cero a una potencia negativa",
+        "variaveisFaltando": "Completa el valor de todas las variables antes de calcular."
       }
     },
     "matrixCircuit": {

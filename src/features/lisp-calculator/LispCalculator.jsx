@@ -284,7 +284,10 @@ function ModoLisp({ t }) {
       (nome) =>
         !(nome in valoresVariaveis) || valoresVariaveis[nome].trim() === "",
     );
-    if (faltando) return;
+    if (faltando) {
+      setErro(t("tools.lispCalculator.erros.variaveisFaltando"));
+      return;
+    }
 
     try {
       const variaveisResolvidas = {};
