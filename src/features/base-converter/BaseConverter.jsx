@@ -183,7 +183,7 @@ function BaseConverter() {
                         </div>
                       ),
                     )}
-                    <div className="px-4 py-2 font-mono text-xs text-slate-400 dark:text-slate-500">
+                    <div className="px-4 py-2 font-mono text-xs text-slate-500 dark:text-slate-400">
                       {t("tools.baseConverter.lendoResto")} →{" "}
                       <span className="text-brand-500 font-semibold">
                         {resultado.conversoes[baseOrigem]}

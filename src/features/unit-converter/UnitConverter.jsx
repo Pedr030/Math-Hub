@@ -151,7 +151,7 @@ function UnitConverter() {
             ${
               resultadoPrincipal !== null
                 ? "text-brand-700 dark:text-brand-300 font-semibold text-base"
-                : "text-slate-400"
+                : "text-slate-500 dark:text-slate-400"
             }`}
           >
             {resultadoPrincipal !== null
@@ -197,7 +197,7 @@ function UnitConverter() {
                       : "bg-slate-50 dark:bg-brand-950/60"
                   }`}
                 >
-                  <p className="font-mono text-xs text-slate-400 dark:text-slate-500 mb-0.5">
+                  <p className="font-mono text-xs text-slate-500 dark:text-slate-400 mb-0.5">
                     {labelUnidade(codigo)}
                     {ehOrigem && ` · ${t("tools.unitConverter.origem")}`}
                   </p>

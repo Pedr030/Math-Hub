@@ -23,7 +23,7 @@ function UpdateBanner() {
             <p className="font-display font-semibold text-sm">
               {t('pwa.atualizar.titulo')}
             </p>
-            <p className="font-mono text-xs text-slate-400 dark:text-slate-500">
+            <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
               {t('pwa.atualizar.desc')}
             </p>
           </div>

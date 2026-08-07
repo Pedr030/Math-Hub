@@ -182,7 +182,7 @@ function Home({ ferramentas, registroComponentes }) {
           <p className="text-slate-500 dark:text-slate-400 text-base mb-1">
             {t("home.hero.subtitulo")}
           </p>
-          <p className="text-slate-400 dark:text-slate-500 text-sm mb-5">
+          <p className="text-slate-500 dark:text-slate-400 text-sm mb-5">
             {t("home.hero.desc")}
           </p>
 
@@ -293,7 +293,7 @@ function Home({ ferramentas, registroComponentes }) {
           <p className="font-display font-semibold text-lg mb-1">
             {t("home.busca.semResultados")}
           </p>
-          <p className="text-sm text-slate-400 dark:text-slate-500 mb-4">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
             {t("home.busca.semResultadosDica")}
           </p>
           <button
