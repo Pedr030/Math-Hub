@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import autoTable from "jspdf-autotable";
 import {
   calcularPA,
   calcularPG,
@@ -16,7 +15,6 @@ import Modal from "../../components/ui/Modal";
 import ExportPanel from "../../components/ui/ExportPanel";
 import { PDF_CORES } from "../../utils/pdfColors";
 import { useChartExport } from "../../hooks/useChartExport";
-import { criarPDF, desenharGraficoComCard, adicionarRodapeEBaixar } from "../../utils/pdfExport";
 
 function ResultCard({ label, value, destaque = false }) {
   return (
@@ -134,6 +132,9 @@ function ProgressionCalc() {
 
   function handleExportarPDF() {
     exportarPDF(async () => {
+      const [{ criarPDF, desenharGraficoComCard, adicionarRodapeEBaixar }, { default: autoTable }] =
+        await Promise.all([import("../../utils/pdfExport"), import("jspdf-autotable")]);
+
       const { pdf, pageWidth, pageHeight, margin } = criarPDF();
       let currentY = 20;
 

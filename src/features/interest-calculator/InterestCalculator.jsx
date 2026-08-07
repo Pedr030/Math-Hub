@@ -5,7 +5,6 @@ import {
   PieChart, Pie, Cell, Legend,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from "recharts";
-import autoTable from "jspdf-autotable";
 import { calcularSimples, calcularComposto } from "./interest";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
@@ -14,7 +13,6 @@ import Modal from "../../components/ui/Modal";
 import ExportPanel from "../../components/ui/ExportPanel";
 import { PDF_CORES } from "../../utils/pdfColors";
 import { useChartExport } from "../../hooks/useChartExport";
-import { criarPDF, desenharGraficoComCard, adicionarRodapeEBaixar } from "../../utils/pdfExport";
 
 const OPCOES_MOEDA = {
   BRL: { locale: "pt-BR", symbol: "R$" },
@@ -112,6 +110,9 @@ function InterestCalculator() {
 
   function handleExportarPDF() {
     exportarPDF(async () => {
+      const [{ criarPDF, desenharGraficoComCard, adicionarRodapeEBaixar }, { default: autoTable }] =
+        await Promise.all([import("../../utils/pdfExport"), import("jspdf-autotable")]);
+
       const { pdf, pageWidth, pageHeight, margin } = criarPDF();
       let currentY = 20;
 

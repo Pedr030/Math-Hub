@@ -7,7 +7,6 @@ import {
   ScatterChart, Scatter,
   XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from "recharts";
-import autoTable from "jspdf-autotable";
 import { calcularEstatisticas } from "./statistics";
 import Button from "../../components/ui/Button";
 import ToolCard from "../../components/ui/ToolCard";
@@ -15,7 +14,6 @@ import Modal from "../../components/ui/Modal";
 import ExportPanel from "../../components/ui/ExportPanel";
 import { PDF_CORES } from "../../utils/pdfColors";
 import { useChartExport } from "../../hooks/useChartExport";
-import { criarPDF, desenharGraficoComCard, adicionarRodapeEBaixar } from "../../utils/pdfExport";
 
 function fmt(n, casas = 4) {
   if (Number.isInteger(n)) return String(n);
@@ -102,6 +100,9 @@ function DescriptiveStats() {
 
   function handleExportarPDF() {
     exportarPDF(async () => {
+      const [{ criarPDF, desenharGraficoComCard, adicionarRodapeEBaixar }, { default: autoTable }] =
+        await Promise.all([import("../../utils/pdfExport"), import("jspdf-autotable")]);
+
       const { pdf, pageWidth, pageHeight, margin } = criarPDF();
       let currentY = 20;
 
